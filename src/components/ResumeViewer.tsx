@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { achievements, certifications, education, experience, profile, projects, skillCategories } from '../data/portfolio';
+import { achievements, certifications, education, experience, profile, productionApps, projects, skillCategories } from '../data/portfolio';
 import { EASE, Magnetic, SectionHeading } from './fx';
 
 /** THE FULL STORY — a designed resume preview plus view / download actions. */
@@ -22,7 +22,7 @@ export default function ResumeSection({ onView }: { onView: () => void }) {
         <div className="lg:sticky lg:top-28 lg:self-start">
           <p className="font-serif text-3xl italic leading-tight text-bone">Every episode, on one page.</p>
           <p className="mt-3 text-sm leading-relaxed text-mist">
-            Education, training, projects, achievements and {certifications.length} certifications — view it here or take a copy with you.
+            Education, experience, projects, achievements and {certifications.length} certifications — view it here or take a copy with you.
           </p>
           <div className="mt-6 flex flex-col gap-3">
             <Magnetic className="w-full">
@@ -69,7 +69,7 @@ function CollapsibleSheet() {
   const [open, setOpen] = useState(false);
   return (
     <div className="relative">
-      <div className={`overflow-hidden transition-[max-height] duration-700 ease-[var(--ease-cine)] md:max-h-none ${open ? 'max-h-[4000px]' : 'max-h-[560px]'}`}>
+      <div className={`overflow-hidden transition-[max-height] duration-700 ease-[var(--ease-cine)] md:max-h-none ${open ? 'max-h-[12000px]' : 'max-h-[560px]'}`}>
         <ResumeSheet />
       </div>
       {!open && (
@@ -100,6 +100,8 @@ export function ResumeSheet() {
           <a href={`mailto:${profile.email}`} className="block hover:text-bone">
             {profile.email}
           </a>
+          <a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="block hover:text-bone">{profile.phone}</a>
+          <a href={profile.links.website} target="_blank" rel="noreferrer" className="block hover:text-bone">amit-sah.com.np ↗</a>
           <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">
             LinkedIn ↗
           </a>
@@ -182,6 +184,10 @@ export function ResumeSheet() {
             ))}
           </ul>
 
+          <H>Production Apps</H>
+          <div className="flex flex-wrap gap-x-3 gap-y-2">{productionApps.map((app) => <a key={app.name} href={app.url} target="_blank" rel="noreferrer" className="text-xs text-mist underline hover:text-bone">{app.name} ↗</a>)}</div>
+          <H>Languages</H>
+          <p className="text-xs text-mist">{profile.languages.join(' · ')}</p>
           <H>Certifications</H>
           <p className="text-xs leading-relaxed text-mist">
             {Array.from(new Set(certifications.map((c) => c.issuer)))

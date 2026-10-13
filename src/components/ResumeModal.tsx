@@ -47,7 +47,7 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
             </a>
           </div>
         ) : (
-          <iframe title="Sushmita Dasari resume (PDF)" src={`${profile.resumePdf}#view=FitH`} className="h-full w-full rounded-xl bg-white" />
+          <iframe title={`${profile.displayName} resume (PDF)`} src={`${profile.resumePdf}#view=FitH`} className="h-full w-full rounded-xl bg-white" />
         )}
       </motion.div>
     </motion.dialog>

@@ -1,571 +1,1155 @@
 const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
+// Portfolio facts transcribed from Amit Sah's Resume.pdf.
 
-/**
- * Central portfolio data — generated from Sushmita's resume (Sushmita_dasari.pdf).
- * Every fact on the site comes from this file. Update it here and the whole site follows.
- * Nothing here should be added unless it appears on the resume.
- */
 
 export type Palette = { from: string; via: string; to: string; accent: string };
+export type Metric = { value: string; label: string };
+export type Project = { id: string; title: string; year: string; genre: string; logline: string; stack: string[]; build: string[]; features: string[]; metrics: Metric[]; github?: string; appUrl?: string; website?: string; palette: Palette; motif: 'shield' | 'flow' | 'tenants' };
+export type Achievement = { id: string; title: string; org: string; detail: string; laurel: string; link?: string };
+export type Certification = { issuer: string; name: string; link?: string };
+export type Skill = { name: string; mono: string; note?: string };
+export type SkillCategory = { id: string; title: string; subtitle: string; skills: Skill[] };
+export type Episode = { code: string; title: string; description: string; tags: string[]; runtime: string; palette: Palette };
+export type Season = { number: number; title: string; period: string; synopsis: string; episodes: Episode[] };
+export type TopPick = { label: string; title: string; detail: string; palette: Palette };
+export type IntroSlide = { kicker: string; title: string; lines: string[]; chips?: string[] };
 
 export const profile = {
-  fullName: 'Dasari Venkata Ratna Sri Sushmita',
-  displayName: 'Sushmita Dasari',
-  firstName: 'SUSHMITA',
-  seriesTag: 'THE SERIES',
-  /** Fictional studio card shown at the very start of the opening sequence. */
-  originalLabel: 'A DASARI ORIGINAL',
-  role: 'Full-Stack Developer',
-  tagline: ['Full-Stack Developer', 'AI / ML', 'Java'],
-  intro:
-    'A B.Tech Artificial Intelligence & Machine Learning student (CGPA 9.10) and full-stack developer building AI-powered platforms, payment systems and multi-tenant SaaS with Java, Python, React, Node.js and Docker.',
-  location: 'Surampalem, Andhra Pradesh',
-  email: 'sushmitadasari17@gmail.com',
-  links: {
-    linkedin: 'https://www.linkedin.com/in/sushmita-dasari-227a40284/',
-    github: 'https://github.com/Sushmitadasari',
+  "fullName": "Amit Sah",
+  "displayName": "Amit Sah",
+  "firstName": "AMIT",
+  "seriesTag": "THE SERIES",
+  "originalLabel": "AN AMIT SAH ORIGINAL",
+  "role": "Senior iOS Developer & Backend Engineer",
+  "tagline": [
+    "iOS Development",
+    "Backend Engineering",
+    "Swift & SwiftUI"
+  ],
+  "intro": "Senior iOS Developer and Backend Engineer with 5+ years of experience building scalable, AI-driven, real-time mobile applications. Delivered 30+ production apps across SaaS, fintech, and social platforms, with expertise in Swift, SwiftUI, modular architecture, performance optimization, and CI/CD automation.",
+  "location": "New Delhi, India",
+  "email": "aksamitsah@gmail.com",
+  "phone": "+91 9313079350",
+  "links": {
+    "linkedin": "https://linkedin.com/in/aksamitsah",
+    "github": "https://github.com/aksamitsah",
+    "behance": "https://behance.net/aksamitsah",
+    "website": "https://amit-sah.com.np"
   },
+  "interests": [
+    "Scalable iOS Architecture",
+    "System Design & Scalability",
+    "Backend Integration",
+    "DevOps & Automation"
+  ],
+  "primaryLanguage": "Swift",
+  "supportingLanguages": [
+    "Objective-C",
+    "C",
+    "C++",
+    "Java",
+    "JavaScript",
+    "Kotlin"
+  ],
+  "primaryStack": [
+    "Swift",
+    "SwiftUI",
+    "Node.js"
+  ],
+  "yearsExperience": "5+",
+  "productionAppCount": "30+",
+  "languages": [
+    "English — Professional",
+    "French — A1"
+  ],
   resumePdf: asset('Resume.pdf'),
-  portrait: {
-    src: asset('portrait-720.webp'),
-    srcSet: `${asset('portrait-420.webp')} 420w, ${asset('portrait-720.webp')} 720w, ${asset('portrait-1100.webp')} 1100w`,
-    alt: 'Portrait of Sushmita Dasari',
-  },
-  interests: ['System Design', 'Cloud Computing (AWS)', 'Machine Learning'],
+  portrait: { src: asset('portrait-720.webp'), srcSet: `${asset('portrait-420.webp')} 420w, ${asset('portrait-720.webp')} 720w, ${asset('portrait-1100.webp')} 1100w`, alt: 'Amit Sah monogram' },
 };
 
 export const education = [
   {
-    school: 'Aditya Engineering College',
-    place: 'Surampalem',
-    degree: 'Bachelor of Technology — Artificial Intelligence and Machine Learning',
-    period: 'October 2023 – Present',
-    score: 'CGPA 9.10',
-  },
-  {
-    school: 'Sri Chaitanya Junior College',
-    place: 'Kakinada',
-    degree: 'BIEAP — MPC',
-    period: 'June 2021 – May 2023',
-    score: 'Score 925/1000',
-  },
+    "school": "Chitkara University",
+    "place": "India",
+    "degree": "Bachelor of Technology — Computer Science",
+    "period": "2017 – 2021",
+    "score": "CGPA 8.6"
+  }
 ];
 
 export const experience = [
   {
-    company: 'Technical Hub Pvt Ltd',
-    role: 'Trainee',
-    place: 'Surampalem, AP',
-    period: 'May 2025 – June 2026',
-    points: [
-      'Completed one year of intensive Full-Stack Development (FSD) training covering frontend, backend, database integration, and deployment workflows.',
-      'Developed responsive and functional web applications by implementing user interfaces, server-side logic, and database connectivity.',
-      'Deployed and managed web applications while applying version control, debugging, and end-to-end development practices.',
-    ],
+    "company": "Zaytun AI LLC",
+    "role": "Senior iOS Developer",
+    "place": "Remote (California, US)",
+    "period": "January 2025 – Present",
+    "points": [
+      "Led end-to-end iOS development for an AI-powered Muslim social and community platform using modular MVVM architecture and reusable components.",
+      "Built live streaming and social features including feeds, sharing, explore, profiles, messaging, feed ranking, and engagement analytics.",
+      "Implemented AI-driven cultural moderation and a contextual assistant for Islamic lifestyle guidance.",
+      "Optimized lazy loading, pagination, caching, and state management; added multi-language support and centralized Dark/Light themes.",
+      "Automated CI/CD with GitHub Actions, including AI PR review and auto-release."
+    ]
   },
+  {
+    "company": "Goodspace.ai",
+    "role": "Senior iOS Developer",
+    "place": "Saket, Delhi, India",
+    "period": "December 2023 – November 2024",
+    "points": [
+      "Led iOS development for an AI recruitment platform serving 1M+ users.",
+      "Architected reactive UI with RxSwift and reduced load times by 35% through local and server-side caching.",
+      "Built AI-driven video interviews with real-time capture and automated transcript processing.",
+      "Developed a career-assistant chatbot and automated CI/CD to accelerate release cycles."
+    ]
+  },
+  {
+    "company": "Zoconut Pvt. LTD",
+    "role": "iOS Developer",
+    "place": "New Delhi, India",
+    "period": "August 2022 – October 2023",
+    "points": [
+      "Led development and deployment of 25+ white-label iOS applications in nutrition and wellness.",
+      "Developed the core Zoconut nutrition business management app using Swift and third-party APIs.",
+      "Automated build and release pipelines with Fastlane and managed architecture, implementation, customization, and App Store deployment.",
+      "Collaborated with backend, product, and design teams to improve performance, stability, and user experience."
+    ]
+  },
+  {
+    "company": "Bhanguz Software",
+    "role": "Mobile Application Developer",
+    "place": "Mohali, India",
+    "period": "May 2021 – July 2022",
+    "points": [
+      "Developed scalable iOS applications and expanded expertise in Node.js, cloud services, and project coordination.",
+      "Built University Intoto for campus communication, student travel tracking, and international-office community engagement.",
+      "Developed LolliCash for cross-border payments with secure gateways, authentication, and performance optimization."
+    ]
+  },
+  {
+    "company": "ThinkNEXT Technologies",
+    "role": "Mobile Developer Intern",
+    "place": "India",
+    "period": "December 2020 – April 2021",
+    "points": [
+      "Developed native Swift applications integrating Location Services, authentication, Maps, and third-party APIs.",
+      "Optimized network calls and custom components, translated requirements into functional designs, and gained hands-on debugging and testing experience."
+    ]
+  }
 ];
-
-export type Metric = { value: string; label: string };
-
-export type Project = {
-  id: string;
-  title: string;
-  year: string;
-  genre: string;
-  logline: string;
-  stack: string[];
-  build: string[];
-  features: string[];
-  metrics: Metric[];
-  /** Omit when the repository isn't public — the GitHub button is hidden instead of linking to a 404. */
-  github?: string;
-  palette: Palette;
-  motif: 'shield' | 'flow' | 'tenants';
-};
 
 export const projects: Project[] = [
   {
-    id: 'policyguard-ai',
-    title: 'PolicyGuard AI',
-    year: '2026',
-    genre: 'AI • NLP • LLM',
-    logline: 'An AI-powered policy analysis platform across web, browser extension, mobile and desktop applications.',
-    stack: ['Python', 'NLP', 'LLM', 'REST API'],
-    build: [
-      'Built an AI-powered policy analysis platform across web, browser extension, mobile, and desktop applications, processing 500+ policy documents with 92% accuracy and reducing manual review time by 60% across 8 policy categories.',
-      'Engineered LLM-based Q&A, key-information extraction, and REST API integration for 10+ document types, enabling real-time policy insights and reducing decision turnaround time by 45%.',
+    "id": "zaytun-ai",
+    "title": "Zaytun AI",
+    "year": "2025 – Present",
+    "genre": "iOS • AI • Social",
+    "logline": "An AI-powered social and community platform for the Muslim community.",
+    "stack": [
+      "Swift",
+      "MVVM",
+      "GitHub Actions",
+      "AI Moderation"
     ],
-    features: [
-      'LLM-based Q&A over policy documents',
-      'Key-information extraction',
-      'REST API integration for 10+ document types',
-      'Web, browser extension, mobile & desktop apps',
-      'Real-time policy insights',
+    "build": [
+      "Led end-to-end iOS development for an AI-powered Muslim social and community platform using modular MVVM architecture and reusable components.",
+      "Built live streaming and social features including feeds, sharing, explore, profiles, messaging, feed ranking, and engagement analytics.",
+      "Implemented AI-driven cultural moderation and a contextual assistant for Islamic lifestyle guidance.",
+      "Optimized lazy loading, pagination, caching, and state management; added multi-language support and centralized Dark/Light themes.",
+      "Automated CI/CD with GitHub Actions, including AI PR review and auto-release."
     ],
-    metrics: [
-      { value: '500+', label: 'policy documents processed' },
-      { value: '92%', label: 'accuracy' },
-      { value: '60%', label: 'less manual review time' },
-      { value: '45%', label: 'faster decision turnaround' },
-      { value: '8', label: 'policy categories' },
+    "features": [
+      "Live streaming",
+      "Social feeds & messaging",
+      "AI cultural moderation",
+      "Contextual AI assistant",
+      "Multi-language support",
+      "Dark/Light themes"
     ],
-    // The resume links to https://github.com/Sushmitadasari/PolicyGuard-AI, which is not public yet (404).
-    // Add `github: 'https://github.com/Sushmitadasari/PolicyGuard-AI',` back once the repo is public.
-    palette: { from: '#2a0610', via: '#7a0f24', to: '#0b0710', accent: '#ff3d5a' },
-    motif: 'shield',
+    "metrics": [],
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    },
+    "motif": "shield",
+    "appUrl": "https://apps.apple.com/in/app/zaytun-ai/id6642714586",
+    "website": "https://zaytun.ai/"
   },
   {
-    id: 'payment-gateway',
-    title: 'Payment Gateway System',
-    year: '2026',
-    genre: 'Full-Stack • Fintech • Microservices',
-    logline: 'A full-stack UPI & card payment gateway built around a strict payment state machine.',
-    stack: ['Node.js', 'Express', 'PostgreSQL', 'React', 'Docker'],
-    build: [
-      'Built full-stack UPI & card payment gateway processing 1,000+ transactions at 99.8% uptime with a strict payment state machine (processing → success/failed).',
-      'Dockerized microservice architecture cut deployment setup by 70%; backend optimizations reduced API response time by 40% and tripled throughput under load.',
+    "id": "goodspace",
+    "title": "Goodspace",
+    "year": "2023 – 2024",
+    "genre": "iOS • AI • Recruitment",
+    "logline": "AI recruitment with video interviews, transcript processing, and a career-assistant chatbot.",
+    "stack": [
+      "Swift",
+      "RxSwift",
+      "CI/CD"
     ],
-    features: [
-      'UPI & card payments',
-      'Strict payment state machine (processing → success / failed)',
-      'Dockerized microservice architecture',
-      'Backend optimizations for load',
+    "build": [
+      "Led iOS development for an AI recruitment platform serving 1M+ users.",
+      "Architected reactive UI with RxSwift and reduced load times by 35% through local and server-side caching.",
+      "Built AI-driven video interviews with real-time capture and automated transcript processing.",
+      "Developed a career-assistant chatbot and automated CI/CD to accelerate release cycles."
     ],
-    metrics: [
-      { value: '1,000+', label: 'transactions processed' },
-      { value: '99.8%', label: 'uptime' },
-      { value: '70%', label: 'less deployment setup' },
-      { value: '40%', label: 'faster API response' },
-      { value: '3×', label: 'throughput under load' },
+    "features": [
+      "Reactive UI",
+      "AI video interviews",
+      "Automated transcripts",
+      "Career-assistant chatbot",
+      "Local & server-side caching"
     ],
-    github: 'https://github.com/Sushmitadasari/Payment-gateway-system-Project',
-    palette: { from: '#1a0d02', via: '#8a4a07', to: '#0a0806', accent: '#ffb547' },
-    motif: 'flow',
+    "metrics": [
+      {
+        "value": "1M+",
+        "label": "platform users"
+      },
+      {
+        "value": "35%",
+        "label": "reduction in load times"
+      }
+    ],
+    "palette": {
+      "from": "#1a0d02",
+      "via": "#8a4a07",
+      "to": "#0a0806",
+      "accent": "#ffb547"
+    },
+    "motif": "flow",
+    "appUrl": "https://apps.apple.com/in/app/goodspace-job-search-and-hire/id1495314369",
+    "website": "https://goodspace.ai"
   },
   {
-    id: 'multi-tenant-saas',
-    title: 'Multi-Tenant SaaS Platform',
-    year: '2026',
-    genre: 'SaaS • Security • DevOps',
-    logline: 'Shared-database multi-tenancy with strict tenant isolation and 4-level JWT/RBAC.',
-    stack: ['Node.js', 'React', 'PostgreSQL', 'Docker Compose'],
-    build: [
-      'Architected shared-database multi-tenancy for 50+ concurrent tenants with strict tenant_id isolation and 4-level JWT/RBAC, achieving zero unauthorized-access incidents across 200+ users.',
-      'Implemented Docker Compose one-command deployment, reducing environment setup time from 45 minutes to under 2 minutes.',
+    "id": "zoconut",
+    "title": "Zoconut & White-Label Apps",
+    "year": "2022 – 2023",
+    "genre": "iOS • SaaS • Wellness",
+    "logline": "A nutrition business management platform and 25+ customized white-label iOS apps.",
+    "stack": [
+      "Swift",
+      "Fastlane",
+      "Third-party APIs"
     ],
-    features: [
-      'Shared-database multi-tenancy',
-      'Strict tenant_id isolation',
-      '4-level JWT / RBAC',
-      'One-command Docker Compose deployment',
+    "build": [
+      "Led development and deployment of 25+ white-label iOS applications in nutrition and wellness.",
+      "Developed the core Zoconut nutrition business management app using Swift and third-party APIs.",
+      "Automated build and release pipelines with Fastlane and managed architecture, implementation, customization, and App Store deployment.",
+      "Collaborated with backend, product, and design teams to improve performance, stability, and user experience."
     ],
-    metrics: [
-      { value: '50+', label: 'concurrent tenants' },
-      { value: '200+', label: 'users' },
-      { value: '0', label: 'unauthorized-access incidents' },
-      { value: '45m → <2m', label: 'environment setup time' },
+    "features": [
+      "Client-branded applications",
+      "Nutrition business management",
+      "Automated build & release",
+      "App Store deployment"
     ],
-    github: 'https://github.com/Sushmitadasari/Multi-Tenant-SaaS-Platform',
-    palette: { from: '#04121f', via: '#0f4c6e', to: '#05080d', accent: '#4cc9ff' },
-    motif: 'tenants',
+    "metrics": [
+      {
+        "value": "25+",
+        "label": "white-label iOS applications"
+      }
+    ],
+    "palette": {
+      "from": "#04121f",
+      "via": "#0f4c6e",
+      "to": "#05080d",
+      "accent": "#4cc9ff"
+    },
+    "motif": "tenants",
+    "appUrl": "https://apps.apple.com/in/app/zoconut/id1474358548",
+    "website": "https://zoconut.com"
   },
+  {
+    "id": "lollicash",
+    "title": "LolliCash",
+    "year": "2021 – 2022",
+    "genre": "iOS • Fintech • Payments",
+    "logline": "A cross-border payments app with secure payment gateways and authentication.",
+    "stack": [
+      "iOS",
+      "Payment APIs"
+    ],
+    "build": [
+      "Developed LolliCash at Bhanguz Software, integrating secure payment gateways for reliable global transactions.",
+      "Implemented authentication and optimized app performance for a secure user experience."
+    ],
+    "features": [
+      "Cross-border payments",
+      "Secure authentication",
+      "Payment gateway integration"
+    ],
+    "metrics": [],
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    },
+    "motif": "shield",
+    "appUrl": "https://apps.apple.com/in/app/lollicash/id6444011906",
+    "website": "https://lollicash.com"
+  },
+  {
+    "id": "university-intoto",
+    "title": "University Intoto",
+    "year": "2021 – 2022",
+    "genre": "iOS • Education • Community",
+    "logline": "Campus management for international-office communication, travel tracking, and engagement.",
+    "stack": [
+      "iOS"
+    ],
+    "build": [
+      "Built University Intoto while working at Bhanguz Software."
+    ],
+    "features": [
+      "Campus communication",
+      "Student travel tracking",
+      "Community engagement"
+    ],
+    "metrics": [],
+    "palette": {
+      "from": "#1a0d02",
+      "via": "#8a4a07",
+      "to": "#0a0806",
+      "accent": "#ffb547"
+    },
+    "motif": "flow",
+    "website": "https://intoto.ca"
+  },
+  {
+    "id": "dream-home",
+    "title": "Dream Home Automation",
+    "year": "Additional project",
+    "genre": "Smart Home • Security",
+    "logline": "Control existing devices with enhanced security, data privacy, and secure access.",
+    "stack": [
+      "Smart-device integration"
+    ],
+    "build": [
+      "Developed a home automation system integrating smart devices for convenient, secure control."
+    ],
+    "features": [
+      "Device control",
+      "Data privacy",
+      "Secure access"
+    ],
+    "metrics": [],
+    "palette": {
+      "from": "#04121f",
+      "via": "#0f4c6e",
+      "to": "#05080d",
+      "accent": "#4cc9ff"
+    },
+    "motif": "tenants",
+    "website": "https://dreamcoder.tech"
+  },
+  {
+    "id": "gurudai",
+    "title": "Gurudai User & Rider App",
+    "year": "Additional project",
+    "genre": "Mobile • Transport • Payments",
+    "logline": "Affordable cab booking for short and long distances, for riders and drivers.",
+    "stack": [
+      "Location services",
+      "Payment integration"
+    ],
+    "build": [
+      "Developed a cab-booking app with real-time location tracking, fare estimation, and secure payments."
+    ],
+    "features": [
+      "Real-time tracking",
+      "Fare estimation",
+      "Secure payments"
+    ],
+    "metrics": [],
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    },
+    "motif": "shield"
+  },
+  {
+    "id": "countrypickeraks",
+    "title": "CountryPickerAKS",
+    "year": "Framework",
+    "genre": "iOS • Framework • Open Source",
+    "logline": "Customizable country selection with themes, country lists, CocoaPods, and Swift Package Manager.",
+    "stack": [
+      "iOS",
+      "CocoaPods",
+      "Swift Package Manager"
+    ],
+    "build": [
+      "Created a country-selection framework with customizable themes and country lists, available through CocoaPods and SPM."
+    ],
+    "features": [
+      "Custom themes",
+      "Configurable country lists",
+      "CocoaPods & SPM distribution"
+    ],
+    "metrics": [],
+    "palette": {
+      "from": "#1a0d02",
+      "via": "#8a4a07",
+      "to": "#0a0806",
+      "accent": "#ffb547"
+    },
+    "motif": "flow",
+    "github": "https://github.com/aksamitsah/CountryPickerAKS"
+  }
 ];
 
-export type Achievement = {
-  id: string;
-  title: string;
-  org: string;
-  detail: string;
-  laurel: string;
-  link?: string;
-};
+export const productionApps = [
+  {
+    "name": "Zaytun AI -Social",
+    "url": "https://apps.apple.com/in/app/zaytun-ai/id6642714586"
+  },
+  {
+    "name": "Goodspace",
+    "url": "https://apps.apple.com/in/app/goodspace-job-search-and-hire/id1495314369"
+  },
+  {
+    "name": "Parafit",
+    "url": "https://apps.apple.com/in/app/parafit/id1663480280"
+  },
+  {
+    "name": "OJOLIFE",
+    "url": "https://apps.apple.com/in/app/ojolife/id6444918835"
+  },
+  {
+    "name": "Lollicash",
+    "url": "https://apps.apple.com/in/app/lollicash/id6444011906"
+  },
+  {
+    "name": "Zoconut",
+    "url": "https://apps.apple.com/in/app/zoconut/id1474358548"
+  },
+  {
+    "name": "Ediet",
+    "url": "https://apps.apple.com/in/app/ediet-your-diet-companion/id1465083090"
+  },
+  {
+    "name": "24 Holistic Health",
+    "url": "https://apps.apple.com/in/app/24-holistic-health/id1660462491"
+  },
+  {
+    "name": "Nutrition Defined",
+    "url": "https://apps.apple.com/in/app/nutrition-defined/id1613876514"
+  },
+  {
+    "name": "Warriors of Wellness",
+    "url": "https://apps.apple.com/in/app/warriors-of-wellness/id1660452120"
+  },
+  {
+    "name": "Balcal Nutrefy",
+    "url": "https://apps.apple.com/in/app/balcal-nutrefy/id1626440771"
+  },
+  {
+    "name": "Diet Enrich",
+    "url": "https://apps.apple.com/in/app/diet-enrich/id1585622507"
+  },
+  {
+    "name": "The Balanced Plate",
+    "url": "https://apps.apple.com/in/app/the-balanced-plate/id1592255718"
+  },
+  {
+    "name": "NutrifyMe",
+    "url": "https://apps.apple.com/in/app/nutrifyme-by-dt-prachi/id1548921094"
+  },
+  {
+    "name": "Sarvodaya Wellness",
+    "url": "https://apps.apple.com/in/app/sarvodaya-wellness/id1550248364"
+  },
+  {
+    "name": "Limestag Fitness",
+    "url": "https://apps.apple.com/in/app/limestag-fitness/id1621231562"
+  },
+  {
+    "name": "Nutri4Verve",
+    "url": "https://apps.apple.com/in/app/nutri4verve/id1508299836"
+  },
+  {
+    "name": "Arogyam Nutrition",
+    "url": "https://apps.apple.com/in/app/arogyam-nutrition/id1618422507"
+  },
+  {
+    "name": "Prana Nutrition",
+    "url": "https://apps.apple.com/in/app/prana-nutrition/id1618412356"
+  },
+  {
+    "name": "Fit Mantra",
+    "url": "https://apps.apple.com/in/app/fit-mantra/id1537059850"
+  },
+  {
+    "name": "NP Fitness",
+    "url": "https://apps.apple.com/in/app/np-fitness-by-nupuur-patil/id1612790844"
+  }
+];
 
 export const achievements: Achievement[] = [
   {
-    id: 'algouniversity',
-    title: 'Tech Fellow',
-    org: 'AlgoUniversity',
-    detail: 'Selected through competitive national selection — advanced DSA, algorithm optimization, and competitive coding.',
-    laurel: 'National Selection',
+    "id": "production-apps",
+    "title": "30+ Production Apps",
+    "org": "SaaS • Fintech • Social",
+    "detail": "Delivered production applications spanning social platforms, financial services, and SaaS.",
+    "laurel": "Production Delivery"
   },
   {
-    id: 'flipkart-grid',
-    title: 'Semi-Finalist',
-    org: 'Flipkart GRiD 7.0',
-    detail: 'Competed among top national engineering talent.',
-    laurel: 'Semi-Finalist',
-    link: 'https://drive.google.com/file/d/16pXA2hssyJqlYMr27wfi6U4bjKDLvh9f/view?usp=drive_link',
+    "id": "white-label",
+    "title": "25+ White-Label Apps",
+    "org": "Zoconut",
+    "detail": "Led development and deployment of customized nutrition and wellness applications.",
+    "laurel": "Client Delivery"
   },
   {
-    id: 'branch-topper',
-    title: 'AIML Branch Topper',
-    org: 'B.Tech AI & ML',
-    detail: '9.24 SGPA for the semester.',
-    laurel: 'Branch Topper',
+    "id": "performance",
+    "title": "35% Faster Loading",
+    "org": "Goodspace.ai",
+    "detail": "Reduced load times through local and server-side caching.",
+    "laurel": "Performance"
   },
   {
-    id: 'competitive-coding',
-    title: '850+ Problems Solved',
-    org: 'LeetCode • GFG • CodeChef',
-    detail: 'LeetCode: 350+ DSA problems (peak rating 1442). GFG: 300+ problems (rating 1436). CodeChef: 200+ problems.',
-    laurel: 'Competitive Coding',
+    "id": "scale",
+    "title": "1M+ User Platform",
+    "org": "Goodspace.ai",
+    "detail": "Led iOS development for an AI recruitment platform serving over one million users.",
+    "laurel": "Platform Scale"
   },
   {
-    id: 'hackerrank',
-    title: '5-Star Badges',
-    org: 'HackerRank',
-    detail: '5-star badges in C, Python, Java, and SQL.',
-    laurel: 'Four Languages',
-  },
+    "id": "automation",
+    "title": "Automated Releases",
+    "org": "Zaytun AI • Zoconut",
+    "detail": "GitHub Actions with AI PR review and auto-release; Fastlane build and release pipelines.",
+    "laurel": "CI/CD"
+  }
 ];
-
-export type Certification = { issuer: string; name: string; link: string };
 
 export const certifications: Certification[] = [
-  { issuer: 'NPTEL', name: 'Database Management System', link: 'https://drive.google.com/file/d/1MqkJHchXeaGD4S8mzPmEGxEYddAsxAjN/view?usp=drive_link' },
-  { issuer: 'NPTEL', name: 'Fundamentals of Artificial Intelligence', link: 'https://drive.google.com/file/d/1GqyUQ-lrE-bHaN457t6fIdssgGG4HMXf/view?usp=drive_link' },
-  { issuer: 'NPTEL', name: 'Deep Learning', link: 'https://drive.google.com/file/d/1PWSRP5SQDPzkoTCF3A24eIJoSpTwgsff/view?usp=sharing' },
-  { issuer: 'AWS', name: 'AWS Certified AI Practitioner', link: 'https://drive.google.com/file/d/1h8e5p0a9T6f5gBaOP2ROfwWHZfkkspGn/view?usp=drive_link' },
-  { issuer: 'AWS', name: 'AWS Academy Graduate – Cloud Foundations', link: 'https://www.credly.com/badges/2d4810f9-3dbe-444d-99b9-61312ea5e7df/public_url' },
-  { issuer: 'MongoDB', name: 'MongoDB Certified Associate Developer', link: 'https://www.credly.com/badges/fd3362bd-743a-4c4d-a68e-b1fdc5d46811/public_url' },
-  { issuer: 'GitHub', name: 'GitHub Foundations', link: 'https://drive.google.com/file/d/1o0fkCAMRWTg1oMwxlqu6t6wnOpBv66Vq/view?usp=sharing' },
-  { issuer: 'Pearson', name: 'IT Specialist – HTML and CSS', link: 'https://www.credly.com/badges/e4a55298-e396-41d8-a032-283aafe9fab7/public_url' },
-  { issuer: 'Oracle', name: 'Java Certified Foundations Associate', link: 'https://drive.google.com/file/d/1g-yyceHtLg_k2RWiOIJqH0MMcGlaH90P/view?usp=sharing' },
-  { issuer: 'Oracle', name: 'Oracle Certified Foundations Associate – Database', link: 'https://drive.google.com/file/d/10-DzabbcH2vHrI6bAohoT8czKRZMa2kV/view?usp=drive_link' },
-  { issuer: 'Cisco', name: 'HTML Essentials', link: 'https://www.credly.com/badges/eb27ca95-3b2a-4948-bef9-0385d1d49055/public_url' },
-  { issuer: 'Cisco', name: 'CSS Essentials', link: 'https://www.credly.com/badges/3b37497f-6a61-4889-af3c-ed337a460a0b/public_url' },
-  { issuer: 'Cisco', name: 'JavaScript Essentials 1', link: 'https://www.credly.com/badges/9cdd4d55-6ecc-463f-b254-811ccdd0539c/public_url' },
-  { issuer: 'Cisco', name: 'JavaScript Essentials 2', link: 'https://www.credly.com/badges/0e1b036e-4318-4c8e-b750-2aca77314442/public_url' },
-  { issuer: 'Cisco', name: 'Python Essentials 1', link: 'https://www.credly.com/badges/0e21e3eb-d8ef-4770-95d7-dcbd6f8696b1/public_url' },
-  { issuer: 'Udemy', name: 'Microsoft Azure Hands-On Training (AZ-900, AZ-104, AZ-305)', link: 'https://drive.google.com/file/d/1KrXClhY0nJ3Acxs7DioNf4Q1rpaMvgPT/view?usp=sharing' },
+  {
+    "issuer": "ImaginXP",
+    "name": "UX Designer"
+  },
+  {
+    "issuer": "Google",
+    "name": "Android Nanodegree"
+  },
+  {
+    "issuer": "Udemy",
+    "name": "iOS Development"
+  },
+  {
+    "issuer": "Udemy",
+    "name": "SwiftUI Advanced"
+  },
+  {
+    "issuer": "Coursera",
+    "name": "Product Design"
+  }
 ];
-
-export type Skill = { name: string; mono: string; note?: string };
-export type SkillCategory = { id: string; title: string; subtitle: string; skills: Skill[] };
 
 export const skillCategories: SkillCategory[] = [
   {
-    id: 'languages',
-    title: 'Languages',
-    subtitle: 'Java is the primary language',
-    skills: [
-      { name: 'Java', mono: 'Jv', note: 'Primary' },
-      { name: 'Python', mono: 'Py' },
-      { name: 'C', mono: 'C' },
-      { name: 'C++', mono: 'C+' },
-    ],
+    "id": "languages",
+    "title": "Languages",
+    "subtitle": "Swift and Objective-C, with cross-platform experience",
+    "skills": [
+      {
+        "name": "Swift",
+        "mono": "Sw",
+        "note": "Primary"
+      },
+      {
+        "name": "Objective-C",
+        "mono": "Ob"
+      },
+      {
+        "name": "C",
+        "mono": "C"
+      },
+      {
+        "name": "C++",
+        "mono": "C+"
+      },
+      {
+        "name": "Java",
+        "mono": "Ja"
+      },
+      {
+        "name": "JavaScript",
+        "mono": "Ja"
+      },
+      {
+        "name": "Kotlin",
+        "mono": "Ko"
+      }
+    ]
   },
   {
-    id: 'frontend',
-    title: 'Frontend',
-    subtitle: 'Interfaces & the web platform',
-    skills: [
-      { name: 'React', mono: 'Re' },
-      { name: 'HTML', mono: 'Ht' },
-      { name: 'CSS', mono: 'Cs' },
-      { name: 'JavaScript', mono: 'Js' },
-    ],
+    "id": "ios",
+    "title": "iOS Development",
+    "subtitle": "Native interfaces, data, and distribution",
+    "skills": [
+      {
+        "name": "UIKit",
+        "mono": "UI"
+      },
+      {
+        "name": "SwiftUI",
+        "mono": "Sw"
+      },
+      {
+        "name": "Auto Layout",
+        "mono": "Au"
+      },
+      {
+        "name": "Core Data",
+        "mono": "Co"
+      },
+      {
+        "name": "Animation & Graphics",
+        "mono": "An"
+      },
+      {
+        "name": "App Store Deployment",
+        "mono": "Ap"
+      },
+      {
+        "name": "Memory Management",
+        "mono": "Me"
+      }
+    ]
   },
   {
-    id: 'backend',
-    title: 'Backend',
-    subtitle: 'Server-side logic',
-    skills: [
-      { name: 'Node.js', mono: 'No' },
-      { name: 'Express.js', mono: 'Ex' },
-    ],
+    "id": "architecture",
+    "title": "Architecture & Concurrency",
+    "subtitle": "Scalable, reactive application design",
+    "skills": [
+      {
+        "name": "MVC",
+        "mono": "MV"
+      },
+      {
+        "name": "MVVM",
+        "mono": "MV"
+      },
+      {
+        "name": "VIPER",
+        "mono": "VI"
+      },
+      {
+        "name": "RxSwift",
+        "mono": "Rx"
+      },
+      {
+        "name": "Combine",
+        "mono": "Co"
+      },
+      {
+        "name": "Multithreading & Concurrency",
+        "mono": "Mu"
+      },
+      {
+        "name": "System Design",
+        "mono": "Sy"
+      }
+    ]
   },
   {
-    id: 'infra',
-    title: 'Infra & Tools',
-    subtitle: 'Shipping & architecture',
-    skills: [
-      { name: 'Docker', mono: 'Dk' },
-      { name: 'Docker Compose', mono: 'Dc' },
-      { name: 'REST APIs', mono: 'Ap' },
-      { name: 'Microservices', mono: 'Ms' },
-      { name: 'JWT Auth', mono: 'Jw' },
-      { name: 'Git / GitHub', mono: 'Gt' },
-      { name: 'Postman', mono: 'Pm' },
-    ],
+    "id": "backend",
+    "title": "Backend & Integration",
+    "subtitle": "Services and connected applications",
+    "skills": [
+      {
+        "name": "Node.js",
+        "mono": "No"
+      },
+      {
+        "name": "Express",
+        "mono": "Ex"
+      },
+      {
+        "name": "React",
+        "mono": "Re"
+      },
+      {
+        "name": "Third-party APIs",
+        "mono": "Th"
+      },
+      {
+        "name": "SDK Development",
+        "mono": "SD"
+      },
+      {
+        "name": "Kafka",
+        "mono": "Ka"
+      }
+    ]
   },
   {
-    id: 'databases',
-    title: 'Databases',
-    subtitle: 'Indexing • Normalization',
-    skills: [
-      { name: 'PostgreSQL', mono: 'Pg' },
-      { name: 'MongoDB', mono: 'Mg' },
-      { name: 'MySQL', mono: 'My' },
-    ],
+    "id": "delivery",
+    "title": "Delivery & Quality",
+    "subtitle": "Reliable releases and maintainable software",
+    "skills": [
+      {
+        "name": "Git",
+        "mono": "Gi"
+      },
+      {
+        "name": "GitHub Actions",
+        "mono": "Gi"
+      },
+      {
+        "name": "YAML",
+        "mono": "YA"
+      },
+      {
+        "name": "Fastlane",
+        "mono": "Fa"
+      },
+      {
+        "name": "Cloud Infrastructure",
+        "mono": "Cl"
+      },
+      {
+        "name": "CI/CD",
+        "mono": "CI"
+      },
+      {
+        "name": "XCTest",
+        "mono": "XC"
+      },
+      {
+        "name": "UI Testing",
+        "mono": "UI"
+      },
+      {
+        "name": "Debugging",
+        "mono": "De"
+      },
+      {
+        "name": "Performance Optimization",
+        "mono": "Pe"
+      },
+      {
+        "name": "Agile",
+        "mono": "Ag"
+      }
+    ]
   },
   {
-    id: 'fundamentals',
-    title: 'CS Fundamentals',
-    subtitle: 'The foundations',
-    skills: [
-      { name: 'DSA', mono: 'Ds' },
-      { name: 'OS', mono: 'Os' },
-      { name: 'CN', mono: 'Cn' },
-      { name: 'DBMS', mono: 'Db' },
-      { name: 'OOPs', mono: 'Oo' },
-      { name: 'Collections', mono: 'Co' },
-      { name: 'Multithreading', mono: 'Mt' },
-    ],
-  },
-  {
-    id: 'interests',
-    title: 'Interests',
-    subtitle: 'Coming soon to the series',
-    skills: [
-      { name: 'System Design', mono: 'Sd' },
-      { name: 'Cloud Computing (AWS)', mono: 'Aw' },
-      { name: 'Machine Learning', mono: 'Ml' },
-    ],
-  },
+    "id": "tools",
+    "title": "Tools & Design",
+    "subtitle": "Development, product, and collaboration",
+    "skills": [
+      {
+        "name": "Xcode",
+        "mono": "Xc"
+      },
+      {
+        "name": "Android Studio",
+        "mono": "An"
+      },
+      {
+        "name": "VS Code",
+        "mono": "VS"
+      },
+      {
+        "name": "IntelliJ IDEA",
+        "mono": "In"
+      },
+      {
+        "name": "Figma",
+        "mono": "Fi"
+      },
+      {
+        "name": "Sketch",
+        "mono": "Sk"
+      },
+      {
+        "name": "Adobe",
+        "mono": "Ad"
+      },
+      {
+        "name": "Microsoft Office",
+        "mono": "Mi"
+      }
+    ]
+  }
 ];
 
-/**
- * Factual cross-references shown when a skill card is hovered/tapped:
- * where the skill appears in the projects, certifications or achievements on the resume.
- */
 export const skillEvidence: Record<string, string[]> = {
-  Java: ['Oracle Java Certified Foundations Associate', 'HackerRank 5-star'],
-  Python: ['PolicyGuard AI', 'Cisco Python Essentials 1', 'HackerRank 5-star'],
-  C: ['HackerRank 5-star'],
-  React: ['Payment Gateway System', 'Multi-Tenant SaaS Platform'],
-  HTML: ['Pearson IT Specialist – HTML and CSS', 'Cisco HTML Essentials'],
-  CSS: ['Pearson IT Specialist – HTML and CSS', 'Cisco CSS Essentials'],
-  JavaScript: ['Cisco JavaScript Essentials 1 & 2'],
-  'Node.js': ['Payment Gateway System', 'Multi-Tenant SaaS Platform'],
-  'Express.js': ['Payment Gateway System'],
-  Docker: ['Payment Gateway System'],
-  'Docker Compose': ['Multi-Tenant SaaS Platform'],
-  'REST APIs': ['PolicyGuard AI'],
-  Microservices: ['Payment Gateway System'],
-  'JWT Auth': ['Multi-Tenant SaaS Platform'],
-  'Git / GitHub': ['GitHub Foundations'],
-  PostgreSQL: ['Payment Gateway System', 'Multi-Tenant SaaS Platform'],
-  MongoDB: ['MongoDB Certified Associate Developer'],
-  DBMS: ['NPTEL Database Management System', 'Oracle Database Foundations'],
-  DSA: ['AlgoUniversity Tech Fellow', '850+ problems solved'],
-  'Cloud Computing (AWS)': ['AWS Certified AI Practitioner', 'AWS Academy Cloud Foundations'],
-  'Machine Learning': ['B.Tech AI & ML', 'NPTEL Deep Learning'],
+  "Swift": [
+    "Zoconut",
+    "ThinkNEXT native iOS applications"
+  ],
+  "SwiftUI": [
+    "Advanced SwiftUI certification",
+    "Native iOS interfaces"
+  ],
+  "MVVM": [
+    "Zaytun AI modular architecture"
+  ],
+  "RxSwift": [
+    "Goodspace reactive UI"
+  ],
+  "GitHub Actions": [
+    "Zaytun AI: AI PR review and auto-release"
+  ],
+  "Fastlane": [
+    "Zoconut automated releases"
+  ],
+  "Performance Optimization": [
+    "Goodspace: 35% lower load times",
+    "Zaytun: caching and pagination"
+  ],
+  "Node.js": [
+    "Bhanguz Software backend experience"
+  ],
+  "Third-party APIs": [
+    "Zoconut",
+    "ThinkNEXT"
+  ],
+  "App Store Deployment": [
+    "25+ white-label iOS applications"
+  ],
+  "XCTest": [
+    "Unit testing skill listed in the résumé"
+  ],
+  "Figma": [
+    "Design tools listed in the résumé"
+  ]
 };
-
-export type Episode = {
-  code: string;
-  title: string;
-  description: string;
-  tags: string[];
-  runtime: string;
-  palette: Palette;
-};
-
-export type Season = {
-  number: number;
-  title: string;
-  period: string;
-  synopsis: string;
-  episodes: Episode[];
-};
-
-const crimson: Palette = { from: '#24060b', via: '#6e0d1d', to: '#09070a', accent: '#ff3d5a' };
-const amber: Palette = { from: '#1c1003', via: '#6b3c06', to: '#0a0806', accent: '#ffb547' };
-const ocean: Palette = { from: '#04121f', via: '#0f4c6e', to: '#05080d', accent: '#4cc9ff' };
-const violet: Palette = { from: '#120822', via: '#3d1a6e', to: '#07060c', accent: '#b98bff' };
-const jade: Palette = { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: '#46e3a8' };
 
 export const seasons: Season[] = [
   {
-    number: 1,
-    title: 'The Beginning',
-    period: '2021 – 2023',
-    synopsis: 'Intermediate years at Sri Chaitanya Junior College, Kakinada — Mathematics, Physics and Chemistry.',
-    episodes: [
+    "number": 1,
+    "title": "The Foundation",
+    "period": "2017 – 2021",
+    "synopsis": "Computer Science studies and a first native iOS internship.",
+    "episodes": [
       {
-        code: 'S01 E01',
-        title: 'The Foundation',
-        description: 'BIEAP, MPC at Sri Chaitanya Junior College, Kakinada — finishing with a score of 925/1000.',
-        tags: ['MPC', 'BIEAP'],
-        runtime: 'Jun 2021 – May 2023',
-        palette: amber,
+        "code": "S01 E01",
+        "title": "The Computer Scientist",
+        "description": "B.Tech in Computer Science at Chitkara University, graduating with CGPA 8.6.",
+        "tags": [
+          "Computer Science",
+          "CGPA 8.6"
+        ],
+        "runtime": "2017 – 2021",
+        "palette": {
+          "from": "#2a0610",
+          "via": "#7a0f24",
+          "to": "#0b0710",
+          "accent": "#ff3d5a"
+        }
       },
-    ],
+      {
+        "code": "S01 E02",
+        "title": "The Native Developer",
+        "description": "Developed native Swift applications integrating Location Services, authentication, Maps, and third-party APIs.",
+        "tags": [
+          "Swift",
+          "Maps",
+          "APIs"
+        ],
+        "runtime": "December 2020 – April 2021",
+        "palette": {
+          "from": "#1a0d02",
+          "via": "#8a4a07",
+          "to": "#0a0806",
+          "accent": "#ffb547"
+        }
+      }
+    ]
   },
   {
-    number: 2,
-    title: 'Enter: AI & ML',
-    period: '2023 – Present',
-    synopsis: 'B.Tech in Artificial Intelligence and Machine Learning at Aditya Engineering College, Surampalem.',
-    episodes: [
+    "number": 2,
+    "title": "Bhanguz Software",
+    "period": "May 2021 – July 2022",
+    "synopsis": "Mobile Application Developer · Mohali, India",
+    "episodes": [
       {
-        code: 'S02 E01',
-        title: 'The Engineer',
-        description: 'Bachelor of Technology in Artificial Intelligence and Machine Learning — CGPA 9.10.',
-        tags: ['B.Tech', 'AI & ML', 'CGPA 9.10'],
-        runtime: 'Oct 2023 – Present',
-        palette: violet,
-      },
-      {
-        code: 'S02 E02',
-        title: 'The Topper',
-        description: 'AIML Branch Topper with a 9.24 SGPA for the semester.',
-        tags: ['9.24 SGPA', 'Branch Topper'],
-        runtime: 'One semester',
-        palette: crimson,
-      },
-      {
-        code: 'S02 E03',
-        title: 'The Problem Solver',
-        description: 'LeetCode 350+ (peak 1442), GFG 300+ (1436), CodeChef 200+ and HackerRank 5-star badges in C, Python, Java and SQL.',
-        tags: ['DSA', 'LeetCode', 'GFG', 'CodeChef', 'HackerRank'],
-        runtime: '850+ problems',
-        palette: jade,
-      },
-    ],
+        "code": "S02 E01",
+        "title": "Mobile Application Developer",
+        "description": "Developed scalable iOS applications and expanded expertise in Node.js, cloud services, and project coordination. Built University Intoto for campus communication, student travel tracking, and international-office community engagement. Developed LolliCash for cross-border payments with secure gateways, authentication, and performance optimization.",
+        "tags": [
+          "iOS",
+          "Backend Integration"
+        ],
+        "runtime": "May 2021 – July 2022",
+        "palette": {
+          "from": "#2a0610",
+          "via": "#7a0f24",
+          "to": "#0b0710",
+          "accent": "#ff3d5a"
+        }
+      }
+    ]
   },
   {
-    number: 3,
-    title: 'Learning to Build',
-    period: '2025 – 2026',
-    synopsis: 'One year of intensive Full-Stack Development training as a Trainee at Technical Hub Pvt Ltd.',
-    episodes: [
+    "number": 3,
+    "title": "Zoconut Pvt. LTD",
+    "period": "August 2022 – October 2023",
+    "synopsis": "iOS Developer · New Delhi, India",
+    "episodes": [
       {
-        code: 'S03 E01',
-        title: 'The Trainee',
-        description: 'Intensive Full-Stack Development training covering frontend, backend, database integration and deployment workflows.',
-        tags: ['FSD', 'Frontend', 'Backend', 'Databases'],
-        runtime: 'May 2025 – Jun 2026',
-        palette: ocean,
-      },
-      {
-        code: 'S03 E02',
-        title: 'The Developer',
-        description: 'Developed responsive web applications — user interfaces, server-side logic and database connectivity.',
-        tags: ['React', 'Node.js', 'Express.js'],
-        runtime: 'Technical Hub',
-        palette: violet,
-      },
-      {
-        code: 'S03 E03',
-        title: 'The Deployer',
-        description: 'Deployed and managed web applications with version control, debugging and end-to-end development practices.',
-        tags: ['Git / GitHub', 'Deployment'],
-        runtime: 'Technical Hub',
-        palette: jade,
-      },
-    ],
+        "code": "S03 E01",
+        "title": "iOS Developer",
+        "description": "Led development and deployment of 25+ white-label iOS applications in nutrition and wellness. Developed the core Zoconut nutrition business management app using Swift and third-party APIs. Automated build and release pipelines with Fastlane and managed architecture, implementation, customization, and App Store deployment. Collaborated with backend, product, and design teams to improve performance, stability, and user experience.",
+        "tags": [
+          "iOS",
+          "Architecture",
+          "CI/CD"
+        ],
+        "runtime": "August 2022 – October 2023",
+        "palette": {
+          "from": "#2a0610",
+          "via": "#7a0f24",
+          "to": "#0b0710",
+          "accent": "#ff3d5a"
+        }
+      }
+    ]
   },
   {
-    number: 4,
-    title: 'Building Real Products',
-    period: '2026',
-    synopsis: 'Three Originals — an AI platform, a payment gateway and a multi-tenant SaaS — plus national-level recognition.',
-    episodes: [
+    "number": 4,
+    "title": "Goodspace.ai",
+    "period": "December 2023 – November 2024",
+    "synopsis": "Senior iOS Developer · Saket, Delhi, India",
+    "episodes": [
       {
-        code: 'S04 E01',
-        title: 'The AI Builder',
-        description: 'PolicyGuard AI — LLM-based Q&A and key-information extraction across 500+ policy documents at 92% accuracy.',
-        tags: ['Python', 'NLP', 'LLM'],
-        runtime: '2026',
-        palette: crimson,
-      },
-      {
-        code: 'S04 E02',
-        title: 'The Architect',
-        description: 'Payment Gateway System and Multi-Tenant SaaS Platform — state machines, microservices, tenant isolation and RBAC.',
-        tags: ['Node.js', 'PostgreSQL', 'Docker'],
-        runtime: '2026',
-        palette: amber,
-      },
-      {
-        code: 'S04 E03',
-        title: 'The Fellow',
-        description: 'Selected as a Tech Fellow at AlgoUniversity and reached the Semi-Finals of Flipkart GRiD 7.0.',
-        tags: ['AlgoUniversity', 'Flipkart GRiD 7.0'],
-        runtime: 'National stage',
-        palette: ocean,
-      },
-    ],
+        "code": "S04 E01",
+        "title": "Senior iOS Developer",
+        "description": "Led iOS development for an AI recruitment platform serving 1M+ users. Architected reactive UI with RxSwift and reduced load times by 35% through local and server-side caching. Built AI-driven video interviews with real-time capture and automated transcript processing. Developed a career-assistant chatbot and automated CI/CD to accelerate release cycles.",
+        "tags": [
+          "iOS",
+          "Architecture",
+          "CI/CD"
+        ],
+        "runtime": "December 2023 – November 2024",
+        "palette": {
+          "from": "#2a0610",
+          "via": "#7a0f24",
+          "to": "#0b0710",
+          "accent": "#ff3d5a"
+        }
+      }
+    ]
   },
   {
-    number: 5,
-    title: "What's Next",
-    period: 'Now streaming',
-    synopsis: 'The interests on the resume point to the next arc of the story.',
-    episodes: [
+    "number": 5,
+    "title": "Zaytun AI LLC",
+    "period": "January 2025 – Present",
+    "synopsis": "Senior iOS Developer · Remote (California, US)",
+    "episodes": [
       {
-        code: 'S05 E01',
-        title: 'The Next Chapter',
-        description: 'Exploring System Design, Cloud Computing (AWS) and Machine Learning.',
-        tags: ['System Design', 'AWS', 'Machine Learning'],
-        runtime: 'In production',
-        palette: violet,
-      },
-    ],
-  },
+        "code": "S05 E01",
+        "title": "Senior iOS Developer",
+        "description": "Led end-to-end iOS development for an AI-powered Muslim social and community platform using modular MVVM architecture and reusable components. Built live streaming and social features including feeds, sharing, explore, profiles, messaging, feed ranking, and engagement analytics. Implemented AI-driven cultural moderation and a contextual assistant for Islamic lifestyle guidance. Optimized lazy loading, pagination, caching, and state management; added multi-language support and centralized Dark/Light themes. Automated CI/CD with GitHub Actions, including AI PR review and auto-release.",
+        "tags": [
+          "iOS",
+          "Architecture",
+          "CI/CD"
+        ],
+        "runtime": "January 2025 – Present",
+        "palette": {
+          "from": "#2a0610",
+          "via": "#7a0f24",
+          "to": "#0b0710",
+          "accent": "#ff3d5a"
+        }
+      }
+    ]
+  }
 ];
-
-export type TopPick = { label: string; title: string; detail: string; palette: Palette };
 
 export const topPicks: TopPick[] = [
-  { label: 'Primary language', title: 'Java', detail: 'Listed as primary on the resume • Oracle certified', palette: amber },
-  { label: 'The AI Original', title: 'PolicyGuard AI', detail: '500+ documents • 92% accuracy', palette: crimson },
-  { label: 'Biggest stage', title: 'Flipkart GRiD 7.0', detail: 'Semi-Finalist', palette: ocean },
-  { label: 'National selection', title: 'AlgoUniversity', detail: 'Tech Fellow', palette: violet },
-  { label: 'Academic high', title: 'Branch Topper', detail: '9.24 SGPA in AI & ML', palette: jade },
-  { label: 'Cloud credential', title: 'AWS AI Practitioner', detail: 'AWS Certified', palette: amber },
-  { label: 'Problems solved', title: '850+', detail: 'LeetCode 350+ • GFG 300+ • CodeChef 200+', palette: crimson },
-  { label: 'The training arc', title: '1 Year of FSD', detail: 'Technical Hub Pvt Ltd', palette: ocean },
-  { label: 'Database credential', title: 'MongoDB', detail: 'Certified Associate Developer', palette: jade },
-  { label: 'Current focus', title: 'System Design', detail: 'with Cloud (AWS) & Machine Learning', palette: violet },
+  {
+    "label": "Experience",
+    "title": "5+ Years",
+    "detail": "Senior iOS development & backend engineering",
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    }
+  },
+  {
+    "label": "Production delivery",
+    "title": "30+ Apps",
+    "detail": "SaaS, fintech, and social platforms",
+    "palette": {
+      "from": "#1a0d02",
+      "via": "#8a4a07",
+      "to": "#0a0806",
+      "accent": "#ffb547"
+    }
+  },
+  {
+    "label": "Current chapter",
+    "title": "Zaytun AI",
+    "detail": "Senior iOS Developer · January 2025 – Present",
+    "palette": {
+      "from": "#04121f",
+      "via": "#0f4c6e",
+      "to": "#05080d",
+      "accent": "#4cc9ff"
+    }
+  },
+  {
+    "label": "Platform scale",
+    "title": "Goodspace",
+    "detail": "AI recruitment platform · 1M+ users",
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    }
+  },
+  {
+    "label": "Performance",
+    "title": "35% Faster",
+    "detail": "Reduced Goodspace load times",
+    "palette": {
+      "from": "#1a0d02",
+      "via": "#8a4a07",
+      "to": "#0a0806",
+      "accent": "#ffb547"
+    }
+  },
+  {
+    "label": "White-label delivery",
+    "title": "25+ Apps",
+    "detail": "Nutrition & wellness at Zoconut",
+    "palette": {
+      "from": "#04121f",
+      "via": "#0f4c6e",
+      "to": "#05080d",
+      "accent": "#4cc9ff"
+    }
+  },
+  {
+    "label": "Open source",
+    "title": "CountryPickerAKS",
+    "detail": "Country selection · CocoaPods & SPM",
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    }
+  },
+  {
+    "label": "Primary stack",
+    "title": "Swift & SwiftUI",
+    "detail": "Native mobile interfaces & modular architecture",
+    "palette": {
+      "from": "#1a0d02",
+      "via": "#8a4a07",
+      "to": "#0a0806",
+      "accent": "#ffb547"
+    }
+  },
+  {
+    "label": "Automation",
+    "title": "CI/CD",
+    "detail": "GitHub Actions & Fastlane",
+    "palette": {
+      "from": "#04121f",
+      "via": "#0f4c6e",
+      "to": "#05080d",
+      "accent": "#4cc9ff"
+    }
+  },
+  {
+    "label": "Education",
+    "title": "Computer Science",
+    "detail": "Chitkara University · CGPA 8.6",
+    "palette": {
+      "from": "#2a0610",
+      "via": "#7a0f24",
+      "to": "#0b0710",
+      "accent": "#ff3d5a"
+    }
+  }
 ];
-
-/** Slides for the "▶ Play Intro" cinematic sequence. */
-export type IntroSlide = { kicker: string; title: string; lines: string[]; chips?: string[] };
 
 export const introSlides: IntroSlide[] = [
   {
-    kicker: 'Education',
-    title: 'B.Tech · AI & ML',
-    lines: ['Aditya Engineering College, Surampalem', 'October 2023 – Present'],
-    chips: ['CGPA 9.10'],
+    "kicker": "Profile",
+    "title": "iOS. Backend. Impact.",
+    "lines": [
+      "Amit Sah · Senior iOS Developer & Backend Engineer",
+      "5+ years of experience · 30+ production apps"
+    ],
+    "chips": [
+      "Swift",
+      "SwiftUI",
+      "MVVM"
+    ]
   },
   {
-    kicker: 'Skills',
-    title: 'Java first.',
-    lines: ['Python, C, C++ · React, Node.js, Express.js', 'PostgreSQL, MongoDB, MySQL · Docker, REST, JWT'],
-    chips: ['Java', 'Python', 'React', 'Node.js', 'Docker', 'PostgreSQL'],
+    "kicker": "Skills",
+    "title": "Swift first.",
+    "lines": [
+      "UIKit · SwiftUI · RxSwift · Combine",
+      "Node.js · Express · React · GitHub Actions · Fastlane"
+    ],
+    "chips": [
+      "Swift",
+      "SwiftUI",
+      "Node.js",
+      "CI/CD"
+    ]
   },
   {
-    kicker: 'Training',
-    title: 'The Training Arc',
-    lines: ['One year of intensive Full‑Stack Development training', 'Trainee · Technical Hub Pvt Ltd · May 2025 – June 2026', 'Frontend · Backend · Databases · Deployment'],
+    "kicker": "Current role",
+    "title": "Zaytun AI",
+    "lines": [
+      "Senior iOS Developer · January 2025 – Present",
+      "AI moderation · Live streaming · Social & community"
+    ]
   },
   {
-    kicker: 'Projects',
-    title: `${projects.length} Originals`,
-    lines: ['PolicyGuard AI — 500+ documents, 92% accuracy', 'Payment Gateway — 1,000+ transactions, 99.8% uptime', 'Multi-Tenant SaaS — 50+ tenants, zero unauthorized access'],
+    "kicker": "Impact",
+    "title": "Built for scale.",
+    "lines": [
+      "Goodspace: AI recruitment platform with 1M+ users",
+      "35% lower load times through caching",
+      "Zoconut: 25+ white-label iOS applications"
+    ]
   },
   {
-    kicker: 'Achievements',
-    title: 'Top Moments',
-    lines: ['Tech Fellow — AlgoUniversity', 'Semi-Finalist — Flipkart GRiD 7.0', 'AIML Branch Topper — 9.24 SGPA'],
+    "kicker": "Projects",
+    "title": "Beyond the app.",
+    "lines": [
+      "CountryPickerAKS · CocoaPods & SPM",
+      "Dream Home Automation · Gurudai User & Rider App"
+    ]
   },
   {
-    kicker: 'Certified',
-    title: `${certifications.length} Certifications`,
-    lines: ['AWS · MongoDB · Oracle · GitHub · Pearson', 'NPTEL · Cisco · Udemy'],
+    "kicker": "Education",
+    "title": "Computer Science",
+    "lines": [
+      "Chitkara University · 2017 – 2021",
+      "CGPA 8.6"
+    ]
   },
   {
-    kicker: 'Current mission',
-    title: 'Now exploring',
-    lines: ['System Design · Cloud Computing (AWS) · Machine Learning'],
-  },
+    "kicker": "Design & development",
+    "title": "Always building.",
+    "lines": [
+      "UX design · Native iOS · SwiftUI · Product design",
+      "Scalable architecture · Backend integration · DevOps"
+    ]
+  }
 ];
 
-export type ProfileId = 'sushmita' | 'recruiter' | 'developer' | 'creative';
+export type ProfileId = 'amit' | 'recruiter' | 'developer' | 'creative';
 export type SectionId = 'about' | 'journey' | 'originals' | 'picks' | 'skills' | 'moments' | 'story';
 
 export const viewerProfiles: {
@@ -576,8 +1160,8 @@ export const viewerProfiles: {
   order: SectionId[];
 }[] = [
   {
-    id: 'sushmita',
-    name: 'Sushmita',
+    id: 'amit',
+    name: 'Amit',
     blurb: 'The full series, in order',
     color: '#e5132b',
     order: ['about', 'journey', 'originals', 'picks', 'skills', 'moments', 'story'],
@@ -605,10 +1189,16 @@ export const viewerProfiles: {
   },
 ];
 
+const crimson = projects[0].palette;
+const amber = projects[1].palette;
+const ocean = projects[2].palette;
+const violet: Palette = { from: '#120822', via: '#3d1a6e', to: '#07060c', accent: '#b98bff' };
+const jade: Palette = { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: '#46e3a8' };
+
 export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: string; palette: Palette }> = {
-  about: { nav: 'About', card: 'About Me', meta: 'The Pilot • Education & training', palette: violet },
+  about: { nav: 'About', card: 'About Me', meta: 'The Pilot • Education & experience', palette: violet },
   journey: { nav: 'Journey', card: 'My Journey', meta: `${seasons.length} Seasons • ${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes`, palette: amber },
-  originals: { nav: 'Originals', card: 'My Projects', meta: `${projects.length} Originals • 2026`, palette: crimson },
+  originals: { nav: 'Originals', card: 'My Projects', meta: `${projects.length} Originals • Production & projects`, palette: crimson },
   picks: { nav: 'Top Picks', card: 'Top Picks', meta: `Top ${topPicks.length} from the resume`, palette: jade },
   skills: { nav: 'Skills', card: 'My Skills', meta: `${skillCategories.length} Categories`, palette: ocean },
   moments: { nav: 'Moments', card: 'My Achievements', meta: `${achievements.length} Moments • ${certifications.length} Certifications`, palette: crimson },

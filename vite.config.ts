@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   const base = env.BASE_PATH || '/';
-  const siteUrl = env.SITE_URL ? new URL(env.SITE_URL).href : '';
+  const siteUrl = new URL(env.SITE_URL || 'https://amit-sah.com.np/').href;
 
   return {
     base,
@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
         const tags = siteUrl ? [
           { tag: 'link', attrs: { rel: 'canonical', href: siteUrl }, injectTo: 'head' as const },
           { tag: 'meta', attrs: { property: 'og:url', content: siteUrl }, injectTo: 'head' as const },
+          { tag: 'meta', attrs: { name: 'twitter:image', content: new URL('assets/og-image.jpg', siteUrl.endsWith('/') ? siteUrl : `${siteUrl}/`).href }, injectTo: 'head' as const },
           {
             tag: 'meta',
             attrs: {

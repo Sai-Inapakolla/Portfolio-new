@@ -57,7 +57,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
             </button>
             <div className="absolute inset-x-0 bottom-0 px-5 pb-6 sm:px-10">
               <motion.p className="mb-2 flex items-center gap-2 text-[11px] font-bold tracking-[0.34em] text-bone/80" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-                <span className="font-display text-xl tracking-normal text-crimson-2">S</span> ORIGINAL
+                <span className="font-display text-xl tracking-normal text-crimson-2">A</span> ORIGINAL
               </motion.p>
               <motion.h2
                 id={`title-${project.id}-modal`}
@@ -81,24 +81,14 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
               {project.logline}
             </motion.p>
 
-            {project.github && (
+            {(project.github || project.appUrl || project.website) && (
               <motion.div variants={block} className="mt-6 flex flex-wrap gap-3">
-                <Magnetic>
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-cursor="link"
-                    className="flex min-h-12 items-center gap-2 rounded-md bg-bone px-6 text-[15px] font-bold text-ink transition hover:bg-white"
-                  >
-                    GitHub ↗
-                  </a>
-                </Magnetic>
+                {[{ url: project.appUrl, label: 'App Store' }, { url: project.website, label: 'Website' }, { url: project.github, label: 'GitHub' }].filter((link) => link.url).map((link) => <Magnetic key={link.label}><a href={link.url} target="_blank" rel="noreferrer" className="flex min-h-12 items-center rounded-md bg-bone px-6 font-bold text-ink">{link.label} ↗</a></Magnetic>)}
               </motion.div>
             )}
 
             {/* impact */}
-            <motion.section variants={block} className="mt-12">
+            {project.metrics.length > 0 && <motion.section variants={block} className="mt-12">
               <h3 className="mb-4 text-[11px] font-bold uppercase tracking-[0.3em] text-crimson-2">Result / Impact</h3>
               <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-white/10 sm:grid-cols-3 lg:grid-cols-5">
                 {project.metrics.map((m, i) => (
@@ -116,7 +106,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
                   </motion.div>
                 ))}
               </div>
-            </motion.section>
+            </motion.section>}
 
             <div className="mt-12 grid gap-10 lg:grid-cols-[3fr_2fr]">
               <motion.section variants={block}>
