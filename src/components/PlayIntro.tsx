@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import { introSlides, profile } from '../data/portfolio';
+import { useDialog } from '../hooks/useDialog';
 import { useScrollLock } from '../hooks/smoothScroll';
 import { useReducedMotionPref } from '../hooks/useMedia';
 import { EASE } from './fx';
@@ -13,6 +14,7 @@ const SLIDE_MS = 3600;
  */
 export default function PlayIntro({ onClose }: { onClose: () => void }) {
   useScrollLock(true);
+  const dialog = useDialog(onClose);
   const reduced = useReducedMotionPref();
   const [phase, setPhase] = useState<'zoom' | 'reel' | 'end'>(reduced ? 'reel' : 'zoom');
   const [index, setIndex] = useState(0);
@@ -26,15 +28,10 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
   }, [phase]);
 
   const next = useCallback(() => {
-    setIndex((i) => {
-      if (i >= introSlides.length - 1) {
-        setPhase('end');
-        return i;
-      }
-      return i + 1;
-    });
+    if (index >= introSlides.length - 1) setPhase('end');
+    else setIndex(index + 1);
     progress.set(0);
-  }, [progress]);
+  }, [index, progress]);
   const prev = useCallback(() => {
     setIndex((i) => Math.max(0, i - 1));
     progress.set(0);
@@ -67,28 +64,28 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') next();
-      if (e.key === 'ArrowLeft') prev();
-      if (e.key === ' ') {
+      if (phase !== 'reel') return;
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      if (e.key === ' ' && !(e.target instanceof HTMLElement && e.target.closest('button, a, input'))) {
         e.preventDefault();
         setPaused((p) => !p);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [onClose, next, prev]);
+  }, [phase, next, prev]);
 
   const slide = introSlides[index];
 
   return (
-    <motion.div
+    <motion.dialog ref={dialog}
       className="fixed inset-0 z-[130] overflow-hidden bg-black"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, filter: 'blur(10px)' }}
       transition={{ duration: 0.6 }}
-      role="dialog"
+
       aria-modal="true"
       aria-label="Intro highlight reel"
     >
@@ -184,8 +181,8 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
       {/* tap zones (mobile-friendly) */}
       {phase === 'reel' && (
         <>
-          <button type="button" aria-label="Previous highlight" className="absolute inset-y-0 left-0 z-[5] w-1/4" onClick={prev} />
-          <button type="button" aria-label="Next highlight" data-cursor="play" className="absolute inset-y-0 right-0 z-[5] w-1/4" onClick={next} />
+          <button type="button" aria-label="Previous highlight" className="absolute inset-y-0 left-0 z-[15] w-1/4" onClick={prev} />
+          <button type="button" aria-label="Next highlight" data-cursor="play" className="absolute inset-y-0 right-0 z-[15] w-1/4" onClick={next} />
         </>
       )}
 
@@ -206,6 +203,7 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
         </div>
         <button
           type="button"
+          data-dialog-initial
           onClick={onClose}
           data-cursor="close"
           className="rounded-full bg-bone px-5 py-2.5 text-xs font-bold tracking-[0.18em] text-ink transition hover:bg-white"
@@ -213,6 +211,6 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
           BACK TO BROWSE
         </button>
       </div>
-    </motion.div>
+    </motion.dialog>
   );
 }

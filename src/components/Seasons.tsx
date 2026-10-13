@@ -1,3 +1,4 @@
+import { useReducedMotionPref } from '../hooks/useMedia';
 import { useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { seasons } from '../data/portfolio';
@@ -6,6 +7,7 @@ import EpisodeCard from './EpisodeCard';
 import { RailButtons } from './Rail';
 
 export default function Seasons() {
+  const reduced = useReducedMotionPref();
   const [active, setActive] = useState(seasons.length - 2);
   const season = seasons[active];
   const rail = useRef<HTMLDivElement>(null);
@@ -19,16 +21,16 @@ export default function Seasons() {
       />
 
       {/* season selector */}
-      <div className="rail gutter mb-8 flex gap-2 overflow-x-auto" role="tablist" aria-label="Seasons">
+      <div className="rail gutter mb-8 flex gap-2 overflow-x-auto" role="group" aria-label="Seasons">
         {seasons.map((s, i) => (
           <button
             key={s.number}
-            role="tab"
-            aria-selected={i === active}
+
+            aria-pressed={i === active}
             type="button"
             onClick={() => {
               setActive(i);
-              rail.current?.scrollTo({ left: 0, behavior: 'smooth' });
+              rail.current?.scrollTo({ left: 0, behavior: reduced ? 'auto' : 'smooth' });
             }}
             className={`relative shrink-0 rounded-full px-4 py-2.5 text-left transition ${i === active ? 'text-ink' : 'text-mist hover:text-bone'}`}
           >

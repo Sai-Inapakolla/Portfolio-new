@@ -2,6 +2,7 @@ import { lazy, Suspense, useCallback, useEffect, useState, type ReactNode } from
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { viewerProfiles, type ProfileId, type Project, type SectionId } from './data/portfolio';
 import { SmoothScrollProvider, useSmoothScroll } from './hooks/smoothScroll';
+import OverlayBoundary from './components/OverlayBoundary';
 import CustomCursor from './components/CustomCursor';
 import OpeningSequence from './components/OpeningSequence';
 import ProfileSelector from './components/ProfileSelector';
@@ -89,6 +90,8 @@ function Series() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  const closeOverlays = useCallback(() => { setPlaying(false); setProject(null); setResumeOpen(false); }, []);
+
   const closeIntro = useCallback(() => setPlaying(false), []);
   const closeProject = useCallback(() => setProject(null), []);
   const closeResume = useCallback(() => setResumeOpen(false), []);
@@ -109,7 +112,7 @@ function Series() {
       <CustomCursor />
 
       <AnimatePresence>
-        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('profiles')} />}
+        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('profiles')} onExplore={() => pickProfile('sushmita')} />}
         {stage === 'profiles' && <ProfileSelector key="profiles" onPick={pickProfile} />}
       </AnimatePresence>
 
@@ -129,11 +132,13 @@ function Series() {
         </motion.div>
       )}
 
-      <Suspense fallback={null}>
+      {(playing || project || resumeOpen) && <OverlayBoundary onClose={closeOverlays}>
+      <Suspense fallback={<div role="status" className="fixed bottom-6 left-6 z-[150] rounded bg-ink-2 p-4">Loading…</div>}>
         <AnimatePresence>{playing && <PlayIntro key="intro" onClose={closeIntro} />}</AnimatePresence>
         <AnimatePresence>{project && <ProjectModal key="project" project={project} onClose={closeProject} onSwitch={setProject} />}</AnimatePresence>
         <AnimatePresence>{resumeOpen && <ResumeModal key="resume" onClose={closeResume} />}</AnimatePresence>
       </Suspense>
+      </OverlayBoundary>}
 
       <AnimatePresence>
         {toast && (

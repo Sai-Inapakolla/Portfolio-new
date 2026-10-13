@@ -42,9 +42,11 @@ export function useTrackProgress(id: string, ref: RefObject<HTMLElement | null>)
       if (!raf) raf = requestAnimationFrame(measure);
     };
     measure();
+    window.addEventListener('resize', onScroll);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
       cancelAnimationFrame(raf);
     };
   }, [id, ref]);

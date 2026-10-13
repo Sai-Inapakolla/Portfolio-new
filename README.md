@@ -41,7 +41,7 @@ The static site is written to `dist/` and can be deployed as-is to Vercel, Netli
 | Profile order (Recruiter / Developer / Creative) | `viewerProfiles` |
 | Opening studio card text | `profile.originalLabel` |
 
-**Resume:** replace `public/assets/Sushmita_Dasari_Resume.pdf`.
+**Resume:** replace `public/assets/Resume.pdf`.
 
 **Photo:** replace `pic1.jpeg` (high-res photo) and `pic.png` (background-removed cutout with the same framing), then run:
 
@@ -93,3 +93,26 @@ scripts/build-images.mjs   ← portrait/share-image pipeline (sharp)
 - **Opening:** Enter or Esc skips it.
 - **Play Intro:** Space pauses, ← and → change slides, Esc closes.
 - **Project and resume overlays:** Esc closes.
+
+## Deployment configuration
+
+Root hosting works with `npm run build`. For a GitHub Pages repository subpath, set `BASE_PATH=/repository-name/` when building. Asset URLs follow that base, including portraits and the PDF.
+
+Set `SITE_URL` to the full public portfolio URL (including the repository subpath, if any) to generate a canonical link, `og:url`, and an absolute social image URL. For example:
+
+```bash
+BASE_PATH=/portfolio/ SITE_URL=https://example.com/portfolio/ npm run build
+```
+
+The opening includes an **Explore portfolio** shortcut to reach the content immediately. Profile selection remains available from the navigation.
+
+## Checks
+
+```bash
+npm run check
+npx playwright install chromium
+npm test
+npm run build
+```
+
+Browser tests cover direct entry, profile persistence, intro tap controls, modal focus and Escape behavior, PDF availability, and large touch-screen rails. GitHub Actions runs the production build and browser tests on pushes and pull requests. No separate lint configuration is included; TypeScript checks strict typing and unused declarations.

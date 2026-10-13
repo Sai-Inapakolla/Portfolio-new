@@ -17,7 +17,7 @@ const TIMELINE = [
   { at: 5000, beat: 6 }, // play button
 ];
 
-export default function OpeningSequence({ onDone }: { onDone: () => void }) {
+export default function OpeningSequence({ onDone, onExplore }: { onDone: () => void; onExplore: () => void }) {
   const reduced = useReducedMotionPref();
   const [beat, setBeat] = useState(reduced ? 6 : 0);
 
@@ -144,6 +144,9 @@ export default function OpeningSequence({ onDone }: { onDone: () => void }) {
         </motion.div>
       </div>
 
+      <button type="button" onClick={onExplore} className="absolute left-4 top-[calc(7vh+12px)] z-40 rounded-full border border-white/20 px-4 py-2 text-xs font-semibold text-bone">
+        Explore portfolio →
+      </button>
       <button
         type="button"
         onClick={onDone}

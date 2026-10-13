@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { sectionMeta, type SectionId } from '../data/portfolio';
+import { sectionMeta, projects, topPicks, type SectionId } from '../data/portfolio';
 import { useWatchProgress } from '../hooks/sectionProgress';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { useFinePointer } from '../hooks/useMedia';
@@ -8,7 +8,7 @@ import { EASE, RevealText } from './fx';
 import { PosterBackdrop } from './Poster';
 import { RailButtons } from './Rail';
 
-const GLYPHS: Record<SectionId, string> = { about: 'S', journey: 'S01', originals: '3', picks: '10', skills: '{ }', moments: '★', story: 'CV' };
+const GLYPHS: Record<SectionId, string> = { about: 'S', journey: 'S01', originals: String(projects.length), picks: String(topPicks.length), skills: '{ }', moments: '★', story: 'CV' };
 
 export default function ContinueWatching({ order }: { order: SectionId[] }) {
   const progress = useWatchProgress();
@@ -20,7 +20,7 @@ export default function ContinueWatching({ order }: { order: SectionId[] }) {
   return (
     <section aria-labelledby="continue-title" className="relative z-10 -mt-10 pb-10 sm:-mt-16">
       <div className="gutter mb-4 flex items-end justify-between">
-        <RevealText as="h2" text="Continue Exploring" className="font-sans text-lg font-semibold tracking-tight text-bone sm:text-2xl" />
+        <RevealText id="continue-title" as="h2" text="Continue Exploring" className="font-sans text-lg font-semibold tracking-tight text-bone sm:text-2xl" />
         <span className="hidden text-xs text-smoke sm:block">Progress shows what you&apos;ve watched so far</span>
       </div>
       <div className="group/rail relative">
@@ -66,7 +66,7 @@ export default function ContinueWatching({ order }: { order: SectionId[] }) {
                   </span>
                 </div>
                 <div className="mt-2 h-[3px] w-full overflow-hidden rounded bg-white/15">
-                  <motion.div className="h-full origin-left bg-crimson" animate={{ scaleX: Math.max(0.04, p) }} transition={{ duration: 0.6 }} />
+                  <motion.div className="h-full origin-left bg-crimson" animate={{ scaleX: p }} transition={{ duration: 0.6 }} />
                 </div>
               </motion.button>
             );

@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "images": "node scripts/build-images.mjs"
+    "images": "node scripts/build-images.mjs",
+    "test": "playwright test",
+    "check": "tsc -b"
   },
   "dependencies": {
     "framer-motion": "11.18.2",
@@ -16,6 +18,7 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/vite": "4.1.4",
     "@types/react": "18.3.20",
     "@types/react-dom": "18.3.6",

@@ -1,3 +1,5 @@
+const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
+
 /**
  * Central portfolio data — generated from Sushmita's resume (Sushmita_dasari.pdf).
  * Every fact on the site comes from this file. Update it here and the whole site follows.
@@ -23,10 +25,10 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/sushmita-dasari-227a40284/',
     github: 'https://github.com/Sushmitadasari',
   },
-  resumePdf: '/assets/Sushmita_Dasari_Resume.pdf',
+  resumePdf: asset('Resume.pdf'),
   portrait: {
-    src: '/assets/portrait-720.webp',
-    srcSet: '/assets/portrait-420.webp 420w, /assets/portrait-720.webp 720w, /assets/portrait-1100.webp 1100w',
+    src: asset('portrait-720.webp'),
+    srcSet: `${asset('portrait-420.webp')} 420w, ${asset('portrait-720.webp')} 720w, ${asset('portrait-1100.webp')} 1100w`,
     alt: 'Portrait of Sushmita Dasari',
   },
   interests: ['System Design', 'Cloud Computing (AWS)', 'Machine Learning'],
@@ -543,7 +545,7 @@ export const introSlides: IntroSlide[] = [
   },
   {
     kicker: 'Projects',
-    title: 'Three Originals',
+    title: `${projects.length} Originals`,
     lines: ['PolicyGuard AI — 500+ documents, 92% accuracy', 'Payment Gateway — 1,000+ transactions, 99.8% uptime', 'Multi-Tenant SaaS — 50+ tenants, zero unauthorized access'],
   },
   {
@@ -553,7 +555,7 @@ export const introSlides: IntroSlide[] = [
   },
   {
     kicker: 'Certified',
-    title: '16 Certifications',
+    title: `${certifications.length} Certifications`,
     lines: ['AWS · MongoDB · Oracle · GitHub · Pearson', 'NPTEL · Cisco · Udemy'],
   },
   {
@@ -607,7 +609,7 @@ export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: s
   about: { nav: 'About', card: 'About Me', meta: 'The Pilot • Education & training', palette: violet },
   journey: { nav: 'Journey', card: 'My Journey', meta: `${seasons.length} Seasons • ${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes`, palette: amber },
   originals: { nav: 'Originals', card: 'My Projects', meta: `${projects.length} Originals • 2026`, palette: crimson },
-  picks: { nav: 'Top Picks', card: 'Top Picks', meta: 'Top 10 from the resume', palette: jade },
+  picks: { nav: 'Top Picks', card: 'Top Picks', meta: `Top ${topPicks.length} from the resume`, palette: jade },
   skills: { nav: 'Skills', card: 'My Skills', meta: `${skillCategories.length} Categories`, palette: ocean },
   moments: { nav: 'Moments', card: 'My Achievements', meta: `${achievements.length} Moments • ${certifications.length} Certifications`, palette: crimson },
   story: { nav: 'Resume', card: 'The Full Story', meta: 'Resume • View & download', palette: violet },

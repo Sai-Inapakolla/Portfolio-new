@@ -1,3 +1,4 @@
+import { useReducedMotionPref } from '../hooks/useMedia';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { profile } from '../data/portfolio';
@@ -6,6 +7,7 @@ import { EASE, Magnetic, Particles } from './fx';
 import { SeriesMark } from './Poster';
 
 export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
+  const reduced = useReducedMotionPref();
   const ref = useRef<HTMLElement>(null);
   const { scrollTo } = useSmoothScroll();
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.2'] });
@@ -35,7 +37,7 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
       </motion.p>
       <motion.h2
         className="relative font-display leading-[0.85] text-bone"
-        style={{ fontSize: 'clamp(3.4rem, 13vw, 12rem)', letterSpacing: spacing, filter: blur, opacity }}
+        style={{ fontSize: 'clamp(3.4rem, 13vw, 12rem)', letterSpacing: reduced ? '0.02em' : spacing, filter: reduced ? 'none' : blur, opacity: reduced ? 1 : opacity }}
       >
         TO BE CONTINUED…
       </motion.h2>

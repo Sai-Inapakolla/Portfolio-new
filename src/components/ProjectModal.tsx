@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { projects, type Project } from '../data/portfolio';
+import { useDialog } from '../hooks/useDialog';
 import { useScrollLock } from '../hooks/smoothScroll';
 import { EASE, Magnetic } from './fx';
 import { ProjectArt } from './Poster';
@@ -12,19 +13,8 @@ const block = {
 
 export default function ProjectModal({ project, onClose, onSwitch }: { project: Project; onClose: () => void; onSwitch: (p: Project) => void }) {
   useScrollLock(true);
+  const dialog = useDialog(onClose);
   const scroller = useRef<HTMLDivElement>(null);
-  const closeBtn = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const prevFocus = document.activeElement as HTMLElement | null;
-    closeBtn.current?.focus({ preventScroll: true });
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      prevFocus?.focus?.({ preventScroll: true });
-    };
-  }, [onClose]);
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 });
@@ -33,7 +23,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
   const more = projects.filter((p) => p.id !== project.id);
 
   return (
-    <motion.div className="fixed inset-0 z-[140]" role="dialog" aria-modal="true" aria-labelledby={`title-${project.id}-modal`}>
+    <motion.dialog ref={dialog} className="fixed inset-0 z-[140]"  aria-modal="true" aria-labelledby={`title-${project.id}-modal`}>
       <motion.div
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
         initial={{ opacity: 0 }}
@@ -56,7 +46,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-ink-2 via-ink-2/30 to-transparent" />
             <button
-              ref={closeBtn}
+              data-dialog-initial
               type="button"
               onClick={onClose}
               data-cursor="close"
@@ -191,6 +181,6 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
           </motion.div>
         </motion.div>
       </div>
-    </motion.div>
+    </motion.dialog>
   );
 }

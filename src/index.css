@@ -152,3 +152,27 @@ a:focus-visible {
     display: none;
   }
 }
+
+/* Dialogs live in the browser top layer, above page effects and cursors. */
+dialog {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  color: var(--color-bone);
+}
+dialog::backdrop { background: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}
+
+dialog, .has-custom-cursor dialog { cursor: auto; }
+.has-custom-cursor dialog a, .has-custom-cursor dialog button { cursor: pointer; }

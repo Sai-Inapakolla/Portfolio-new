@@ -74,11 +74,12 @@ export function Tilt({
 }
 
 /** Word-by-word blur-to-focus reveal for headings. */
-export function RevealText({ text, className = '', delay = 0, as = 'span' }: { text: string; className?: string; delay?: number; as?: 'span' | 'h2' | 'h3' | 'p' }) {
+export function RevealText({ text, className = '', delay = 0, id, as = 'span' }: { text: string; className?: string; delay?: number; id?: string; as?: 'span' | 'h2' | 'h3' | 'p' }) {
   const Tag = motion[as];
   const words = text.split(' ');
   return (
     <Tag
+      id={id}
       className={className}
       initial="hidden"
       whileInView="show"

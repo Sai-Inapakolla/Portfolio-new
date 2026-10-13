@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { achievements, certifications, education, profile, projects, type ProfileId } from '../data/portfolio';
-import { useFinePointer } from '../hooks/useMedia';
+import { useFinePointer, useReducedMotionPref } from '../hooks/useMedia';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
 import { SeriesMark } from './Poster';
@@ -15,6 +15,7 @@ const item = {
 export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => void; onResume: () => void; profileId: ProfileId }) {
   const ref = useRef<HTMLElement>(null);
   const fine = useFinePointer();
+  const reduced = useReducedMotionPref();
   const { scrollTo } = useSmoothScroll();
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -55,7 +56,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
       ref={ref}
       className="relative min-h-[100svh] overflow-hidden"
       onPointerMove={(e) => {
-        if (!fine) return;
+        if (!fine || reduced) return;
         mx.set((e.clientX / window.innerWidth) * 2 - 1);
         my.set((e.clientY / window.innerHeight) * 2 - 1);
       }}
@@ -75,7 +76,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
       {/* portrait */}
       <motion.div
         className="absolute inset-x-0 top-12 z-[2] flex h-[64svh] items-end justify-center sm:h-[70svh] lg:bottom-0 lg:left-auto lg:right-[3vw] lg:top-20 lg:h-auto lg:w-[54vw] xl:right-[6vw] xl:w-[48vw]"
-        style={{ y: imgY, scale: imgScale, opacity: fade }}
+        style={reduced ? undefined : { y: imgY, scale: imgScale, opacity: fade }}
       >
         <motion.div
           className="relative h-full w-full lg:h-[86vh]"
@@ -112,7 +113,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
       {/* copy */}
       <motion.div
         className="gutter relative z-[4] flex min-h-[100svh] flex-col justify-end pb-16 pt-[54svh] sm:pb-20 lg:max-w-[52vw] lg:justify-center lg:pb-0 lg:pt-24"
-        style={{ y: textY, opacity: fade }}
+        style={reduced ? undefined : { y: textY, opacity: fade }}
         variants={container}
         initial="hidden"
         animate="show"
@@ -182,7 +183,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
         </motion.div>
       </motion.div>
 
-      <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-[5] bg-ink" style={{ opacity: blackout }} />
+      <motion.div aria-hidden className="pointer-events-none absolute inset-0 z-[5] bg-ink" style={{ opacity: reduced ? 0 : blackout }} />
     </section>
   );
 }
@@ -190,6 +191,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
 type MV = ReturnType<typeof useTransform<number, number>>;
 
 function FloatChip({ text, sub, pos, depth, index, mx, my }: { text: string; sub: string; pos: string; depth: number; index: number; mx: MV; my: MV }) {
+  const reduced = useReducedMotionPref();
   const x = useTransform(mx, (n: number) => n * depth);
   const y = useTransform(my, (n: number) => n * depth);
   return (
@@ -200,7 +202,7 @@ function FloatChip({ text, sub, pos, depth, index, mx, my }: { text: string; sub
       animate={{ opacity: 1, filter: 'blur(0px)' }}
       transition={{ duration: 0.9, delay: 1.2 + index * 0.18, ease: EASE }}
     >
-      <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}>
+      <motion.div animate={{ y: reduced ? 0 : [0, -6, 0] }} transition={{ duration: 5 + index, repeat: Infinity, ease: 'easeInOut' }}>
         <p className="text-sm font-semibold text-bone">{text}</p>
         <p className="text-[10px] uppercase tracking-[0.2em] text-mist">{sub}</p>
       </motion.div>
