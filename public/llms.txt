@@ -1,0 +1,22 @@
+# Amit Sah — iOS Developer and Backend Engineer
+
+> Professional portfolio of Amit Sah, a Senior iOS Developer and Backend Engineer based in New Delhi, India, with 5+ years of experience and 30+ production apps.
+
+The résumé is the source for professional claims. Featured work includes Zaytun AI, Goodspace, Zoconut, LolliCash, University Intoto, Dream Home Automation, Gurudai, and CountryPickerAKS. Project links describe Amit's contributions; they do not imply ownership of the companies or products.
+
+## Portfolio and résumé
+
+- [Portfolio overview](https://amit-sah.com.np/index.md): Plain Markdown summary of experience, skills, education, and projects.
+- [Current résumé](https://amit-sah.com.np/assets/Resume.pdf): Original résumé with professional history and production app links.
+- [Interactive portfolio](https://amit-sah.com.np/): Visual portfolio with profile-based section ordering.
+
+## Professional profiles
+
+- [GitHub](https://github.com/aksamitsah): Code and public repositories.
+- [LinkedIn](https://linkedin.com/in/aksamitsah): Professional profile.
+- [Behance](https://behance.net/aksamitsah): Design work.
+
+## Optional
+
+- [CountryPickerAKS](https://github.com/aksamitsah/CountryPickerAKS): Country-selection framework for CocoaPods and Swift Package Manager.
+- [Resource catalog](https://amit-sah.com.np/.well-known/ard.json): Machine-readable references to public portfolio documents.

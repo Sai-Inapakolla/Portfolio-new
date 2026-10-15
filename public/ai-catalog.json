@@ -1,0 +1,31 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Amit Sah",
+    "documentationUrl": "https://amit-sah.com.np/llms.txt"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:amit-sah.com.np:portfolio-overview",
+      "displayName": "Amit Sah portfolio overview",
+      "type": "text/markdown",
+      "url": "https://amit-sah.com.np/index.md",
+      "description": "Public professional background, experience, education, skills, and featured projects.",
+      "representativeQueries": [
+        "What is Amit Sah's iOS development experience?",
+        "Which apps and frameworks has Amit Sah worked on?"
+      ]
+    },
+    {
+      "identifier": "urn:air:amit-sah.com.np:resume",
+      "displayName": "Amit Sah résumé",
+      "type": "application/pdf",
+      "url": "https://amit-sah.com.np/assets/Resume.pdf",
+      "description": "Original résumé documenting professional experience, production apps, and qualifications.",
+      "representativeQueries": [
+        "Where can I find Amit Sah's résumé?",
+        "What are Amit Sah's qualifications and professional roles?"
+      ]
+    }
+  ]
+}

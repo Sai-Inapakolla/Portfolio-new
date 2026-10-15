@@ -118,3 +118,9 @@ npm run build
 Browser tests cover direct entry, profile persistence, intro tap controls, modal focus and Escape behavior, PDF availability, and large touch-screen rails. GitHub Actions runs the production build and browser tests on pushes and pull requests. No separate lint configuration is included; TypeScript checks strict typing and unused declarations.
 
 The current content is transcribed from `public/assets/Resume.pdf`: five roles, eight featured apps/projects, 21 linked production apps, and five listed certifications. Certificate URLs are omitted because the résumé does not provide them.
+
+## Agent discovery
+
+`public/llms.txt` provides a Markdown heading, summary, and resource links. `public/index.md` provides a plain-text portfolio overview. The JSON catalog is served at `/ai-catalog.json`, `/.well-known/ai-catalog.json` (Lighthouse compatibility), and `/.well-known/ard.json` (current ARD discovery). These describe public documents, not a callable AI service. Update these files when résumé facts or the production domain change.
+
+Deploy the entire `dist/` directory, including `.well-known`. Discovery URLs must serve their actual files before any SPA fallback rewrite. Verify that the JSON URLs return JSON rather than `index.html`, then rerun PageSpeed Insights.
