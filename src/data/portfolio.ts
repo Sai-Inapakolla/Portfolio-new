@@ -41,8 +41,8 @@ export const profile = {
     "Backend Architecture & Microservices",
     "Multi-Tenant SaaS Systems",
     "Real-Time Applications & WebSockets",
-    "Distributed Systems & Data Isolation",
-    "Machine Learning Integration"
+    "Combinatorial Algorithms & Optimization",
+    "Machine Learning & Agentic AI"
   ],
   primaryLanguage: "Java",
   supportingLanguages: [
@@ -58,7 +58,7 @@ export const profile = {
     "TypeScript"
   ],
   yearsExperience: "Class of 2027",
-  productionAppCount: "5",
+  productionAppCount: "11",
   languages: [
     "English — Professional",
     "Telugu — Native",
@@ -87,8 +87,9 @@ export const experience = [
     points: [
       "Architected TeamX, a multi-tenant SaaS platform in Java Spring Boot with tenant-isolated data layers, JWT security, and 102k+ verified test assertions.",
       "Engineered SafeGo, an intelligent real-time safety ride-hailing platform using FastAPI, React, WebSockets, Twilio, and ML with 8,650 req/sec benchmarked throughput.",
-      "Developed TAI, an automated loan approval platform integrating Angular with Node.js and a dedicated Python machine learning scoring microservice.",
-      "Built Aeros flight simulator backend exploring decoupled Spring Boot microservices and service-to-service communication.",
+      "Built BAAHUBALI, a role-based core banking application with Spring Boot 3.5, transaction ledgers, and loan lifecycle processing.",
+      "Developed AstroML, an astronomy-focused machine learning classification and cosmological distance regression system.",
+      "Built a Multi-Strategy Combinatorial Optimization Framework benchmarking TSP, Knapsack, and Hungarian Matching across 5 algorithmic paradigms.",
       "Solved 600+ Data Structures & Algorithms problems across LeetCode and GeeksforGeeks, ranking Top 2 on the college leaderboard."
     ]
   }
@@ -207,6 +208,140 @@ export const projects: Project[] = [
     website: "https://safego1.vercel.app/"
   },
   {
+    id: "baahubali",
+    title: "BAAHUBALI Bank Management",
+    year: "2024",
+    genre: "Java • Spring Boot • FinTech",
+    logline: "A lightweight banking management system with role-based access control, transaction ledgers, and loan processing.",
+    stack: [
+      "Java",
+      "Spring Boot 3.5",
+      "Spring Data JPA",
+      "Hibernate",
+      "REST APIs",
+      "H2 Database"
+    ],
+    build: [
+      "Engineered a core banking system using Spring Boot 3.5 and Hibernate/JPA.",
+      "Implemented Role-Based Access Control (Admin, Employee, Customer) for secure financial workflows.",
+      "Built REST API endpoints for real-time account balances, ledger transactions, and loan evaluations.",
+      "Ensured transactional integrity and strict audit logging across all banking operations."
+    ],
+    features: [
+      "Role-Based Access Control (Admin, Employee, Customer)",
+      "Account & ledger transaction management",
+      "Loan application processing lifecycle",
+      "JPA/Hibernate RESTful APIs",
+      "Automated financial state tracking"
+    ],
+    metrics: [
+      {
+        value: "3 Roles",
+        label: "Admin, Employee, Customer"
+      },
+      {
+        value: "Spring 3.5",
+        label: "modern framework"
+      }
+    ],
+    palette: {
+      from: "#04121f",
+      via: "#0f4c6e",
+      to: "#05080d",
+      accent: "#4cc9ff"
+    },
+    motif: "tenants",
+    github: "https://github.com/Sai-Inapakolla/BAAHUBALI"
+  },
+  {
+    id: "astroml",
+    title: "AstroML — Cosmic Classification",
+    year: "2024",
+    genre: "Machine Learning • Python • Astrophysics",
+    logline: "Machine learning for stellar object classification and cosmological distance estimation using observational parameters.",
+    stack: [
+      "Python",
+      "Scikit-Learn",
+      "Pandas",
+      "NumPy",
+      "Machine Learning"
+    ],
+    build: [
+      "Developed ML classification models to identify stars, galaxies, and quasars from multi-band astronomical survey data.",
+      "Constructed regression pipelines to estimate cosmological distance and redshift values from photometric parameters.",
+      "Applied feature importance analysis and model evaluation techniques to maximize predictive accuracy."
+    ],
+    features: [
+      "Stellar object classification (stars, galaxies, quasars)",
+      "Cosmological distance & redshift estimation",
+      "Astronomical photometric feature engineering",
+      "Scikit-learn model evaluation & cross-validation"
+    ],
+    metrics: [
+      {
+        value: "Multi-Class",
+        label: "astronomical objects"
+      },
+      {
+        value: "Python ML",
+        label: "scientific computing"
+      }
+    ],
+    palette: {
+      from: "#1a0d02",
+      via: "#8a4a07",
+      to: "#0a0806",
+      accent: "#ffb547"
+    },
+    motif: "shield",
+    github: "https://github.com/Sai-Inapakolla/AstroML"
+  },
+  {
+    id: "combinatorial-optimization",
+    title: "Combinatorial Optimization Framework",
+    year: "2024",
+    genre: "Algorithms • Optimization • Python",
+    logline: "A multi-strategy framework benchmarking classical NP-hard problems (TSP, Knapsack, Bipartite Matching) across 5 algorithmic paradigms.",
+    stack: [
+      "Python",
+      "Dynamic Programming",
+      "Branch & Bound",
+      "Hungarian Algorithm",
+      "Backtracking",
+      "Benchmarking"
+    ],
+    build: [
+      "Engineered an extensible algorithmic framework to experiment, compare, and benchmark multiple solution paradigms on classical optimization challenges.",
+      "Implemented 5 distinct strategies for TSP: Greedy Nearest-Neighbor with 2-Opt, Divide & Conquer median split, Held-Karp Dynamic Programming, Backtracking, and Priority-Queue guided Branch & Bound.",
+      "Formulated exact and approximation solutions for 0/1 Knapsack including meet-in-the-middle and fractional bound pruning.",
+      "Solved Min-Cost Bipartite Matching using optimal Hungarian Algorithm (O(n³)), bitmask Dynamic Programming, and heuristic strategies."
+    ],
+    features: [
+      "TSP multi-strategy solver (Held-Karp, 2-Opt, Branch & Bound)",
+      "0/1 Knapsack exact and meet-in-the-middle solvers",
+      "Min-Cost Bipartite Matching via Hungarian Algorithm O(n³)",
+      "Comparative benchmarking and latency profiling"
+    ],
+    metrics: [
+      {
+        value: "3 NP-Hard",
+        label: "classical problems"
+      },
+      {
+        value: "5 Paradigms",
+        label: "DP, B&B, Greedy, D&C, Backtracking"
+      }
+    ],
+    palette: {
+      from: "#1a0d02",
+      via: "#8a4a07",
+      to: "#0a0806",
+      accent: "#ffb547"
+    },
+    motif: "flow",
+    github: "https://github.com/Sai-Inapakolla/Multi-Strategy-Combinatorial-Optimization-Framework"
+  },
+  {
     id: "tai",
     title: "TAI — Approval Intelligence",
     year: "2024",
@@ -245,7 +380,8 @@ export const projects: Project[] = [
       to: "#0a0806",
       accent: "#ffb547"
     },
-    motif: "flow"
+    motif: "flow",
+    github: "https://github.com/Sai-Inapakolla/TAI-main"
   },
   {
     id: "aeros",
@@ -278,7 +414,42 @@ export const projects: Project[] = [
       to: "#05080d",
       accent: "#4cc9ff"
     },
-    motif: "flow"
+    motif: "flow",
+    github: "https://github.com/Sai-Inapakolla/Aeros"
+  },
+  {
+    id: "intern-tracer",
+    title: "Intern-Tracer",
+    year: "2024",
+    genre: "Full-Stack • Angular • TypeScript",
+    logline: "A centralized full-stack application for tracking internship applications, interview rounds, and recruiter communications.",
+    stack: [
+      "Angular",
+      "Node.js",
+      "Express.js",
+      "TypeScript",
+      "MongoDB"
+    ],
+    build: [
+      "Developed an Angular Single Page Application (SPA) for managing career search pipelines.",
+      "Built Node.js & Express REST APIs with TypeScript for structured application lifecycle management.",
+      "Integrated MongoDB for persistent application status tracking, notes, and timeline logging."
+    ],
+    features: [
+      "Pipeline board for internship applications",
+      "TypeScript Node.js REST API",
+      "Angular reactive SPA interface",
+      "MongoDB persistent status datastore"
+    ],
+    metrics: [],
+    palette: {
+      from: "#04121f",
+      via: "#0f4c6e",
+      to: "#05080d",
+      accent: "#4cc9ff"
+    },
+    motif: "tenants",
+    github: "https://github.com/Sai-Inapakolla/Intern-Tracer"
   },
   {
     id: "foodie-genie",
@@ -311,7 +482,86 @@ export const projects: Project[] = [
       to: "#0b0710",
       accent: "#ff3d5a"
     },
-    motif: "shield"
+    motif: "shield",
+    github: "https://github.com/Sai-Inapakolla/foodie_genie"
+  },
+  {
+    id: "fino",
+    title: "Fino — Financial Decision Agent",
+    year: "2024",
+    genre: "Agentic AI • Next.js • FinTech",
+    logline: "A deterministic financial decision platform evaluating purchase viability, payment plans, and budget risk for HackerRank Orchestrate.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Python",
+      "Agentic AI",
+      "Tailwind CSS"
+    ],
+    build: [
+      "Built a full-stack financial decision platform combining a Next.js interface with an intelligent Python evaluation agent.",
+      "Implemented deterministic financial logic to categorize purchases into safe, plan-based, postponed, or inadvisable.",
+      "Designed reactive user workflows with instant financial health feedback and decision transparency."
+    ],
+    features: [
+      "Deterministic affordability scoring",
+      "Payment plan evaluation logic",
+      "Next.js reactive dashboard",
+      "Financial risk reasoning engine"
+    ],
+    metrics: [
+      {
+        value: "4 States",
+        label: "safe, plan, postpone, reject"
+      }
+    ],
+    palette: {
+      from: "#2a0610",
+      via: "#7a0f24",
+      to: "#0b0710",
+      accent: "#ff3d5a"
+    },
+    motif: "flow",
+    github: "https://github.com/Sai-Inapakolla/Fino"
+  },
+  {
+    id: "nexusops",
+    title: "NexusOps",
+    year: "2024",
+    genre: "Full-Stack • Operations • CRM",
+    logline: "A centralized business operations platform for managing customer relationships, inventory, products, and sales challans.",
+    stack: [
+      "Full-Stack",
+      "CRM Architecture",
+      "Inventory Systems",
+      "REST APIs",
+      "Database Design"
+    ],
+    build: [
+      "Designed a centralized business operations platform unifying customer records, inventory tracking, and sales workflows.",
+      "Structured schemas for multi-product catalogs, stock tracking, and sales challan generation.",
+      "Developed modular interfaces and REST endpoints for comprehensive enterprise resource and customer relationship management."
+    ],
+    features: [
+      "Centralized CRM and customer profile management",
+      "Real-time inventory and product catalog tracking",
+      "Sales challan and order workflow generation",
+      "Unified enterprise operational dashboard"
+    ],
+    metrics: [
+      {
+        value: "Centralized",
+        label: "operations platform"
+      }
+    ],
+    palette: {
+      from: "#04121f",
+      via: "#0f4c6e",
+      to: "#05080d",
+      accent: "#4cc9ff"
+    },
+    motif: "tenants",
+    github: "https://github.com/Sai-Inapakolla/NexusOps"
   }
 ];
 
@@ -325,8 +575,44 @@ export const productionApps = [
     url: "https://github.com/Sai-Inapakolla/TeamX"
   },
   {
+    name: "BAAHUBALI (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/BAAHUBALI"
+  },
+  {
+    name: "AstroML (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/AstroML"
+  },
+  {
+    name: "Combinatorial Optimization (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/Multi-Strategy-Combinatorial-Optimization-Framework"
+  },
+  {
+    name: "TAI (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/TAI-main"
+  },
+  {
     name: "Safe-Go (GitHub)",
     url: "https://github.com/Sai-Inapakolla/Safe-Go"
+  },
+  {
+    name: "Aeros (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/Aeros"
+  },
+  {
+    name: "Intern-Tracer (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/Intern-Tracer"
+  },
+  {
+    name: "Foodie Genie (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/foodie_genie"
+  },
+  {
+    name: "Fino (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/Fino"
+  },
+  {
+    name: "NexusOps (GitHub)",
+    url: "https://github.com/Sai-Inapakolla/NexusOps"
   },
   {
     name: "LeetCode (user_x_576)",
@@ -408,6 +694,7 @@ export const skillCategories: SkillCategory[] = [
     subtitle: "Responsive UI & modern web applications",
     skills: [
       { name: "React.js", mono: "Re", note: "Primary" },
+      { name: "Next.js", mono: "Nx" },
       { name: "TypeScript", mono: "TS" },
       { name: "JavaScript", mono: "JS" },
       { name: "Angular", mono: "Ng" },
@@ -444,10 +731,11 @@ export const skillCategories: SkillCategory[] = [
   {
     id: "ai-ml",
     title: "AI & Machine Learning",
-    subtitle: "ML fundamentals & model service integration",
+    subtitle: "ML fundamentals, algorithms & model integration",
     skills: [
       { name: "Python", mono: "Py" },
       { name: "Scikit-Learn", mono: "SL" },
+      { name: "Combinatorial Optimization", mono: "CO" },
       { name: "Pandas", mono: "Pd" },
       { name: "NumPy", mono: "NP" },
       { name: "ML API Integration", mono: "ML" }
@@ -458,22 +746,29 @@ export const skillCategories: SkillCategory[] = [
 export const skillEvidence: Record<string, string[]> = {
   "Java": [
     "TeamX: Multi-tenant backend architecture & data isolation",
+    "BAAHUBALI: Core banking system with Spring Boot 3.5 & H2",
     "Aeros: Spring Boot flight simulator microservices",
     "600+ DSA algorithmic problems solved"
   ],
   "Spring Boot": [
     "TeamX: 15+ secure REST API endpoints with JPA & Hibernate",
+    "BAAHUBALI: Role-based banking ledger & loan management",
     "Aeros: Microservice decomposition and domain architecture"
   ],
   "Spring Security": [
-    "TeamX: JWT authentication & Role-Based Access Control (Admin, Manager, User)"
+    "TeamX: JWT authentication & Role-Based Access Control (Admin, Manager, User)",
+    "BAAHUBALI: Role-based authorization across banking endpoints"
   ],
   "React.js": [
     "TeamX: Collaborative SaaS project management UI",
     "SafeGo: Passenger, Driver & Admin portals with Tailwind CSS"
   ],
+  "Next.js": [
+    "Fino: Full-stack financial decision agent dashboard"
+  ],
   "TypeScript": [
-    "SafeGo: Type-safe frontend client architecture and state management"
+    "SafeGo: Type-safe frontend client architecture and state management",
+    "Intern-Tracer: Node.js backend & Angular application"
   ],
   "FastAPI": [
     "SafeGo: High-concurrency backend load-tested to 8,650 req/sec"
@@ -486,12 +781,16 @@ export const skillEvidence: Record<string, string[]> = {
   ],
   "MongoDB": [
     "SafeGo: Scalable ride-log and user data storage",
-    "TAI: Loan application workflow datastore"
+    "TAI: Loan application workflow datastore",
+    "Intern-Tracer: Application tracking datastore"
   ],
   "Python": [
     "SafeGo: Machine learning features & AI voice assistant",
+    "AstroML: Stellar object classification & cosmological distance regression",
+    "Combinatorial Optimization: Multi-strategy benchmark framework",
     "TAI: Dedicated loan approval scoring microservice",
-    "Foodie Genie: Flask recommendation engine"
+    "Foodie Genie: Flask recommendation engine",
+    "Fino: Deterministic financial decision engine"
   ],
   "Vitest": [
     "TeamX: Automated testing suite verifying 102,982 assertions"
@@ -525,15 +824,15 @@ export const seasons: Season[] = [
       },
       {
         code: "S01 E02",
-        title: "Computer Science Foundations",
-        description: "Building strong fundamentals in Object-Oriented Programming, Database Management Systems, Operating Systems, and System Design with a 7.71 CGPA.",
+        title: "Combinatorial Optimization",
+        description: "Designed a multi-strategy Python framework benchmarking classical NP-hard problems across Held-Karp DP, Branch & Bound, and Hungarian matching.",
         tags: [
-          "B.Tech CSE",
-          "DBMS",
-          "OOP",
-          "Parul University"
+          "Algorithms",
+          "TSP",
+          "Knapsack",
+          "Optimization"
         ],
-        runtime: "2023 – 2027",
+        runtime: "2024",
         palette: {
           from: "#1a0d02",
           via: "#8a4a07",
@@ -545,7 +844,7 @@ export const seasons: Season[] = [
   },
   {
     number: 2,
-    title: "Backend Architecture & Multi-Tenancy",
+    title: "Backend Architecture & Enterprise Systems",
     period: "2024 – 2025",
     synopsis: "Java Spring Boot, Enterprise Security & Microservice Design",
     episodes: [
@@ -569,19 +868,20 @@ export const seasons: Season[] = [
       },
       {
         code: "S02 E02",
-        title: "Aeros: Service Orchestration",
-        description: "Explored distributed microservices and service-to-service communication with Spring Boot for a real-time flight simulation backend.",
+        title: "BAAHUBALI: Secure Banking Core",
+        description: "Engineered a core banking management system with Spring Boot 3.5, role-based access control (Admin, Employee, Customer), and transaction ledgers.",
         tags: [
-          "Microservices",
-          "Spring Boot",
-          "Distributed Architecture"
+          "Spring Boot 3.5",
+          "FinTech",
+          "JPA/Hibernate",
+          "REST APIs"
         ],
         runtime: "2024",
         palette: {
-          from: "#2a0610",
-          via: "#7a0f24",
-          to: "#0b0710",
-          accent: "#ff3d5a"
+          from: "#04121f",
+          via: "#0f4c6e",
+          to: "#05080d",
+          accent: "#4cc9ff"
         }
       }
     ]
@@ -589,8 +889,8 @@ export const seasons: Season[] = [
   {
     number: 3,
     title: "Real-Time Systems & AI Integration",
-    period: "2025 – Present",
-    synopsis: "High-Throughput Mobility & Machine Learning Workflows",
+    period: "2024 – Present",
+    synopsis: "High-Throughput Mobility, Scientific ML & Agentic Systems",
     episodes: [
       {
         code: "S03 E01",
@@ -612,15 +912,15 @@ export const seasons: Season[] = [
       },
       {
         code: "S03 E02",
-        title: "TAI: Approval Intelligence",
-        description: "Connected an Angular frontend with Node.js and a dedicated Python machine learning service for automated risk assessment in loan approval workflows.",
+        title: "AstroML: Machine Learning & Beyond",
+        description: "Developed astronomical classification models for stellar objects alongside agentic financial workflows in Fino and enterprise management in NexusOps.",
         tags: [
           "Machine Learning",
-          "Angular",
-          "Node.js",
-          "Python"
+          "AstroML",
+          "Next.js",
+          "Fino & NexusOps"
         ],
-        runtime: "2024",
+        runtime: "2024 – Present",
         palette: {
           from: "#1a0d02",
           via: "#8a4a07",
@@ -678,20 +978,9 @@ export const topPicks: TopPick[] = [
     }
   },
   {
-    label: "Primary Stack",
-    title: "Java & Spring",
-    detail: "Spring Boot, Security, Hibernate & REST APIs",
-    palette: {
-      from: "#1a0d02",
-      via: "#8a4a07",
-      to: "#0a0806",
-      accent: "#ffb547"
-    }
-  },
-  {
-    label: "Frontend",
-    title: "React & TS",
-    detail: "Modern reactive interfaces with Tailwind CSS",
+    label: "Core Banking",
+    title: "BAAHUBALI",
+    detail: "Spring Boot 3.5 role-based banking ledger",
     palette: {
       from: "#04121f",
       via: "#0f4c6e",
@@ -700,9 +989,20 @@ export const topPicks: TopPick[] = [
     }
   },
   {
-    label: "AI / ML Integration",
-    title: "TAI Intelligence",
-    detail: "Dedicated Python ML scoring microservice",
+    label: "Algorithms",
+    title: "Combinatorial",
+    detail: "Optimization framework for TSP, Knapsack & Matching",
+    palette: {
+      from: "#1a0d02",
+      via: "#8a4a07",
+      to: "#0a0806",
+      accent: "#ffb547"
+    }
+  },
+  {
+    label: "Scientific ML",
+    title: "AstroML",
+    detail: "Stellar object classification & redshift regression",
     palette: {
       from: "#2a0610",
       via: "#7a0f24",
@@ -711,9 +1011,9 @@ export const topPicks: TopPick[] = [
     }
   },
   {
-    label: "Education",
-    title: "B.Tech CSE",
-    detail: "Parul University · 2023 – 2027 · CGPA 7.71",
+    label: "Primary Stack",
+    title: "Java & Spring",
+    detail: "Spring Boot, Security, Hibernate & REST APIs",
     palette: {
       from: "#1a0d02",
       via: "#8a4a07",
@@ -756,7 +1056,7 @@ export const introSlides: IntroSlide[] = [
     title: "600+ DSA Solved.",
     lines: [
       "Top 2 on GeeksforGeeks college leaderboard",
-      "LeetCode: Arrays, Dynamic Programming, Trees & Graphs"
+      "Combinatorial Optimization Framework: TSP, Knapsack & Hungarian Algorithm"
     ]
   },
   {
@@ -776,11 +1076,11 @@ export const introSlides: IntroSlide[] = [
     ]
   },
   {
-    kicker: "Intelligent Workflows",
+    kicker: "Scientific ML & FinTech",
     title: "Machine learning integration.",
     lines: [
-      "TAI: Automated loan approval intelligence microservice",
-      "Foodie Genie: Smart preference-matching recommendation engine"
+      "AstroML: Astronomical object classification & distance regression",
+      "BAAHUBALI Banking Core · Fino Decision Agent · NexusOps"
     ]
   },
   {
@@ -834,7 +1134,7 @@ export const viewerProfiles: {
 ];
 
 const crimson = projects[1].palette;
-const amber = projects[2].palette;
+const amber = projects[3].palette;
 const ocean = projects[0].palette;
 const violet: Palette = { from: '#120822', via: '#3d1a6e', to: '#07060c', accent: '#b98bff' };
 const jade: Palette = { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: '#46e3a8' };

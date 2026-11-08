@@ -2,7 +2,20 @@
 
 > Professional portfolio of Sai Inapakolla, a Computer Science & Engineering student (2023–2027) and software developer focused on Java, Spring Boot, React, and backend architecture. Based in Hyderabad, Telangana.
 
-Featured work includes TeamX (Multi-Tenant SaaS), SafeGo (Intelligent Real-Time Ride Hailing), TAI (Team Approval Intelligence), Aeros (Spring Boot Flight Simulator Microservices), and Foodie Genie. 600+ DSA algorithmic problems solved; Top 2 on GeeksforGeeks college leaderboard.
+Featured work includes:
+- TeamX (Multi-Tenant SaaS Management Platform)
+- SafeGo (Intelligent Real-Time Ride Hailing Platform)
+- BAAHUBALI (Spring Boot 3.5 Core Banking Management)
+- AstroML (Machine Learning for Stellar Object Classification & Distance Estimation)
+- Multi-Strategy Combinatorial Optimization Framework (TSP, Knapsack, Hungarian Algorithm)
+- TAI (Team Approval Intelligence ML Service)
+- Aeros (Flight Simulator Spring Boot Microservices)
+- Intern-Tracer (Angular, TypeScript & MongoDB Career Tracker)
+- Foodie Genie (Recipe Recommendation Engine)
+- Fino (Deterministic Financial Decision Agent in Next.js & Python)
+- NexusOps (Business Operations & CRM Platform)
+
+600+ DSA algorithmic problems solved; Top 2 on GeeksforGeeks college leaderboard.
 
 ## Portfolio and links
 
