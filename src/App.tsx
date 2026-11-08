@@ -27,7 +27,7 @@ const ResumeModal = lazy(() => import('./components/ResumeModal'));
 
 type Stage = 'opening' | 'profiles' | 'home';
 
-const STORAGE_KEY = 'amit-series-profile';
+const STORAGE_KEY = 'sai-series-profile';
 
 function readStoredProfile(): ProfileId | null {
   try {
@@ -49,7 +49,7 @@ export default function App() {
 function Series() {
   const stored = readStoredProfile();
   const [stage, setStage] = useState<Stage>(stored ? 'home' : 'opening');
-  const [profileId, setProfileId] = useState<ProfileId>(stored ?? 'amit');
+  const [profileId, setProfileId] = useState<ProfileId>(stored ?? 'sai');
   const [playing, setPlaying] = useState(false);
   const [project, setProject] = useState<Project | null>(null);
   const [resumeOpen, setResumeOpen] = useState(false);
@@ -112,7 +112,7 @@ function Series() {
       <CustomCursor />
 
       <AnimatePresence>
-        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('profiles')} onExplore={() => pickProfile('amit')} />}
+        {stage === 'opening' && <OpeningSequence key="opening" onDone={() => setStage('profiles')} onExplore={() => pickProfile('sai')} />}
         {stage === 'profiles' && <ProfileSelector key="profiles" onPick={pickProfile} />}
       </AnimatePresence>
 

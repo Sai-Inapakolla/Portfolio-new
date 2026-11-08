@@ -101,14 +101,32 @@ export function ResumeSheet() {
             {profile.email}
           </a>
           <a href={`tel:${profile.phone.replace(/\s/g, '')}`} className="block hover:text-bone">{profile.phone}</a>
-          <a href={profile.links.website} target="_blank" rel="noreferrer" className="block hover:text-bone">amit-sah.com.np ↗</a>
-          <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">
-            LinkedIn ↗
-          </a>
-          {' · '}
-          <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-bone">
-            GitHub ↗
-          </a>
+          {profile.links.website && (
+            <a href={profile.links.website} target="_blank" rel="noreferrer" className="block hover:text-bone">
+              {profile.links.website.replace(/^https?:\/\//, '')} ↗
+            </a>
+          )}
+          {profile.links.linkedin && (
+            <a href={profile.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-bone">
+              LinkedIn ↗
+            </a>
+          )}
+          {profile.links.github && (
+            <>
+              {' · '}
+              <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-bone">
+                GitHub ↗
+              </a>
+            </>
+          )}
+          {profile.links.leetcode && (
+            <>
+              {' · '}
+              <a href={profile.links.leetcode} target="_blank" rel="noreferrer" className="hover:text-bone">
+                LeetCode ↗
+              </a>
+            </>
+          )}
         </div>
       </header>
 
@@ -184,7 +202,7 @@ export function ResumeSheet() {
             ))}
           </ul>
 
-          <H>Production Apps</H>
+          <H>Featured Builds & Repos</H>
           <div className="flex flex-wrap gap-x-3 gap-y-2">{productionApps.map((app) => <a key={app.name} href={app.url} target="_blank" rel="noreferrer" className="text-xs text-mist underline hover:text-bone">{app.name} ↗</a>)}</div>
           <H>Languages</H>
           <p className="text-xs text-mist">{profile.languages.join(' · ')}</p>

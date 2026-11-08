@@ -6,7 +6,7 @@ import { EASE } from './fx';
 export function ProfileAvatar({ id, size = 'lg' }: { id: ProfileId; size?: 'sm' | 'lg' }) {
   const p = viewerProfiles.find((v) => v.id === id)!;
   const box = size === 'lg' ? 'h-24 w-24 sm:h-32 sm:w-32 md:h-36 md:w-36 rounded-xl' : 'h-8 w-8 rounded-md';
-  if (id === 'amit') return <span className={`flex items-center justify-center bg-gradient-to-br from-crimson to-ink font-display text-bone ${box}`}><span className={size === 'lg' ? 'text-5xl' : 'text-lg'}>AS</span></span>;
+  if (id === 'sai') return <span className={`flex items-center justify-center bg-gradient-to-br from-crimson to-ink font-display text-bone ${box}`}><span className={size === 'lg' ? 'text-5xl' : 'text-lg'}>SI</span></span>;
   const glyph = { recruiter: 'R', developer: '</>', creative: '✦' }[id];
   return (
     <span
@@ -21,7 +21,7 @@ export function ProfileAvatar({ id, size = 'lg' }: { id: ProfileId; size?: 'sm' 
 export default function ProfileSelector({ onPick }: { onPick: (id: ProfileId) => void }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onPick('amit');
+      if (e.key === 'Escape') onPick('sai');
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -57,7 +57,7 @@ export default function ProfileSelector({ onPick }: { onPick: (id: ProfileId) =>
             <button type="button" onClick={() => onPick(p.id)} data-cursor="play" className="group flex flex-col items-center gap-3 text-center">
               <span className="relative rounded-xl ring-2 ring-transparent transition duration-300 group-hover:scale-105 group-hover:ring-bone group-focus-visible:ring-bone">
                 <ProfileAvatar id={p.id} />
-                {p.id === 'amit' && (
+                {p.id === 'sai' && (
                   <span className="absolute -right-2 -top-2 rounded-full bg-crimson px-2 py-0.5 text-[9px] font-bold tracking-[0.18em] text-white">MAIN</span>
                 )}
               </span>

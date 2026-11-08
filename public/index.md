@@ -1,38 +1,33 @@
-# Amit Sah
+# Sai Inapakolla
 
-Senior iOS Developer and Backend Engineer based in New Delhi, India. 5+ years of experience delivering 30+ production apps across SaaS, fintech, and social platforms.
+Full Stack Developer | ML Engineer | Java Developer based in Hyderabad, Telangana. B.Tech Computer Science & Engineering undergraduate at Parul University (2023–2027) with a CGPA of 7.71/10.0. Focused on building reliable, scalable full-stack applications with Java, Spring Boot, React, and backend architecture.
 
-## Experience
+## Education & Practice
 
-- **Zaytun AI LLC — Senior iOS Developer, January 2025–Present:** Modular MVVM architecture, live streaming, social features, AI moderation, contextual assistance, multilingual support, and GitHub Actions CI/CD.
-- **Goodspace.ai — Senior iOS Developer, December 2023–November 2024:** iOS development for an AI recruitment platform with 1M+ users. RxSwift interfaces, AI video interviews, chatbot systems, and caching that reduced load times by 35%.
-- **Zoconut Pvt. LTD — iOS Developer, August 2022–October 2023:** Development and deployment of 25+ white-label nutrition and wellness apps. Swift, third-party APIs, Fastlane, and App Store delivery.
-- **Bhanguz Software — Mobile Application Developer, May 2021–July 2022:** University Intoto, LolliCash, secure payment integrations, authentication, Node.js, and cloud services.
-- **ThinkNEXT Technologies — Mobile Developer Intern, December 2020–April 2021:** Swift applications, location services, authentication, maps, APIs, debugging, and testing.
+- **B.Tech — Computer Science & Engineering (2023–2027):** Parul Institute of Engineering & Technology, Parul University, Vadodara, Gujarat. CGPA: 7.71/10.0.
+- **Data Structures & Algorithms:** 600+ problems solved across LeetCode and GeeksforGeeks. Ranked Top 2 on the university coding leaderboard.
 
-## Education and skills
+## Skills
 
-B.Tech in Computer Science, Chitkara University, 2017–2021; CGPA 8.6.
+- **Backend:** Java, Spring Boot, Spring Security, Hibernate/JPA, Node.js, Express.js, FastAPI, REST APIs, WebSockets, JWT Authentication, RBAC, Multi-Tenant Architecture.
+- **Frontend:** React.js, Angular, TypeScript, JavaScript, Tailwind CSS, HTML5, CSS3.
+- **Databases:** MySQL, MongoDB, SQL, Data Modeling, Isolation.
+- **Cloud & Tools:** AWS (S3, EC2, IAM), Git, GitHub, Maven, Postman, Vitest, Twilio, Cloudinary.
+- **AI / ML:** Machine Learning fundamentals, Scikit-learn, Pandas, NumPy, ML model REST integration.
 
-Skills include Swift, Objective-C, UIKit, SwiftUI, RxSwift, Combine, MVC, MVVM, VIPER, Core Data, memory management, concurrency, XCTest, UI testing, Node.js, Express, React, GitHub Actions, Fastlane, cloud infrastructure, CI/CD, and Kafka.
+## Featured Engineering Work
 
-Listed certifications: UX Designer (ImaginXP), Android Nanodegree (Google), iOS Development (Udemy), SwiftUI Advanced (Udemy), and Product Design (Coursera).
+- **TeamX — Multi-Tenant SaaS Management Platform:** Tenant-level data isolation, secure authentication, role-based access control (Admin, Manager, User), 15+ REST APIs, and 102,982 assertions with zero cross-tenant leaks. [GitHub Repo](https://github.com/Sai-Inapakolla/TeamX)
+- **SafeGo — Intelligent Safety-First Ride-Hailing Platform:** Passenger, Driver, and Admin portals with WebSocket-based live location tracking, emergency SOS, Twilio integration, and ML models. Benchmarked at 8,650 req/sec under 5,000 concurrent users with 100% pass on 258 tests. [Live Demo](https://safego1.vercel.app/) | [GitHub Repo](https://github.com/Sai-Inapakolla/Safe-Go)
+- **TAI — Team Approval Intelligence:** Intelligent loan approval platform connecting an Angular frontend with Node.js and a dedicated Python machine learning microservice for automated decision workflows.
+- **Aeros — Flight Simulator Microservices:** Decoupled Spring Boot microservices backend exploring service-to-service communication and distributed architecture.
+- **Foodie Genie — Recipe Recommendation Application:** Flask-based recommendation platform helping users discover culinary ideas through intelligent preference matching.
 
-## Featured work
+## Contact
 
-- [Zaytun AI](https://apps.apple.com/in/app/zaytun-ai/id6642714586): AI-powered social and community platform.
-- [Goodspace](https://apps.apple.com/in/app/goodspace-job-search-and-hire/id1495314369): AI recruitment platform.
-- [Zoconut](https://apps.apple.com/in/app/zoconut/id1474358548): Nutrition business management and white-label apps.
-- [LolliCash](https://apps.apple.com/in/app/lollicash/id6444011906): Cross-border payments.
-- [University Intoto](https://intoto.ca): Campus communication and student travel tracking.
-- [Dream Home Automation](https://dreamcoder.tech): Smart-device control, privacy, and secure access.
-- Gurudai User & Rider App: Cab booking with real-time tracking, fare estimation, and payment integration.
-- [CountryPickerAKS](https://github.com/aksamitsah/CountryPickerAKS): Customizable country-selection framework for CocoaPods and Swift Package Manager.
-
-## Contact and source
-
-- [Résumé PDF](https://amit-sah.com.np/assets/Resume.pdf): Full source for professional history and production applications.
-- [Email Amit](mailto:aksamitsah@gmail.com)
-- [LinkedIn](https://linkedin.com/in/aksamitsah)
-- [GitHub](https://github.com/aksamitsah)
-- [Behance](https://behance.net/aksamitsah)
+- **Email:** [inapakolla.sai1@gmail.com](mailto:inapakolla.sai1@gmail.com)
+- **Phone:** +91 9490969706
+- **GitHub:** [https://github.com/Sai-Inapakolla](https://github.com/Sai-Inapakolla)
+- **LinkedIn:** [https://www.linkedin.com/in/saiinapakolla576](https://www.linkedin.com/in/saiinapakolla576)
+- **LeetCode:** [https://leetcode.com/u/user_x_576/](https://leetcode.com/u/user_x_576/)
+- **Instagram:** [https://instagram.com/inapakolla.sai](https://instagram.com/inapakolla.sai)

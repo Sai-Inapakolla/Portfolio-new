@@ -1,22 +1,17 @@
-# Amit Sah — iOS Developer and Backend Engineer
+# Sai Inapakolla — Full Stack Developer | ML Engineer | Java Developer
 
-> Professional portfolio of Amit Sah, a Senior iOS Developer and Backend Engineer based in New Delhi, India, with 5+ years of experience and 30+ production apps.
+> Professional portfolio of Sai Inapakolla, a Computer Science & Engineering student (2023–2027) and software developer focused on Java, Spring Boot, React, and backend architecture. Based in Hyderabad, Telangana.
 
-The résumé is the source for professional claims. Featured work includes Zaytun AI, Goodspace, Zoconut, LolliCash, University Intoto, Dream Home Automation, Gurudai, and CountryPickerAKS. Project links describe Amit's contributions; they do not imply ownership of the companies or products.
+Featured work includes TeamX (Multi-Tenant SaaS), SafeGo (Intelligent Real-Time Ride Hailing), TAI (Team Approval Intelligence), Aeros (Spring Boot Flight Simulator Microservices), and Foodie Genie. 600+ DSA algorithmic problems solved; Top 2 on GeeksforGeeks college leaderboard.
 
-## Portfolio and résumé
+## Portfolio and links
 
-- [Portfolio overview](https://amit-sah.com.np/index.md): Plain Markdown summary of experience, skills, education, and projects.
-- [Current résumé](https://amit-sah.com.np/assets/Resume.pdf): Original résumé with professional history and production app links.
-- [Interactive portfolio](https://amit-sah.com.np/): Visual portfolio with profile-based section ordering.
+- [Portfolio overview](https://safego1.vercel.app/index.md): Plain Markdown summary of experience, skills, education, and projects.
+- [Interactive portfolio](https://safego1.vercel.app/): Visual portfolio with profile-based section ordering.
 
 ## Professional profiles
 
-- [GitHub](https://github.com/aksamitsah): Code and public repositories.
-- [LinkedIn](https://linkedin.com/in/aksamitsah): Professional profile.
-- [Behance](https://behance.net/aksamitsah): Design work.
-
-## Optional
-
-- [CountryPickerAKS](https://github.com/aksamitsah/CountryPickerAKS): Country-selection framework for CocoaPods and Swift Package Manager.
-- [Resource catalog](https://amit-sah.com.np/.well-known/ard.json): Machine-readable references to public portfolio documents.
+- [GitHub](https://github.com/Sai-Inapakolla): Code and public repositories.
+- [LinkedIn](https://www.linkedin.com/in/saiinapakolla576): Professional profile.
+- [LeetCode](https://leetcode.com/u/user_x_576/): 600+ solved algorithmic problems.
+- [SafeGo Live Demo](https://safego1.vercel.app/): Deployed application.

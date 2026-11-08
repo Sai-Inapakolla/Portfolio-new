@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
-import { achievements, certifications, profile, projects, type ProfileId } from '../data/portfolio';
+import { achievements, profile, projects, type ProfileId } from '../data/portfolio';
 import { useFinePointer, useReducedMotionPref } from '../hooks/useMedia';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
@@ -38,14 +38,14 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
   const glowX = useTransform(px, [-1, 1], ['-6%', '6%']);
 
   const meta = [
-    `${profile.yearsExperience} years experience`,
-    `${profile.productionAppCount} production apps`,
+    profile.yearsExperience,
     `${projects.length} Originals`,
-    `${certifications.length} Certifications`,
+    '600+ DSA Solved',
+    'Top 2 GfG Rank',
   ];
 
   const floating = [
-    { text: `${profile.productionAppCount} Apps`, sub: 'Production delivery', pos: 'left-[2%] top-[30%]', depth: 1 },
+    { text: `${projects.length} Projects`, sub: 'Full-Stack & Systems', pos: 'left-[2%] top-[30%]', depth: 1 },
     { text: `${achievements[0].title}`, sub: achievements[0].org, pos: 'right-[0%] top-[18%]', depth: -1 },
     { text: profile.primaryStack.join(' · '), sub: 'Primary stack', pos: 'right-[4%] bottom-[24%]', depth: 0.6 },
   ];
@@ -129,7 +129,7 @@ export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => vo
         </motion.p>
 
         <motion.div variants={item} className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-[13px] font-medium text-mist">
-          <span className="rounded border border-white/25 px-1.5 py-px text-[10px] font-bold tracking-wider text-bone">iOS</span>
+          <span className="rounded border border-white/25 px-1.5 py-px text-[10px] font-bold tracking-wider text-bone">{profile.primaryBadge || "Full Stack"}</span>
           {meta.map((m, i) => (
             <span key={m} className="flex items-center gap-3">
               {i > 0 && <span className="h-1 w-1 rounded-full bg-smoke" />}

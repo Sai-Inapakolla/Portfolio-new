@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
-import { education, experience, profile, seasons } from '../data/portfolio';
+import { education, profile, seasons } from '../data/portfolio';
 import { EASE, SectionHeading, Tilt } from './fx';
 
 export default function About() {
   const facts = [
-    { k: 'Experience', v: `${profile.yearsExperience} years · ${profile.productionAppCount} production apps`, s: profile.role },
-    { k: 'Current role', v: `${experience[0].role}, ${experience[0].company}`, s: experience[0].period },
+    { k: 'Focus', v: profile.role, s: profile.tagline.join(' • ') },
     { k: 'Education', v: education[0].degree, s: `${education[0].school} · ${education[0].score}` },
+    { k: 'Coding Practice', v: '600+ DSA Problems Solved', s: 'Top 2 on GfG College Leaderboard' },
     { k: 'Based in', v: profile.location, s: 'India' },
   ];
 

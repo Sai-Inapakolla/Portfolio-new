@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   const base = env.BASE_PATH || '/';
-  const siteUrl = new URL(env.SITE_URL || 'https://amit-sah.com.np/').href;
+  const siteUrl = new URL(env.SITE_URL || 'https://safego1.vercel.app/').href;
 
   return {
     base,

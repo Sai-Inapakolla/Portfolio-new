@@ -45,10 +45,10 @@ await sharp({ create: { width: 1200, height: 630, channels: 4, background: '#070
     { input: portrait, gravity: 'southeast' },
     {
       input: Buffer.from(`<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
-        <text x="72" y="300" font-family="Impact, 'Arial Narrow', sans-serif" font-size="128" fill="#f4f1ec" letter-spacing="4">AMIT SAH</text>
+        <text x="72" y="300" font-family="Impact, 'Arial Narrow', sans-serif" font-size="110" fill="#f4f1ec" letter-spacing="4">SAI INAPAKOLLA</text>
         <text x="78" y="352" font-family="Helvetica, Arial, sans-serif" font-weight="700" font-size="26" fill="#ff3d5a" letter-spacing="16">THE SERIES</text>
-        <text x="78" y="410" font-family="Helvetica, Arial, sans-serif" font-weight="600" font-size="18" fill="#a7a6ad" letter-spacing="5">iOS Developer | Backend Engineer</text>
-        <text x="78" y="440" font-family="Helvetica, Arial, sans-serif" font-weight="600" font-size="18" fill="#a7a6ad" letter-spacing="5">(Node.js, LLMs) | Cloud Computing</text>
+        <text x="78" y="410" font-family="Helvetica, Arial, sans-serif" font-weight="600" font-size="18" fill="#a7a6ad" letter-spacing="5">Full Stack Developer | Java &amp; Spring Boot</text>
+        <text x="78" y="440" font-family="Helvetica, Arial, sans-serif" font-weight="600" font-size="18" fill="#a7a6ad" letter-spacing="5">Backend Architecture | Machine Learning</text>
       </svg>`),
     },
   ])
