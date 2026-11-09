@@ -48,7 +48,6 @@ function loadSavedState(): PortfolioState {
           ...originalData.profile,
           ...parsed.profile,
           portrait: originalData.profile.portrait,
-          resumePdf: originalData.profile.resumePdf,
         },
         education: parsed.education || originalData.education,
         experience: parsed.experience || originalData.experience,
@@ -119,7 +118,6 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             profile: {
               ...result.data.profile,
               portrait: originalData.profile.portrait,
-              resumePdf: originalData.profile.resumePdf,
             },
           };
           setState(remoteState);
