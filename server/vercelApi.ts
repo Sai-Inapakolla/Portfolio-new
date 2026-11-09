@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { createPortfolioApi } from './portfolioApi';
+import { createPortfolioApi } from './portfolioApi.js';
 
 const api = createPortfolioApi({
   MONGODB_URI: process.env.MONGODB_URI,
