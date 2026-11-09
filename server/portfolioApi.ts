@@ -92,6 +92,11 @@ export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddle
     const url = new URL(req.url || '/', 'http://localhost');
     const password = environment.ADMIN_PASSWORD;
 
+    if (!url.pathname.startsWith('/api/')) {
+      next();
+      return;
+    }
+
     if (!password) {
       sendJson(res, 500, { success: false, error: 'ADMIN_PASSWORD is not configured' });
       return;
