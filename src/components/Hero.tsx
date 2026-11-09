@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
-import { achievements, profile, projects, type ProfileId } from '../data/portfolio';
+import type { ProfileId } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { useFinePointer, useReducedMotionPref } from '../hooks/useMedia';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
@@ -13,6 +14,7 @@ const item = {
 };
 
 export default function Hero({ onPlay, onResume, profileId }: { onPlay: () => void; onResume: () => void; profileId: ProfileId }) {
+  const { profile, projects, achievements } = usePortfolio();
   const ref = useRef<HTMLElement>(null);
   const fine = useFinePointer();
   const reduced = useReducedMotionPref();

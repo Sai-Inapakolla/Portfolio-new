@@ -1,12 +1,13 @@
 import { useReducedMotionPref } from '../hooks/useMedia';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { profile } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
 import { SeriesMark } from './Poster';
 
 export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
+  const { profile } = usePortfolio();
   const reduced = useReducedMotionPref();
   const ref = useRef<HTMLElement>(null);
   const { scrollTo } = useSmoothScroll();

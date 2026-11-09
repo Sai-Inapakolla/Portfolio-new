@@ -57,7 +57,7 @@ export default function CustomCursor() {
   return (
     <motion.div
       aria-hidden
-      className="pointer-events-none fixed left-0 top-0 z-[200] flex items-center justify-center rounded-full"
+      className="pointer-events-none fixed left-0 top-0 z-[300] flex items-center justify-center rounded-full"
       style={{ x: sx, y: sy, translateX: '-50%', translateY: '-50%' }}
       animate={{
         width: size,

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
-import { introSlides, profile } from '../data/portfolio';
+import { introSlides } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { useDialog } from '../hooks/useDialog';
 import { useScrollLock } from '../hooks/smoothScroll';
 import { useReducedMotionPref } from '../hooks/useMedia';
@@ -13,6 +14,7 @@ const SLIDE_MS = 3600;
  * built only from resume facts → fade back to the portfolio.
  */
 export default function PlayIntro({ onClose }: { onClose: () => void }) {
+  const { profile } = usePortfolio();
   useScrollLock(true);
   const dialog = useDialog(onClose);
   const reduced = useReducedMotionPref();

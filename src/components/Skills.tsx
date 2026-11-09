@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { skillCategories, skillEvidence, type Skill } from '../data/portfolio';
+import type { Skill } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { EASE, SectionHeading } from './fx';
 
 const HUES = ['#ff3d5a', '#4cc9ff', '#46e3a8', '#ffb547', '#b98bff', '#ff8a5c', '#7ee0ff'];
 
 export default function Skills() {
+  const { skillCategories, skillEvidence } = usePortfolio();
   const [cat, setCat] = useState(0);
-  const category = skillCategories[cat];
-  const hue = HUES[cat % HUES.length];
+  const activeIdx = Math.min(cat, Math.max(0, skillCategories.length - 1));
+  const category = skillCategories[activeIdx];
+  const hue = HUES[activeIdx % HUES.length];
 
   return (
     <>
@@ -48,7 +51,7 @@ export default function Skills() {
               </motion.p>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
                 {category.skills.map((s) => (
-                  <SkillCard key={s.name} skill={s} hue={hue} />
+                  <SkillCard key={s.name} skill={s} hue={hue} evidence={skillEvidence[s.name]} />
                 ))}
               </div>
             </motion.div>
@@ -59,9 +62,8 @@ export default function Skills() {
   );
 }
 
-function SkillCard({ skill, hue }: { skill: Skill; hue: string }) {
+function SkillCard({ skill, hue, evidence }: { skill: Skill; hue: string; evidence?: string[] }) {
   const [open, setOpen] = useState(false);
-  const evidence = skillEvidence[skill.name];
 
   return (
     <motion.button

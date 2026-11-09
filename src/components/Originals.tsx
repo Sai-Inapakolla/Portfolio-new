@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
-import { profile, projects, type Project } from '../data/portfolio';
+import type { Project } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { useDesktop, useFinePointer, useReducedMotionPref } from '../hooks/useMedia';
 import { EASE, RevealText } from './fx';
 import ProjectCard from './ProjectCard';
@@ -17,14 +18,15 @@ export default function Originals({ onOpen }: { onOpen: (p: Project) => void }) 
 }
 
 function Intro() {
+  const { projects } = usePortfolio();
   return (
     <div className="flex w-full shrink-0 flex-col justify-center lg:w-[34vw]">
       <p className="mb-3 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.32em] text-crimson-2">
-        <span className="h-px w-8 bg-crimson-2" /> {projects.length} Originals · iOS & Backend
+        <span className="h-px w-8 bg-crimson-2" /> {projects.length} Originals · Full-Stack &amp; Systems
       </p>
       <RevealText as="h2" text="ORIGINALS" className="font-display text-[clamp(3.5rem,9vw,8rem)] leading-[0.85] text-bone" />
       <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-mist">
-        {projects.length} featured apps, frameworks, and projects from the résumé. Open any title for the full story.
+        {projects.length} featured engineering projects and platforms. Open any title for architectural details and live links.
       </p>
       <p className="mt-6 hidden text-xs tracking-[0.24em] text-smoke lg:block">SCROLL TO BROWSE →</p>
     </div>
@@ -32,6 +34,7 @@ function Intro() {
 }
 
 function Outro() {
+  const { profile } = usePortfolio();
   return (
     <a
       href={profile.links.github}
@@ -42,12 +45,13 @@ function Outro() {
     >
       <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/25 text-2xl text-bone transition group-hover:scale-110 group-hover:border-crimson-2 group-hover:text-crimson-2">↗</span>
       <span className="font-display text-3xl tracking-wide text-bone">More on GitHub</span>
-      <span className="text-xs text-mist">{profile.links.github.replace('https://', '')}</span>
+      <span className="text-xs text-mist">{profile.links.github?.replace('https://', '')}</span>
     </a>
   );
 }
 
 function PinnedOriginals({ onOpen }: { onOpen: (p: Project) => void }) {
+  const { projects } = usePortfolio();
   const wrap = useRef<HTMLDivElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [dist, setDist] = useState(0);
@@ -68,7 +72,7 @@ function PinnedOriginals({ onOpen }: { onOpen: (p: Project) => void }) {
       ro.disconnect();
       window.removeEventListener('resize', measure);
     };
-  }, [distMV]);
+  }, [distMV, projects.length]);
 
   const { scrollYProgress } = useScroll({ target: wrap, offset: ['start start', 'end end'] });
   const raw = useTransform([scrollYProgress, distMV], ([p, d]: number[]) => -p * d);
@@ -98,6 +102,7 @@ function PinnedOriginals({ onOpen }: { onOpen: (p: Project) => void }) {
 }
 
 function RailOriginals({ onOpen }: { onOpen: (p: Project) => void }) {
+  const { projects } = usePortfolio();
   return (
     <div className="py-6">
       <div className="gutter mb-6">

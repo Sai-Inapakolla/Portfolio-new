@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { education, profile, seasons } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { EASE, SectionHeading, Tilt } from './fx';
 
 export default function About() {
+  const { profile, education, seasons } = usePortfolio();
   const facts = [
     { k: 'Focus', v: profile.role, s: profile.tagline.join(' • ') },
     { k: 'Education', v: education[0].degree, s: `${education[0].school} · ${education[0].score}` },

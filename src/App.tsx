@@ -18,6 +18,9 @@ import Skills from './components/Skills';
 import Achievements from './components/Achievements';
 import ResumeSection from './components/ResumeViewer';
 import FinalCTA from './components/FinalCTA';
+import AdminModal from './components/AdminModal';
+import { PortfolioProvider } from './context/PortfolioContext';
+import { usePortfolio } from './context/PortfolioContext';
 import { EASE } from './components/fx';
 
 // Overlays are only needed on demand — split them out of the first load.
@@ -40,13 +43,17 @@ function readStoredProfile(): ProfileId | null {
 
 export default function App() {
   return (
-    <SmoothScrollProvider>
-      <Series />
-    </SmoothScrollProvider>
+    <PortfolioProvider>
+      <SmoothScrollProvider>
+        <Series />
+        <AdminModal />
+      </SmoothScrollProvider>
+    </PortfolioProvider>
   );
 }
 
 function Series() {
+  const { profile } = usePortfolio();
   const stored = readStoredProfile();
   const [stage, setStage] = useState<Stage>(stored ? 'home' : 'opening');
   const [profileId, setProfileId] = useState<ProfileId>(stored ?? 'sai');
@@ -109,6 +116,14 @@ function Series() {
   return (
     <LayoutGroup>
       <div className="grain" aria-hidden />
+      <img
+        src={profile.portrait.src}
+        srcSet={profile.portrait.srcSet}
+        sizes="100vw"
+        alt=""
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 h-full w-full object-contain object-right opacity-[0.1] mix-blend-screen sm:opacity-[0.14] lg:opacity-[0.18]"
+      />
       <CustomCursor />
 
       <AnimatePresence>

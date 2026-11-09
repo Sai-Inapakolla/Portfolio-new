@@ -1,11 +1,12 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { profile, topPicks } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { EASE, SectionHeading } from './fx';
 import { PosterBackdrop } from './Poster';
 import { RailButtons } from './Rail';
 
 export default function TopPicks() {
+  const { profile, topPicks } = usePortfolio();
   const rail = useRef<HTMLDivElement>(null);
   return (
     <>

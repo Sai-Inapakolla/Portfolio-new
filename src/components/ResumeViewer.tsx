@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { achievements, certifications, education, experience, profile, productionApps, projects, skillCategories } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { EASE, Magnetic, SectionHeading } from './fx';
 
 /** THE FULL STORY — a designed resume preview plus view / download actions. */
 export default function ResumeSection({ onView }: { onView: () => void }) {
+  const { profile, projects, certifications, education } = usePortfolio();
   return (
     <>
       <SectionHeading kicker="The screenplay" title="The Full Story" />
@@ -88,6 +89,7 @@ function H({ children }: { children: string }) {
 }
 
 export function ResumeSheet() {
+  const { profile, education, experience, projects, skillCategories, achievements, certifications, productionApps } = usePortfolio();
   return (
     <article className="relative overflow-hidden rounded-2xl bg-[linear-gradient(180deg,#121218,#0c0c11)] p-6 ring-1 ring-white/10 sm:p-10">
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-crimson-2/70 to-transparent" />
@@ -206,12 +208,16 @@ export function ResumeSheet() {
           <div className="flex flex-wrap gap-x-3 gap-y-2">{productionApps.map((app) => <a key={app.name} href={app.url} target="_blank" rel="noreferrer" className="text-xs text-mist underline hover:text-bone">{app.name} ↗</a>)}</div>
           <H>Languages</H>
           <p className="text-xs text-mist">{profile.languages.join(' · ')}</p>
-          <H>Certifications</H>
-          <p className="text-xs leading-relaxed text-mist">
-            {Array.from(new Set(certifications.map((c) => c.issuer)))
-              .map((iss) => `${iss}: ${certifications.filter((c) => c.issuer === iss).map((c) => c.name).join(', ')}`)
-              .join(' · ')}
-          </p>
+          {certifications.length > 0 && (
+            <>
+              <H>Certifications</H>
+              <p className="text-xs leading-relaxed text-mist">
+                {Array.from(new Set(certifications.map((c) => c.issuer)))
+                  .map((iss) => `${iss}: ${certifications.filter((c) => c.issuer === iss).map((c) => c.name).join(', ')}`)
+                  .join(' · ')}
+              </p>
+            </>
+          )}
         </div>
       </div>
     </article>

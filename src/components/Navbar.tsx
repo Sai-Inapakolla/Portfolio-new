@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { sectionMeta, viewerProfiles, type ProfileId, type SectionId } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { SeriesMark } from './Poster';
 import { ProfileAvatar } from './ProfileSelector';
 import { EASE } from './fx';
 
 export default function Navbar({ order, profileId, onSwitch }: { order: SectionId[]; profileId: ProfileId; onSwitch: (id: ProfileId) => void }) {
+  const { setIsAdminOpen } = usePortfolio();
   const { scrollY } = useScroll();
   const [solid, setSolid] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -77,6 +79,17 @@ export default function Navbar({ order, profileId, onSwitch }: { order: SectionI
         </div>
 
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setIsAdminOpen(true)}
+            aria-label="Unlock studio manager"
+            title="Portfolio Studio / Edit"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-ink-2/80 text-bone transition hover:border-crimson hover:bg-white/10 hover:text-crimson-2"
+          >
+            <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+              <path d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 5a3 3 0 0 1 6 0v3H9V7zm3 7a2 2 0 0 1 2 2c0 .74-.4 1.38-1 1.72V19a1 1 0 1 1-2 0v-1.28c-.6-.34-1-.98-1-1.72a2 2 0 0 1 2-2z" />
+            </svg>
+          </button>
           <button
             type="button"
             onClick={() => go('contact')}

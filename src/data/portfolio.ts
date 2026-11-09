@@ -12,6 +12,16 @@ export type Episode = { code: string; title: string; description: string; tags: 
 export type Season = { number: number; title: string; period: string; synopsis: string; episodes: Episode[] };
 export type TopPick = { label: string; title: string; detail: string; palette: Palette };
 export type IntroSlide = { kicker: string; title: string; lines: string[]; chips?: string[] };
+export type LeetCodeAchievements = {
+  username: string;
+  total: number;
+  easy: number;
+  medium: number;
+  hard: number;
+  recent: { title: string; url: string; solvedAt: string }[];
+  badges: { name: string; icon: string; earnedAt: string }[];
+  fetchedAt: string;
+};
 
 export const profile = {
   fullName: "Sai Inapakolla",
@@ -65,7 +75,7 @@ export const profile = {
     "Hindi — Working"
   ],
   resumePdf: asset('Resume.pdf'),
-  portrait: { src: asset('portrait-720.webp'), srcSet: `${asset('portrait-420.webp')} 420w, ${asset('portrait-720.webp')} 720w, ${asset('portrait-1100.webp')} 1100w`, alt: 'Sai Inapakolla' },
+  portrait: { src: asset('portrait-background.png'), srcSet: `${asset('portrait-background.png')} 768w`, alt: 'Sai Inapakolla' },
 };
 
 export const education = [
