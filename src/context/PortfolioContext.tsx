@@ -44,7 +44,12 @@ function loadSavedState(): PortfolioState {
     if (raw) {
       const parsed = JSON.parse(raw);
       return {
-        profile: { ...originalData.profile, ...parsed.profile, portrait: originalData.profile.portrait },
+        profile: {
+          ...originalData.profile,
+          ...parsed.profile,
+          portrait: originalData.profile.portrait,
+          resumePdf: originalData.profile.resumePdf,
+        },
         education: parsed.education || originalData.education,
         experience: parsed.experience || originalData.experience,
         projects: parsed.projects || originalData.projects,
@@ -111,7 +116,11 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         if (result.data) {
           const remoteState = {
             ...result.data,
-            profile: { ...result.data.profile, portrait: originalData.profile.portrait },
+            profile: {
+              ...result.data.profile,
+              portrait: originalData.profile.portrait,
+              resumePdf: originalData.profile.resumePdf,
+            },
           };
           setState(remoteState);
           localStorage.setItem(STORAGE_DATA_KEY, JSON.stringify(remoteState));
@@ -281,4 +290,3 @@ export function usePortfolio() {
   }
   return context;
 }
-
