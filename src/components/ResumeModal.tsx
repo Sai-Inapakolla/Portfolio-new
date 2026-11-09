@@ -31,7 +31,7 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
       <div className="gutter flex h-16 shrink-0 items-center justify-between gap-3 pt-[env(safe-area-inset-top)]">
         <p className="truncate font-display text-2xl tracking-wide text-bone">The Full Story</p>
         <div className="flex items-center gap-2">
-          {isExternal ? (
+          {profile.resumePdf && (isExternal ? (
             <a
               href={profile.resumePdf}
               target="_blank"
@@ -48,7 +48,7 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
             >
               ⤓ Download
             </a>
-          )}
+          ))}
           <button
             data-dialog-initial
             type="button"
@@ -70,16 +70,18 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
         {small ? (
           <div data-lenis-prevent className="h-full overflow-y-auto">
             <ResumeSheet />
-            <a
-              href={profile.resumePdf}
-              target="_blank"
-              rel="noreferrer"
-              className="glass mt-4 flex min-h-12 items-center justify-center rounded-md text-sm font-semibold text-bone hover:bg-white/15"
-            >
-              {isExternal ? 'Open Cloud Resume ↗' : 'Open original PDF ↗'}
-            </a>
+            {profile.resumePdf && (
+              <a
+                href={profile.resumePdf}
+                target="_blank"
+                rel="noreferrer"
+                className="glass mt-4 flex min-h-12 items-center justify-center rounded-md text-sm font-semibold text-bone hover:bg-white/15"
+              >
+                {isExternal ? 'Open Cloud Resume ↗' : 'Open original PDF ↗'}
+              </a>
+            )}
           </div>
-        ) : (
+        ) : profile.resumePdf ? (
           <div className="relative h-full w-full overflow-hidden rounded-xl bg-[#14141c]">
             <iframe
               title={`${profile.displayName} resume`}
@@ -98,6 +100,10 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
                 </a>
               </div>
             )}
+          </div>
+        ) : (
+          <div className="h-full overflow-y-auto rounded-xl bg-[#14141c]">
+            <ResumeSheet />
           </div>
         )}
       </motion.div>

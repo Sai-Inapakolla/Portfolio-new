@@ -23,7 +23,15 @@ npm run build
 npm run preview
 ```
 
-The static site is written to `dist/` and can be deployed as-is to Vercel, Netlify, GitHub Pages, or any static host.
+The static site is written to `dist/` and can be deployed to Vercel. Vercel also detects the `api/` function used by the Portfolio Studio admin API.
+
+For production admin access, configure these Vercel environment variables for the Production environment:
+
+- `MONGODB_URI`
+- `MONGODB_DB` (optional; overrides the database name in `MONGODB_URI`, otherwise defaults to `portfolio`)
+- `ADMIN_PASSWORD`
+
+The admin API requires a serverless host such as Vercel; deploying only the `dist/` folder to a static host does not provide API routes.
 
 ## Updating the content
 
@@ -41,7 +49,7 @@ The static site is written to `dist/` and can be deployed as-is to Vercel, Netli
 | Profile order (Recruiter / Developer / Creative) | `viewerProfiles` |
 | Opening studio card text | `profile.originalLabel` |
 
-**Resume:** replace `public/assets/Resume.pdf`.
+**Resume:** the built-in PDF has been removed. Add your own PDF at `public/assets/Resume.pdf`, or set `profile.resumePdf` to a hosted resume URL.
 
 **Artwork:**
 Regenerate responsive artwork and social card with:

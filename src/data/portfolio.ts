@@ -74,7 +74,7 @@ export const profile = {
     "Telugu — Native",
     "Hindi — Working"
   ],
-  resumePdf: asset('Resume.pdf'),
+  resumePdf: '',
   portrait: { src: asset('portrait-background.png'), srcSet: `${asset('portrait-background.png')} 768w`, alt: 'Sai Inapakolla' },
 };
 

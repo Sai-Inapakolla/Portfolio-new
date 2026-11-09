@@ -84,7 +84,9 @@ async function getDatabase(environment: ApiEnvironment): Promise<Db> {
     serverSelectionTimeoutMS: 5_000,
   });
   const client = await clientPromise;
-  return client.db(environment.MONGODB_DB || 'portfolio');
+  const uriDatabase = new URL(environment.MONGODB_URI).pathname.replace(/^\/+/, '');
+  const databaseName = environment.MONGODB_DB || decodeURIComponent(uriDatabase) || 'portfolio';
+  return client.db(databaseName);
 }
 
 export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddleware {
