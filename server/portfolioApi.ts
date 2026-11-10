@@ -98,17 +98,21 @@ async function readJson(req: IncomingMessage): Promise<Record<string, unknown>> 
   });
 }
 
+const DEFAULT_MONGODB_URI = 'mongodb+srv://TeamX-Admin:Inapakolla1@teamx-db.e03gtye.mongodb.net/Portfolio_db?retryWrites=true&w=majority';
+const DEFAULT_ADMIN_PASSWORD = 'Inapakolla@1';
+
 async function getDatabase(environment: ApiEnvironment): Promise<Db> {
-  if (!environment.MONGODB_URI) throw new Error('MONGODB_URI is not configured');
-  clientPromise ??= MongoClient.connect(environment.MONGODB_URI, {
+  const uri = environment.MONGODB_URI || process.env.MONGODB_URI || DEFAULT_MONGODB_URI;
+  if (!uri) throw new Error('MONGODB_URI is not configured');
+  clientPromise ??= MongoClient.connect(uri, {
     maxPoolSize: 5,
     maxIdleTimeMS: 30_000,
     connectTimeoutMS: 5_000,
     serverSelectionTimeoutMS: 5_000,
   });
   const client = await clientPromise;
-  const uriDatabase = new URL(environment.MONGODB_URI).pathname.replace(/^\/+/, '');
-  const databaseName = environment.MONGODB_DB || decodeURIComponent(uriDatabase) || 'portfolio';
+  const uriDatabase = new URL(uri).pathname.replace(/^\/+/, '');
+  const databaseName = environment.MONGODB_DB || process.env.MONGODB_DB || decodeURIComponent(uriDatabase) || 'Portfolio_db';
   return client.db(databaseName);
 }
 
@@ -120,7 +124,7 @@ export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddle
       return;
     }
 
-    const password = environment.ADMIN_PASSWORD;
+    const password = environment.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || DEFAULT_ADMIN_PASSWORD;
 
     try {
       if (url.pathname === '/api/auth/login' && req.method === 'POST') {

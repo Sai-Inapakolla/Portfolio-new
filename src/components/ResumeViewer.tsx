@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
+import { formatResumeLinks } from '../utils/resumeLink';
 import { EASE, Magnetic, SectionHeading } from './fx';
 
 /** THE FULL STORY — a designed resume preview plus view / download actions. */
 export default function ResumeSection({ onView }: { onView: () => void }) {
   const { profile, projects, certifications, education } = usePortfolio();
+  const resumeLinks = formatResumeLinks(profile.resumePdf);
   return (
     <>
       <SectionHeading kicker="The screenplay" title="The Full Story" />
@@ -36,18 +38,29 @@ export default function ResumeSection({ onView }: { onView: () => void }) {
                 ▶ View Resume
               </button>
             </Magnetic>
-            {profile.resumePdf && (
-              <Magnetic className="w-full">
+            <Magnetic className="w-full">
+              {profile.resumePdf ? (
                 <a
-                  href={profile.resumePdf}
-                  download="Resume.pdf"
+                  href={resumeLinks.downloadUrl}
+                  target={resumeLinks.isExternal ? '_blank' : undefined}
+                  rel={resumeLinks.isExternal ? 'noreferrer' : undefined}
+                  download={resumeLinks.isExternal ? undefined : 'Resume.pdf'}
                   data-cursor="link"
                   className="glass flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-6 text-[15px] font-semibold text-bone transition hover:bg-white/15"
                 >
                   ⤓ Download Resume
                 </a>
-              </Magnetic>
-            )}
+              ) : (
+                <button
+                  type="button"
+                  data-cursor="view"
+                  onClick={onView}
+                  className="glass flex min-h-12 w-full items-center justify-center gap-2 rounded-md px-6 text-[15px] font-semibold text-bone transition hover:bg-white/15"
+                >
+                  ⤓ Download Resume
+                </button>
+              )}
+            </Magnetic>
           </div>
           <dl className="mt-8 grid grid-cols-3 gap-px overflow-hidden rounded-xl bg-white/10 text-center">
             {[

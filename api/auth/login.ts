@@ -1,3 +1,3 @@
-import { handleVercelApi } from '../../../server/vercelApi.js';
+import { handleVercelApi } from '../../server/vercelApi.js';
 
 export default handleVercelApi;
