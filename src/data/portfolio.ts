@@ -8,8 +8,32 @@ export type Achievement = { id: string; title: string; org: string; detail: stri
 export type Certification = { issuer: string; name: string; link?: string };
 export type Skill = { name: string; mono: string; note?: string };
 export type SkillCategory = { id: string; title: string; subtitle: string; skills: Skill[] };
-export type Episode = { code: string; title: string; description: string; tags: string[]; runtime: string; palette: Palette };
-export type Season = { number: number; title: string; period: string; synopsis: string; episodes: Episode[] };
+export type Episode = {
+  code: string;
+  title: string;
+  description: string;
+  tags: string[];
+  runtime: string;
+  palette: Palette;
+  institution?: string;
+  score?: string;
+  board?: string;
+  highlights?: string[];
+  achievements?: string[];
+};
+export type Season = {
+  number: number;
+  title: string;
+  period: string;
+  synopsis: string;
+  institution?: string;
+  degree?: string;
+  score?: string;
+  board?: string;
+  highlights?: string[];
+  achievements?: string[];
+  episodes: Episode[];
+};
 export type TopPick = { label: string; title: string; detail: string; palette: Palette };
 export type IntroSlide = { kicker: string; title: string; lines: string[]; chips?: string[] };
 export type LeetCodeAchievements = {
@@ -84,21 +108,50 @@ export const education = [
     place: "Vadodara, Gujarat, India",
     degree: "Bachelor of Technology — Computer Science & Engineering",
     period: "2023 – 2027",
-    score: "CGPA 7.71 / 10.0"
+    score: "7.71 / 10.0 Current CGPA",
+    highlights: [
+      "Data Structures & Algorithms",
+      "Database Management Systems",
+      "Operating Systems",
+      "Computer Networks"
+    ],
+    achievements: [
+      "Top 2 – GeeksforGeeks College Leaderboard",
+      "PU Code Hackathon 3.0 Finalist",
+      "Bharatiya Antariksh Hackathon 2026"
+    ]
   },
   {
-    school: "Senior Secondary / Intermediate (+2)",
-    place: "Telangana, India",
-    degree: "Class XII — Mathematics, Physics & Chemistry (MPC)",
+    school: "Government Junior College",
+    place: "Cherla, Telangana",
+    degree: "Intermediate Education — MPC (Mathematics, Physics & Chemistry)",
     period: "2021 – 2023",
-    score: "Completed"
+    score: "867 / 1000 Total marks (86.7%)",
+    board: "Telangana State Board of Intermediate Education (TSBIE)",
+    highlights: [
+      "Mathematics (Differential & Integral Calculus, Matrices, Geometry)",
+      "Physics (Mechanics, Electromagnetism, Modern Physics)",
+      "Chemistry (Organic, Inorganic & Physical Chemistry)"
+    ],
+    achievements: [
+      "86.7% First-Class Distinction in TSBIE Public Examinations"
+    ]
   },
   {
-    school: "Secondary School Certificate (SSC)",
+    school: "Gurudev Vidyalayam",
     place: "Telangana, India",
-    degree: "Class X — Secondary Education",
+    degree: "Secondary School Certificate (SSC — Class X)",
     period: "2020 – 2021",
-    score: "Completed"
+    score: "10.0 / 10.0 Perfect GPA",
+    board: "Telangana State Board of Secondary Education",
+    highlights: [
+      "Mathematics & Geometry Core",
+      "Physical & Biological Sciences",
+      "Social Sciences & English Language"
+    ],
+    achievements: [
+      "10.0 / 10.0 Perfect GPA Secondary School Academic Achievement"
+    ]
   }
 ];
 
@@ -824,85 +877,76 @@ export const skillEvidence: Record<string, string[]> = {
 export const seasons: Season[] = [
   {
     number: 1,
-    title: "B.Tech — Computer Science & Engineering",
+    title: "Bachelor of Technology — Computer Science & Engineering",
     period: "2023 – 2027",
-    synopsis: "Parul Institute of Engineering & Technology, Parul University · Vadodara, Gujarat · Current CGPA: 7.71 / 10.0",
+    synopsis: "Parul Institute of Engineering & Technology, Parul University · Vadodara, Gujarat, India",
+    institution: "Parul Institute of Engineering & Technology, Parul University",
+    degree: "Bachelor of Technology — Computer Science & Engineering",
+    score: "7.71 / 10.0 Current CGPA",
+    highlights: [
+      "Data Structures & Algorithms",
+      "Database Management Systems",
+      "Operating Systems",
+      "Computer Networks"
+    ],
+    achievements: [
+      "Top 2 – GeeksforGeeks College Leaderboard",
+      "PU Code Hackathon 3.0 Finalist",
+      "Bharatiya Antariksh Hackathon 2026"
+    ],
     episodes: [
       {
-        code: "P01 M01",
-        title: "Core CS & Systems Curriculum",
-        description: "Undergraduate engineering curriculum covering Data Structures & Algorithms, Object-Oriented Programming (Java/C++), Operating Systems, DBMS (MySQL/PostgreSQL), Computer Networks, and Software Engineering principles.",
+        code: "SLIDE 01",
+        title: "Bachelor of Technology — CSE",
+        description: "Pursuing B.Tech in Computer Science & Engineering at Parul Institute of Engineering & Technology with a 7.71 CGPA. Mastered Data Structures & Algorithms, Operating Systems, DBMS, and Computer Networks while securing Top 2 on GeeksforGeeks College Leaderboard.",
         tags: [
-          "Data Structures",
+          "Parul University",
+          "CGPA 7.71 / 10",
+          "DSA & Algorithms",
           "Operating Systems",
           "DBMS",
-          "Java",
-          "Computer Networks"
+          "Computer Networks",
+          "2023 – 2027"
         ],
-        runtime: "2023 – Present",
+        runtime: "2023 – 2027",
         palette: {
           from: "#2a0610",
           via: "#7a0f24",
           to: "#0b0710",
           accent: "#ff3d5a"
         }
-      },
-      {
-        code: "P01 M02",
-        title: "Algorithmic Depth & Competitive Coding",
-        description: "Solved 600+ problems across LeetCode and GeeksforGeeks, securing Rank #2 on the university college leaderboard with continuous practice in dynamic programming, graph algorithms, and trees.",
-        tags: [
-          "DSA",
-          "LeetCode",
-          "Rank #2 GfG",
-          "Algorithms",
-          "Java"
-        ],
-        runtime: "2023 – Present",
-        palette: {
-          from: "#1a0d02",
-          via: "#8a4a07",
-          to: "#0a0806",
-          accent: "#ffb547"
-        }
-      },
-      {
-        code: "P01 M03",
-        title: "Combinatorial Optimization & Frameworks",
-        description: "Designed a multi-strategy Python benchmarking framework for NP-hard combinatorial optimization, analyzing Held-Karp dynamic programming, Branch & Bound, and Hungarian matching algorithms.",
-        tags: [
-          "Algorithms",
-          "Optimization",
-          "NP-Hard",
-          "Python",
-          "Benchmarking"
-        ],
-        runtime: "2024",
-        palette: {
-          from: "#04121f",
-          via: "#0f4c6e",
-          to: "#05080d",
-          accent: "#4cc9ff"
-        }
       }
     ]
   },
   {
     number: 2,
-    title: "Senior Secondary / Intermediate (+2)",
+    title: "Intermediate Education — MPC (Class XII)",
     period: "2021 – 2023",
-    synopsis: "Board of Intermediate Education, Telangana · Stream: Mathematics, Physics & Chemistry (MPC)",
+    synopsis: "Government Junior College · Cherla, Telangana",
+    institution: "Government Junior College",
+    degree: "Intermediate — MPC (Mathematics, Physics & Chemistry)",
+    score: "867 / 1000 Total marks (86.7%)",
+    board: "Telangana State Board of Intermediate Education (TSBIE)",
+    highlights: [
+      "Mathematics (Differential & Integral Calculus, Matrices, Geometry)",
+      "Physics (Mechanics, Electromagnetism, Modern Physics)",
+      "Chemistry (Organic, Inorganic & Physical Chemistry)"
+    ],
+    achievements: [
+      "86.7% First-Class Distinction in TSBIE Public Examinations"
+    ],
     episodes: [
       {
-        code: "P02 M01",
-        title: "Mathematical & Analytical Rigor",
-        description: "Mastered rigorous higher-secondary mathematics covering Differential & Integral Calculus, Matrices, Coordinate Geometry, Vector Algebra, and Probability theory, developing disciplined analytical problem-solving.",
+        code: "SLIDE 02",
+        title: "Intermediate Education — MPC",
+        description: "Completed higher secondary education in Mathematics, Physics & Chemistry (MPC) at Government Junior College, Cherla under TSBIE. Scored 867/1000 (86.7%) total marks with strong mathematical and analytical foundations.",
         tags: [
-          "Calculus",
-          "Linear Algebra",
-          "Coordinate Geometry",
-          "Probability",
-          "Analytical Rigor"
+          "Government Junior College",
+          "867 / 1000 (86.7%)",
+          "TSBIE Board",
+          "Mathematics (MPC)",
+          "Physics & Chemistry",
+          "Cherla, Telangana"
         ],
         runtime: "2021 – 2023",
         palette: {
@@ -911,42 +955,37 @@ export const seasons: Season[] = [
           to: "#07060c",
           accent: "#b98bff"
         }
-      },
-      {
-        code: "P02 M02",
-        title: "Physical Sciences & Scientific Method",
-        description: "Studied fundamental classical mechanics, electromagnetism, optics, and physical chemistry, building deep intuition for physics modeling, experimental observation, and systematic deduction.",
-        tags: [
-          "Classical Mechanics",
-          "Electromagnetism",
-          "Thermodynamics",
-          "Scientific Modeling"
-        ],
-        runtime: "2021 – 2023",
-        palette: {
-          from: "#04121f",
-          via: "#0f4c6e",
-          to: "#05080d",
-          accent: "#4cc9ff"
-        }
       }
     ]
   },
   {
     number: 3,
-    title: "Secondary School Certificate (SSC)",
+    title: "Secondary School Certificate — SSC (Class X)",
     period: "2020 – 2021",
-    synopsis: "Board of Secondary Education, Telangana · Class X Foundational Sciences & Mathematics",
+    synopsis: "Gurudev Vidyalayam · Telangana, India",
+    institution: "Gurudev Vidyalayam",
+    degree: "Secondary School Certificate (SSC — Class X)",
+    score: "10.0 / 10.0 Perfect GPA",
+    board: "Telangana State Board of Secondary Education",
+    highlights: [
+      "Mathematics & Geometry Core",
+      "Physical & Biological Sciences",
+      "Social Sciences & English Language"
+    ],
+    achievements: [
+      "10.0 / 10.0 Perfect GPA Secondary School Academic Achievement"
+    ],
     episodes: [
       {
-        code: "P03 M01",
-        title: "Foundational Academic Excellence",
-        description: "Completed secondary school education with strong academic distinction, establishing foundational fluency across mathematics, general science, social sciences, and English communication.",
+        code: "SLIDE 03",
+        title: "Secondary School Certificate (SSC)",
+        description: "Graduated Class X secondary school education at Gurudev Vidyalayam under Telangana State Board with a Perfect 10.0 / 10.0 GPA, establishing academic excellence across core sciences and mathematics.",
         tags: [
-          "Secondary Education",
-          "Mathematics Core",
-          "General Science",
-          "Distinction"
+          "Gurudev Vidyalayam",
+          "10.0 / 10.0 Perfect GPA",
+          "Telangana SSC Board",
+          "Class X Distinction",
+          "Pass-out 2021"
         ],
         runtime: "2020 – 2021",
         palette: {
@@ -954,24 +993,6 @@ export const seasons: Season[] = [
           via: "#0d5a40",
           to: "#050a08",
           accent: "#46e3a8"
-        }
-      },
-      {
-        code: "P03 M02",
-        title: "STEM Curiosity & Computing Roots",
-        description: "Early exploration into computing principles, quantitative reasoning, and algorithmic logic that fostered a passion for software engineering and computer science.",
-        tags: [
-          "Computing Basics",
-          "Algorithmic Logic",
-          "STEM Foundations",
-          "Problem Solving"
-        ],
-        runtime: "2020 – 2021",
-        palette: {
-          from: "#1a0d02",
-          via: "#8a4a07",
-          to: "#0a0806",
-          accent: "#ffb547"
         }
       }
     ]

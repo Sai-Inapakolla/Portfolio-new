@@ -43,8 +43,14 @@ function loadSavedState(): PortfolioState {
     const raw = localStorage.getItem(STORAGE_DATA_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      const hasLegacySeasons = Array.isArray(parsed.seasons) &&
-        parsed.seasons.some((s: { title?: string }) => s.title?.includes('Backend Architecture') || s.title?.includes('Real-Time Systems'));
+      const hasUpToDateSeasons = Array.isArray(parsed.seasons) &&
+        parsed.seasons.length === 3 &&
+        parsed.seasons[0]?.highlights &&
+        !parsed.seasons.some((s: { title?: string }) => s.title?.includes('Backend Architecture') || s.title?.includes('Real-Time Systems'));
+
+      const hasUpToDateEducation = Array.isArray(parsed.education) &&
+        parsed.education.length >= 3 &&
+        parsed.education[0]?.highlights;
 
       return {
         profile: {
@@ -52,11 +58,11 @@ function loadSavedState(): PortfolioState {
           ...parsed.profile,
           portrait: originalData.profile.portrait,
         },
-        education: (Array.isArray(parsed.education) && parsed.education.length >= 3) ? parsed.education : originalData.education,
+        education: hasUpToDateEducation ? parsed.education : originalData.education,
         experience: parsed.experience || originalData.experience,
         projects: parsed.projects || originalData.projects,
         skillCategories: parsed.skillCategories || originalData.skillCategories,
-        seasons: hasLegacySeasons ? originalData.seasons : (parsed.seasons || originalData.seasons),
+        seasons: hasUpToDateSeasons ? parsed.seasons : originalData.seasons,
         achievements: parsed.achievements || originalData.achievements,
         topPicks: parsed.topPicks || originalData.topPicks,
         productionApps: parsed.productionApps || originalData.productionApps,
@@ -116,8 +122,14 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       })
       .then((result) => {
         if (result.data) {
-          const hasLegacySeasons = Array.isArray(result.data.seasons) &&
-            result.data.seasons.some((s: { title?: string }) => s.title?.includes('Backend Architecture') || s.title?.includes('Real-Time Systems'));
+          const hasUpToDateSeasons = Array.isArray(result.data.seasons) &&
+            result.data.seasons.length === 3 &&
+            result.data.seasons[0]?.highlights &&
+            !result.data.seasons.some((s: { title?: string }) => s.title?.includes('Backend Architecture') || s.title?.includes('Real-Time Systems'));
+
+          const hasUpToDateEducation = Array.isArray(result.data.education) &&
+            result.data.education.length >= 3 &&
+            result.data.education[0]?.highlights;
 
           const remoteState: PortfolioState = {
             ...result.data,
@@ -125,10 +137,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
               ...result.data.profile,
               portrait: originalData.profile.portrait,
             },
-            education: (Array.isArray(result.data.education) && result.data.education.length >= 3)
-              ? result.data.education
-              : originalData.education,
-            seasons: hasLegacySeasons ? originalData.seasons : (result.data.seasons || originalData.seasons),
+            education: hasUpToDateEducation ? result.data.education : originalData.education,
+            seasons: hasUpToDateSeasons ? result.data.seasons : originalData.seasons,
           };
           setState(remoteState);
           localStorage.setItem(STORAGE_DATA_KEY, JSON.stringify(remoteState));

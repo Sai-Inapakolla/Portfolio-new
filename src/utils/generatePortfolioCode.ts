@@ -37,8 +37,32 @@ export type Achievement = { id: string; title: string; org: string; detail: stri
 export type Certification = { issuer: string; name: string; link?: string };
 export type Skill = { name: string; mono: string; note?: string };
 export type SkillCategory = { id: string; title: string; subtitle: string; skills: Skill[] };
-export type Episode = { code: string; title: string; description: string; tags: string[]; runtime: string; palette: Palette };
-export type Season = { number: number; title: string; period: string; synopsis: string; episodes: Episode[] };
+export type Episode = {
+  code: string;
+  title: string;
+  description: string;
+  tags: string[];
+  runtime: string;
+  palette: Palette;
+  institution?: string;
+  score?: string;
+  board?: string;
+  highlights?: string[];
+  achievements?: string[];
+};
+export type Season = {
+  number: number;
+  title: string;
+  period: string;
+  synopsis: string;
+  institution?: string;
+  degree?: string;
+  score?: string;
+  board?: string;
+  highlights?: string[];
+  achievements?: string[];
+  episodes: Episode[];
+};
 export type TopPick = { label: string; title: string; detail: string; palette: Palette };
 export type IntroSlide = { kicker: string; title: string; lines: string[]; chips?: string[] };
 
