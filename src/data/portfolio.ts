@@ -1,4 +1,4 @@
-const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
+const asset = (name: string) => `${import.meta.env?.BASE_URL || '/'}assets/${name}`;
 // Portfolio facts transcribed for Sai Inapakolla.
 
 export type Palette = { from: string; via: string; to: string; accent: string };
@@ -85,6 +85,20 @@ export const education = [
     degree: "Bachelor of Technology — Computer Science & Engineering",
     period: "2023 – 2027",
     score: "CGPA 7.71 / 10.0"
+  },
+  {
+    school: "Senior Secondary / Intermediate (+2)",
+    place: "Telangana, India",
+    degree: "Class XII — Mathematics, Physics & Chemistry (MPC)",
+    period: "2021 – 2023",
+    score: "Completed"
+  },
+  {
+    school: "Secondary School Certificate (SSC)",
+    place: "Telangana, India",
+    degree: "Class X — Secondary Education",
+    period: "2020 – 2021",
+    score: "Completed"
   }
 ];
 
@@ -810,19 +824,20 @@ export const skillEvidence: Record<string, string[]> = {
 export const seasons: Season[] = [
   {
     number: 1,
-    title: "Academic Core & Algorithmic Depth",
-    period: "2023 – Present",
-    synopsis: "B.Tech in Computer Science & Engineering · Parul University",
+    title: "B.Tech — Computer Science & Engineering",
+    period: "2023 – 2027",
+    synopsis: "Parul Institute of Engineering & Technology, Parul University · Vadodara, Gujarat · Current CGPA: 7.71 / 10.0",
     episodes: [
       {
-        code: "S01 E01",
-        title: "The Algorithmic Ladder",
-        description: "Solved 600+ Data Structures & Algorithms problems across LeetCode and GeeksforGeeks, securing Rank #2 on the university college leaderboard.",
+        code: "P01 M01",
+        title: "Core CS & Systems Curriculum",
+        description: "Undergraduate engineering curriculum covering Data Structures & Algorithms, Object-Oriented Programming (Java/C++), Operating Systems, DBMS (MySQL/PostgreSQL), Computer Networks, and Software Engineering principles.",
         tags: [
-          "DSA",
+          "Data Structures",
+          "Operating Systems",
+          "DBMS",
           "Java",
-          "Rank #2 GfG",
-          "LeetCode"
+          "Computer Networks"
         ],
         runtime: "2023 – Present",
         palette: {
@@ -833,60 +848,81 @@ export const seasons: Season[] = [
         }
       },
       {
-        code: "S01 E02",
-        title: "Combinatorial Optimization",
-        description: "Designed a multi-strategy Python framework benchmarking classical NP-hard problems across Held-Karp DP, Branch & Bound, and Hungarian matching.",
+        code: "P01 M02",
+        title: "Algorithmic Depth & Competitive Coding",
+        description: "Solved 600+ problems across LeetCode and GeeksforGeeks, securing Rank #2 on the university college leaderboard with continuous practice in dynamic programming, graph algorithms, and trees.",
         tags: [
+          "DSA",
+          "LeetCode",
+          "Rank #2 GfG",
           "Algorithms",
-          "TSP",
-          "Knapsack",
-          "Optimization"
+          "Java"
         ],
-        runtime: "2024",
+        runtime: "2023 – Present",
         palette: {
           from: "#1a0d02",
           via: "#8a4a07",
           to: "#0a0806",
           accent: "#ffb547"
         }
-      }
-    ]
-  },
-  {
-    number: 2,
-    title: "Backend Architecture & Enterprise Systems",
-    period: "2024 – 2025",
-    synopsis: "Java Spring Boot, Enterprise Security & Microservice Design",
-    episodes: [
+      },
       {
-        code: "S02 E01",
-        title: "TeamX: Zero-Leak Multi-Tenancy",
-        description: "Architected a multi-tenant SaaS management platform with tenant-aware shared schema, JWT authentication, role-based access control, and 102,982 verified assertions.",
+        code: "P01 M03",
+        title: "Combinatorial Optimization & Frameworks",
+        description: "Designed a multi-strategy Python benchmarking framework for NP-hard combinatorial optimization, analyzing Held-Karp dynamic programming, Branch & Bound, and Hungarian matching algorithms.",
         tags: [
-          "Spring Boot",
-          "Multi-Tenancy",
-          "Spring Security",
-          "MySQL"
+          "Algorithms",
+          "Optimization",
+          "NP-Hard",
+          "Python",
+          "Benchmarking"
         ],
-        runtime: "2025",
+        runtime: "2024",
         palette: {
           from: "#04121f",
           via: "#0f4c6e",
           to: "#05080d",
           accent: "#4cc9ff"
         }
+      }
+    ]
+  },
+  {
+    number: 2,
+    title: "Senior Secondary / Intermediate (+2)",
+    period: "2021 – 2023",
+    synopsis: "Board of Intermediate Education, Telangana · Stream: Mathematics, Physics & Chemistry (MPC)",
+    episodes: [
+      {
+        code: "P02 M01",
+        title: "Mathematical & Analytical Rigor",
+        description: "Mastered rigorous higher-secondary mathematics covering Differential & Integral Calculus, Matrices, Coordinate Geometry, Vector Algebra, and Probability theory, developing disciplined analytical problem-solving.",
+        tags: [
+          "Calculus",
+          "Linear Algebra",
+          "Coordinate Geometry",
+          "Probability",
+          "Analytical Rigor"
+        ],
+        runtime: "2021 – 2023",
+        palette: {
+          from: "#120822",
+          via: "#3d1a6e",
+          to: "#07060c",
+          accent: "#b98bff"
+        }
       },
       {
-        code: "S02 E02",
-        title: "BAAHUBALI: Secure Banking Core",
-        description: "Engineered a core banking management system with Spring Boot 3.5, role-based access control (Admin, Employee, Customer), and transaction ledgers.",
+        code: "P02 M02",
+        title: "Physical Sciences & Scientific Method",
+        description: "Studied fundamental classical mechanics, electromagnetism, optics, and physical chemistry, building deep intuition for physics modeling, experimental observation, and systematic deduction.",
         tags: [
-          "Spring Boot 3.5",
-          "FinTech",
-          "JPA/Hibernate",
-          "REST APIs"
+          "Classical Mechanics",
+          "Electromagnetism",
+          "Thermodynamics",
+          "Scientific Modeling"
         ],
-        runtime: "2024",
+        runtime: "2021 – 2023",
         palette: {
           from: "#04121f",
           via: "#0f4c6e",
@@ -898,39 +934,39 @@ export const seasons: Season[] = [
   },
   {
     number: 3,
-    title: "Real-Time Systems & AI Integration",
-    period: "2024 – Present",
-    synopsis: "High-Throughput Mobility, Scientific ML & Agentic Systems",
+    title: "Secondary School Certificate (SSC)",
+    period: "2020 – 2021",
+    synopsis: "Board of Secondary Education, Telangana · Class X Foundational Sciences & Mathematics",
     episodes: [
       {
-        code: "S03 E01",
-        title: "SafeGo: Real-Time Mobility",
-        description: "Engineered an intelligent ride-hailing platform with WebSocket live tracking, emergency SOS, Twilio integration, AI voice assist, and load-tested up to 8,650 req/sec.",
+        code: "P03 M01",
+        title: "Foundational Academic Excellence",
+        description: "Completed secondary school education with strong academic distinction, establishing foundational fluency across mathematics, general science, social sciences, and English communication.",
         tags: [
-          "FastAPI",
-          "WebSockets",
-          "Twilio",
-          "Python ML"
+          "Secondary Education",
+          "Mathematics Core",
+          "General Science",
+          "Distinction"
         ],
-        runtime: "2025",
+        runtime: "2020 – 2021",
         palette: {
-          from: "#2a0610",
-          via: "#7a0f24",
-          to: "#0b0710",
-          accent: "#ff3d5a"
+          from: "#03150f",
+          via: "#0d5a40",
+          to: "#050a08",
+          accent: "#46e3a8"
         }
       },
       {
-        code: "S03 E02",
-        title: "AstroML: Machine Learning & Beyond",
-        description: "Developed astronomical classification models for stellar objects alongside agentic financial workflows in Fino and enterprise management in NexusOps.",
+        code: "P03 M02",
+        title: "STEM Curiosity & Computing Roots",
+        description: "Early exploration into computing principles, quantitative reasoning, and algorithmic logic that fostered a passion for software engineering and computer science.",
         tags: [
-          "Machine Learning",
-          "AstroML",
-          "Next.js",
-          "Fino & NexusOps"
+          "Computing Basics",
+          "Algorithmic Logic",
+          "STEM Foundations",
+          "Problem Solving"
         ],
-        runtime: "2024 – Present",
+        runtime: "2020 – 2021",
         palette: {
           from: "#1a0d02",
           via: "#8a4a07",
@@ -1151,7 +1187,7 @@ const jade: Palette = { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: 
 
 export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: string; palette: Palette }> = {
   about: { nav: 'About', card: 'About Me', meta: 'The Pilot • Education & engineering', palette: violet },
-  journey: { nav: 'Journey', card: 'My Journey', meta: `${seasons.length} Seasons • ${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes`, palette: amber },
+  journey: { nav: 'Academics', card: 'Academic Details', meta: `${seasons.length} Academic Phases • B.Tech CSE & Foundations`, palette: amber },
   originals: { nav: 'Originals', card: 'My Projects', meta: `${projects.length} Originals • Full-Stack & Systems`, palette: crimson },
   picks: { nav: 'Top Picks', card: 'Top Picks', meta: `Top ${topPicks.length} highlights`, palette: jade },
   skills: { nav: 'Skills', card: 'My Skills', meta: `${skillCategories.length} Categories`, palette: ocean },

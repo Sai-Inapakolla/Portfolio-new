@@ -43,17 +43,20 @@ function loadSavedState(): PortfolioState {
     const raw = localStorage.getItem(STORAGE_DATA_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
+      const hasLegacySeasons = Array.isArray(parsed.seasons) &&
+        parsed.seasons.some((s: { title?: string }) => s.title?.includes('Backend Architecture') || s.title?.includes('Real-Time Systems'));
+
       return {
         profile: {
           ...originalData.profile,
           ...parsed.profile,
           portrait: originalData.profile.portrait,
         },
-        education: parsed.education || originalData.education,
+        education: (Array.isArray(parsed.education) && parsed.education.length >= 3) ? parsed.education : originalData.education,
         experience: parsed.experience || originalData.experience,
         projects: parsed.projects || originalData.projects,
         skillCategories: parsed.skillCategories || originalData.skillCategories,
-        seasons: parsed.seasons || originalData.seasons,
+        seasons: hasLegacySeasons ? originalData.seasons : (parsed.seasons || originalData.seasons),
         achievements: parsed.achievements || originalData.achievements,
         topPicks: parsed.topPicks || originalData.topPicks,
         productionApps: parsed.productionApps || originalData.productionApps,
@@ -113,12 +116,19 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       })
       .then((result) => {
         if (result.data) {
-          const remoteState = {
+          const hasLegacySeasons = Array.isArray(result.data.seasons) &&
+            result.data.seasons.some((s: { title?: string }) => s.title?.includes('Backend Architecture') || s.title?.includes('Real-Time Systems'));
+
+          const remoteState: PortfolioState = {
             ...result.data,
             profile: {
               ...result.data.profile,
               portrait: originalData.profile.portrait,
             },
+            education: (Array.isArray(result.data.education) && result.data.education.length >= 3)
+              ? result.data.education
+              : originalData.education,
+            seasons: hasLegacySeasons ? originalData.seasons : (result.data.seasons || originalData.seasons),
           };
           setState(remoteState);
           localStorage.setItem(STORAGE_DATA_KEY, JSON.stringify(remoteState));
@@ -198,7 +208,12 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       });
-      const result = await res.json() as { success?: boolean; error?: string };
+      let result: { success?: boolean; error?: string } = {};
+      try {
+        result = (await res.json()) as { success?: boolean; error?: string };
+      } catch {
+        return { success: false, message: `Server error (${res.status}): Admin API is unavailable` };
+      }
       if (!res.ok || !result.success) return { success: false, message: result.error || 'Unable to unlock studio' };
       setIsUnlocked(true);
       sessionStorage.setItem(STORAGE_AUTH_KEY, 'true');

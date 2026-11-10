@@ -11,7 +11,7 @@ import { RailButtons } from './Rail';
 
 export default function ContinueWatching({ order }: { order: SectionId[] }) {
   const { projects, topPicks } = usePortfolio();
-  const GLYPHS: Record<SectionId, string> = { about: 'S', journey: 'S01', originals: String(projects.length), picks: String(topPicks.length), skills: '{ }', moments: '★', story: 'CV' };
+  const GLYPHS: Record<SectionId, string> = { about: 'S', journey: 'EDU', originals: String(projects.length), picks: String(topPicks.length), skills: '{ }', moments: '★', story: 'CV' };
   const progress = useWatchProgress();
   const { scrollTo } = useSmoothScroll();
   const fine = useFinePointer();

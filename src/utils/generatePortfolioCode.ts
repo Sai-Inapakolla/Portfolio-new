@@ -127,7 +127,7 @@ const jade: Palette = { from: '#03150f', via: '#0d5a40', to: '#050a08', accent: 
 
 export const sectionMeta: Record<SectionId, { nav: string; card: string; meta: string; palette: Palette }> = {
   about: { nav: 'About', card: 'About Me', meta: 'The Pilot • Education & engineering', palette: violet },
-  journey: { nav: 'Journey', card: 'My Journey', meta: \`\${seasons.length} Seasons • \${seasons.reduce((n, s) => n + s.episodes.length, 0)} Episodes\`, palette: amber },
+  journey: { nav: 'Academics', card: 'Academic Details', meta: \`\${seasons.length} Academic Phases • B.Tech CSE & Foundations\`, palette: amber },
   originals: { nav: 'Originals', card: 'My Projects', meta: \`\${projects.length} Originals • Full-Stack & Systems\`, palette: crimson },
   picks: { nav: 'Top Picks', card: 'Top Picks', meta: \`Top \${topPicks.length} highlights\`, palette: jade },
   skills: { nav: 'Skills', card: 'My Skills', meta: \`\${skillCategories.length} Categories\`, palette: ocean },
