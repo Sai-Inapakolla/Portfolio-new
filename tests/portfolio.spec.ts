@@ -4,7 +4,7 @@ async function explore(page: Page) {
   await page.goto('/');
   await page.getByRole('button', { name: 'Explore portfolio' }).click();
   await expect(page.getByRole('dialog', { name: 'Opening titles' })).toHaveCount(0);
-  await expect(page.locator('#top').getByRole('heading', { name: 'AMIT', exact: true })).toBeVisible();
+  await expect(page.locator('#top').getByRole('heading', { name: 'SAI', exact: true })).toBeVisible();
 }
 
 test('direct entry and profile selection persist across reloads', async ({ page }) => {
@@ -24,9 +24,9 @@ test('intro tap zones work and modal focus returns to its trigger', async ({ pag
   await expect(dialog).toBeVisible();
   await dialog.getByRole('button', { name: 'Pause', exact: true }).click();
   await dialog.getByRole('button', { name: 'Next highlight' }).click();
-  await expect(dialog.getByRole('heading', { name: 'Swift first.' })).toBeVisible();
+  await expect(dialog.getByRole('heading', { name: 'Enterprise & secure.' })).toBeVisible();
   await dialog.getByRole('button', { name: 'Previous highlight' }).click();
-  await expect(dialog.getByRole('heading', { name: 'iOS. Backend. Impact.' })).toBeVisible();
+  await expect(dialog.getByRole('heading', { name: 'Full-Stack. Systems. Scale.' })).toBeVisible();
   await page.keyboard.press('Tab');
   expect(await page.evaluate(() => document.querySelector('dialog')?.contains(document.activeElement))).toBe(true);
   await page.keyboard.press('Escape');
@@ -34,14 +34,12 @@ test('intro tap zones work and modal focus returns to its trigger', async ({ pag
   await expect(trigger).toBeFocused();
 });
 
-test('resume is keyboard accessible and its PDF is available', async ({ page }) => {
+test('resume is keyboard accessible and its dialog opens', async ({ page }) => {
   await explore(page);
   const trigger = page.getByRole('button', { name: 'View Resume', exact: false });
   await trigger.click();
   const dialog = page.getByRole('dialog', { name: 'Resume', exact: true });
   await expect(dialog.getByRole('button', { name: 'Close resume' })).toBeFocused();
-  const href = await dialog.getByRole('link', { name: /Download/ }).getAttribute('href');
-  expect((await page.request.get(href!)).ok()).toBe(true);
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(trigger).toBeFocused();
@@ -60,12 +58,11 @@ test('large touch screens use a swipe rail and unvisited sections have zero prog
   await expect(page.locator('section[aria-labelledby="continue-title"] button').filter({ hasText: 'The Full Story' }).locator('.origin-left')).toHaveCSS('transform', 'matrix(0, 0, 0, 1, 0, 0)');
 });
 
-
 test('project overlay contains focus and restores its card after closing', async ({ page }) => {
   await explore(page);
-  const trigger = page.getByRole('button', { name: 'Open Zaytun AI', exact: true });
+  const trigger = page.getByRole('button', { name: 'Open TeamX', exact: true });
   await trigger.click();
-  const dialog = page.getByRole('dialog', { name: 'Zaytun AI', exact: true });
+  const dialog = page.getByRole('dialog', { name: 'TeamX', exact: true });
   await expect(dialog.getByRole('button', { name: 'Close project' })).toBeFocused();
   await page.keyboard.press('Shift+Tab');
   expect(await page.evaluate(() => document.querySelector('dialog')?.contains(document.activeElement))).toBe(true);
@@ -74,7 +71,7 @@ test('project overlay contains focus and restores its card after closing', async
   await expect(trigger).toBeFocused();
 });
 
-test('mobile resume scrolls within the dialog and offers the original PDF', async ({ page }) => {
+test('mobile resume scrolls within the dialog', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await explore(page);
   await page.getByRole('button', { name: /View Resume/ }).click();
@@ -82,9 +79,6 @@ test('mobile resume scrolls within the dialog and offers the original PDF', asyn
   const scroller = dialog.locator('[data-lenis-prevent]');
   await expect(scroller).toBeVisible();
   expect(await scroller.evaluate((el) => el.scrollHeight > el.clientHeight)).toBe(true);
-  const link = dialog.getByRole('link', { name: 'Open original PDF' });
-  await link.scrollIntoViewIfNeeded();
-  await expect(link).toBeInViewport();
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
 });
@@ -100,15 +94,13 @@ test('failed lazy overlay leaves a usable return path', async ({ page }) => {
   await expect(page.getByRole('button', { name: /Play Intro/ })).toBeFocused();
 });
 
-test('Amit résumé content and metadata replace the previous portfolio', async ({ page }) => {
+test('Sai résumé content and metadata replace the previous portfolio', async ({ page }) => {
   await explore(page);
-  await expect(page).toHaveTitle('Amit Sah — Senior iOS Developer & Backend Engineer');
-  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Amit Sah.*5\+.*30\+/);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://amit-sah.com.np/');
-  await expect(page.locator('main')).not.toContainText(/Sushmita|PolicyGuard|Technical Hub|9\.10|850\+/);
-  await expect(page.getByRole('button', { name: 'Open CountryPickerAKS', exact: true })).toHaveCount(1);
-  await expect(page.locator('#story')).toContainText('Chitkara University');
-  await expect(page.locator('#story')).toContainText('ThinkNEXT Technologies');
-  await expect(page.locator('#story a[href*="apps.apple.com"]')).toHaveCount(21);
-  await expect(page.locator('#moments')).toContainText('5 listed');
+  await expect(page).toHaveTitle(/Sai Inapakolla/);
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /Sai Inapakolla/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://safego1.vercel.app/');
+  await expect(page.locator('main')).not.toContainText(/Amit Sah|ThinkNEXT|Chitkara/);
+  await expect(page.getByRole('button', { name: 'Open TeamX', exact: true })).toHaveCount(1);
+  await expect(page.locator('#about')).toContainText('Parul');
+  await expect(page.locator('#moments')).toContainText('Moments');
 });

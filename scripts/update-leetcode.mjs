@@ -1,7 +1,8 @@
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.MONGODB_URI;
-const databaseName = process.env.MONGODB_DB || 'portfolio';
+const uriDatabase = uri ? new URL(uri).pathname.replace(/^\/+/, '') : '';
+const databaseName = process.env.MONGODB_DB || decodeURIComponent(uriDatabase) || 'portfolio';
 const username = process.env.LEETCODE_USERNAME || 'user_x_576';
 
 function normalizeBadgeIcon(icon) {

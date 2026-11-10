@@ -66,13 +66,36 @@ function sendJson(res: ServerResponse, status: number, body: unknown) {
   res.end(JSON.stringify(body));
 }
 
-async function readJson(req: IncomingMessage) {
-  let body = '';
-  for await (const chunk of req) {
-    body += chunk.toString();
-    if (body.length > 2_000_000) throw new Error('Request body is too large');
+async function readJson(req: IncomingMessage): Promise<Record<string, unknown>> {
+  const existingBody = (req as unknown as { body?: unknown }).body;
+  if (existingBody) {
+    if (typeof existingBody === 'object' && existingBody !== null) {
+      return existingBody as Record<string, unknown>;
+    }
+    if (typeof existingBody === 'string') {
+      try {
+        return JSON.parse(existingBody) as Record<string, unknown>;
+      } catch {
+        return {};
+      }
+    }
   }
-  return JSON.parse(body || '{}') as Record<string, unknown>;
+
+  return new Promise((resolve, reject) => {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+      if (body.length > 2_000_000) reject(new Error('Request body is too large'));
+    });
+    req.on('end', () => {
+      try {
+        resolve(JSON.parse(body || '{}') as Record<string, unknown>);
+      } catch (err) {
+        reject(err);
+      }
+    });
+    req.on('error', reject);
+  });
 }
 
 async function getDatabase(environment: ApiEnvironment): Promise<Db> {
@@ -92,15 +115,19 @@ async function getDatabase(environment: ApiEnvironment): Promise<Db> {
 export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddleware {
   return async (req, res, next) => {
     const url = new URL(req.url || '/', 'http://localhost');
-    const password = environment.ADMIN_PASSWORD;
-
-    if (!password) {
-      sendJson(res, 500, { success: false, error: 'ADMIN_PASSWORD is not configured' });
+    if (!url.pathname.startsWith('/api/')) {
+      next();
       return;
     }
 
+    const password = environment.ADMIN_PASSWORD;
+
     try {
       if (url.pathname === '/api/auth/login' && req.method === 'POST') {
+        if (!password) {
+          sendJson(res, 500, { success: false, error: 'ADMIN_PASSWORD is not configured' });
+          return;
+        }
         const body = await readJson(req);
         const supplied = typeof body.password === 'string' ? body.password : '';
         const suppliedHash = crypto.createHash('sha256').update(supplied).digest();
@@ -116,7 +143,7 @@ export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddle
       }
 
       if (url.pathname === '/api/auth/session' && req.method === 'GET') {
-        sendJson(res, 200, { authenticated: isValidSession(req, password) });
+        sendJson(res, 200, { authenticated: Boolean(password && isValidSession(req, password)) });
         return;
       }
 
@@ -127,6 +154,10 @@ export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddle
       }
 
       if (url.pathname === '/api/portfolio' && req.method === 'GET') {
+        if (!environment.MONGODB_URI) {
+          sendJson(res, 200, { data: null });
+          return;
+        }
         const db = await getDatabase(environment);
         const document = await db.collection<PortfolioDocument>('portfolio').findOne({ _id: DOCUMENT_ID });
         sendJson(res, 200, { data: document?.data ?? null });
@@ -134,6 +165,10 @@ export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddle
       }
 
       if (url.pathname === '/api/leetcode' && req.method === 'GET') {
+        if (!environment.MONGODB_URI) {
+          sendJson(res, 200, { data: null });
+          return;
+        }
         const db = await getDatabase(environment);
         const document = await db.collection<LeetCodeDocument>('leetcode').findOne({ _id: 'achievements' });
         sendJson(res, 200, { data: document?.data ?? null });
@@ -141,6 +176,10 @@ export function createPortfolioApi(environment: ApiEnvironment): PortfolioMiddle
       }
 
       if (url.pathname === '/api/portfolio' && req.method === 'POST') {
+        if (!password) {
+          sendJson(res, 500, { success: false, error: 'ADMIN_PASSWORD is not configured' });
+          return;
+        }
         if (!isValidSession(req, password)) {
           sendJson(res, 401, { success: false, error: 'Admin authentication required' });
           return;
