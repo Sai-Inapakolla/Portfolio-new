@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
+import { useScrollLock } from '../hooks/smoothScroll';
 import type { Project, Palette } from '../data/portfolio';
 
 const PALETTES: { name: string; palette: Palette }[] = [
@@ -35,6 +36,8 @@ export default function AdminModal() {
   const [pinError, setPinError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'projects' | 'resume' | 'skills' | 'profile'>('projects');
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
+
+  useScrollLock(isAdminOpen);
 
   // Project Edit / Add State
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -182,8 +185,9 @@ export default function AdminModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 p-3 backdrop-blur-md sm:p-6">
+    <div data-lenis-prevent className="fixed inset-0 z-[200] flex items-center justify-center bg-black/85 p-3 backdrop-blur-md sm:p-6">
       <motion.div
+        data-lenis-prevent
         className="relative flex h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#0d0d14] text-bone shadow-2xl"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -297,7 +301,7 @@ export default function AdminModal() {
             </div>
 
             {/* Tab Contents */}
-            <div className="flex-1 overflow-y-auto p-6">
+            <div data-lenis-prevent className="flex-1 overflow-y-auto p-6">
               {/* TAB 1: PROJECTS */}
               {activeTab === 'projects' && (
                 <div>

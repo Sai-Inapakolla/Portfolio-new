@@ -19,6 +19,7 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
   return (
     <motion.dialog
       ref={dialog}
+      data-lenis-prevent
       className="fixed inset-0 z-[140] flex flex-col bg-black/90 backdrop-blur-md"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -124,7 +125,7 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
             </div>
           </div>
         ) : (
-          <div className="h-full overflow-y-auto rounded-xl bg-[#14141c]">
+          <div data-lenis-prevent className="h-full overflow-y-auto rounded-xl bg-[#14141c]">
             <ResumeSheet />
           </div>
         )}

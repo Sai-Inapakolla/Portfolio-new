@@ -53,3 +53,4 @@ export function formatResumeLinks(rawUrl: string): FormattedResume {
     isGoogleDrive: false,
   };
 }
+
