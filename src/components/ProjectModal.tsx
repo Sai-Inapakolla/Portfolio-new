@@ -7,8 +7,8 @@ import { EASE, Magnetic } from './fx';
 import { ProjectArt } from './Poster';
 
 const block = {
-  hidden: { opacity: 0, y: 24, filter: 'blur(8px)' },
-  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.7, ease: EASE } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
 };
 
 export default function ProjectModal({ project, onClose, onSwitch }: { project: Project; onClose: () => void; onSwitch: (p: Project) => void }) {
@@ -25,7 +25,7 @@ export default function ProjectModal({ project, onClose, onSwitch }: { project: 
   return (
     <motion.dialog ref={dialog} className="fixed inset-0 z-[140]"  aria-modal="true" aria-labelledby={`title-${project.id}-modal`}>
       <motion.div
-        className="absolute inset-0 bg-black/80 backdrop-blur-md"
+        className="absolute inset-0 bg-black/85 md:backdrop-blur-md"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

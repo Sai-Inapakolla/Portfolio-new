@@ -20,7 +20,7 @@ export default function ResumeModal({ onClose }: { onClose: () => void }) {
     <motion.dialog
       ref={dialog}
       data-lenis-prevent
-      className="fixed inset-0 z-[140] flex flex-col bg-black/90 backdrop-blur-md"
+      className="fixed inset-0 z-[140] flex flex-col bg-black/95 md:backdrop-blur-md"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

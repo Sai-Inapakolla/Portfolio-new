@@ -123,7 +123,7 @@ function Series() {
         alt=""
         aria-hidden
         decoding="async"
-        className="pointer-events-none fixed inset-0 z-0 h-full w-full object-contain object-right opacity-[0.06] sm:opacity-[0.08] lg:opacity-[0.1]"
+        className="pointer-events-none fixed inset-0 z-0 h-full w-full object-contain object-right opacity-[0.06] sm:opacity-[0.08] lg:opacity-[0.1] [mask-image:radial-gradient(45%_65%_at_80%_48%,black_20%,transparent_88%)]"
       />
       <CustomCursor />
 

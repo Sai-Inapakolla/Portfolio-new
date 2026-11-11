@@ -85,18 +85,17 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
       className="fixed inset-0 z-[130] overflow-hidden bg-black"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, filter: 'blur(10px)' }}
-      transition={{ duration: 0.6 }}
-
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35 }}
       aria-modal="true"
       aria-label="Intro highlight reel"
     >
       {/* Zoom into the portrait */}
       <motion.div
-        className="absolute inset-0 flex items-end justify-center"
+        className="pointer-events-none absolute inset-0 flex items-end justify-center"
         initial={{ scale: 1, opacity: 1 }}
-        animate={phase === 'zoom' ? { scale: [1, 1.08, 2.6], opacity: [0.9, 1, 0] } : { opacity: 0.1, scale: 1.25, filter: 'blur(4px)' }}
-        transition={{ duration: phase === 'zoom' ? 1.7 : 1.2, ease: [0.7, 0, 0.2, 1], times: phase === 'zoom' ? [0, 0.3, 1] : undefined }}
+        animate={phase === 'zoom' ? { scale: [1, 1.08, 2.2], opacity: [0.9, 1, 0] } : { opacity: 0.08, scale: 1.15 }}
+        transition={{ duration: phase === 'zoom' ? 1.5 : 0.9, ease: [0.7, 0, 0.2, 1], times: phase === 'zoom' ? [0, 0.3, 1] : undefined }}
         style={{ transformOrigin: '50% 30%' }}
       >
         <img
@@ -104,14 +103,15 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
           srcSet={profile.portrait.srcSet}
           sizes="100vw"
           alt=""
+          decoding="async"
           className="h-[88vh] w-auto max-w-none object-contain [mask-image:linear-gradient(to_bottom,black_60%,transparent)]"
         />
       </motion.div>
-      <div aria-hidden className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_45%,rgba(120,10,25,0.35),transparent_70%)]" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_45%,rgba(120,10,25,0.35),transparent_70%)]" />
 
       {/* progress bars */}
       {phase !== 'zoom' && (
-        <div className="absolute inset-x-0 top-0 z-20 flex gap-1.5 px-4 pt-4 sm:px-10 sm:pt-6">
+        <div className="absolute inset-x-0 top-0 z-20 flex gap-1.5 px-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-10 sm:pt-6">
           {introSlides.map((s, i) => (
             <div key={s.kicker} className="h-[3px] flex-1 overflow-hidden rounded bg-white/15">
               <motion.div
@@ -124,16 +124,16 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
       )}
 
       {/* reel */}
-      <div className="relative z-10 flex h-full items-center justify-center px-6 text-center">
+      <div className="relative z-10 flex h-full items-center justify-center px-6 py-24 text-center">
         <AnimatePresence mode="wait">
           {phase === 'reel' && (
             <motion.div
               key={index}
               className="max-w-4xl"
-              initial={{ opacity: 0, scale: 1.06, filter: 'blur(14px)' }}
-              animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, scale: 0.96, filter: 'blur(10px)' }}
-              transition={{ duration: 0.7, ease: EASE }}
+              initial={{ opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 0.98 }}
+              transition={{ duration: 0.4, ease: EASE }}
             >
               <p className="mb-4 text-[11px] font-bold uppercase tracking-[0.5em] text-crimson-2 sm:text-xs">
                 Episode {String(index + 1).padStart(2, '0')} · {slide.kicker}
@@ -146,9 +146,9 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
                   <motion.p
                     key={l}
                     className="text-base text-bone/80 sm:text-xl"
-                    initial={{ opacity: 0, y: 12 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35 + i * 0.15, duration: 0.6, ease: EASE }}
+                    transition={{ delay: 0.15 + i * 0.1, duration: 0.45, ease: EASE }}
                   >
                     {l}
                   </motion.p>
@@ -159,10 +159,10 @@ export default function PlayIntro({ onClose }: { onClose: () => void }) {
                   {slide.chips.map((c, i) => (
                     <motion.span
                       key={c}
-                      className="glass rounded-full px-3 py-1 text-xs font-semibold tracking-wide text-bone"
-                      initial={{ opacity: 0, scale: 0.8 }}
+                      className="rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-bone"
+                      initial={{ opacity: 0, scale: 0.88 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.6 + i * 0.06 }}
+                      transition={{ delay: 0.3 + i * 0.05 }}
                     >
                       {c}
                     </motion.span>

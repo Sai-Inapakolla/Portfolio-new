@@ -22,6 +22,7 @@ test('intro tap zones work and modal focus returns to its trigger', async ({ pag
   await trigger.click();
   const dialog = page.getByRole('dialog', { name: 'Intro highlight reel' });
   await expect(dialog).toBeVisible();
+  expect(await dialog.evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgb(0, 0, 0)');
   await dialog.getByRole('button', { name: 'Pause', exact: true }).click();
   await dialog.getByRole('button', { name: 'Next highlight' }).click();
   await expect(dialog.getByRole('heading', { name: 'Enterprise & secure.' })).toBeVisible();
@@ -40,6 +41,7 @@ test('resume is keyboard accessible and its dialog opens', async ({ page }) => {
   await trigger.click();
   const dialog = page.getByRole('dialog', { name: 'Resume', exact: true });
   await expect(dialog.getByRole('button', { name: 'Close resume' })).toBeFocused();
+  expect(await dialog.evaluate((el) => getComputedStyle(el).backgroundColor)).not.toBe('rgba(0, 0, 0, 0)');
   await page.keyboard.press('Escape');
   await expect(dialog).toHaveCount(0);
   await expect(trigger).toBeFocused();
