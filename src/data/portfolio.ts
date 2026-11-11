@@ -6,7 +6,7 @@ export type Metric = { value: string; label: string };
 export type Project = { id: string; title: string; year: string; genre: string; logline: string; stack: string[]; build: string[]; features: string[]; metrics: Metric[]; github?: string; appUrl?: string; website?: string; palette: Palette; motif: 'shield' | 'flow' | 'tenants' };
 export type Achievement = { id: string; title: string; org: string; detail: string; laurel: string; link?: string };
 export type Certification = { issuer: string; name: string; link?: string };
-export type Skill = { name: string; mono: string; note?: string };
+export type Skill = { name: string; mono: string; note?: string; iconUrl?: string; description?: string };
 export type SkillCategory = { id: string; title: string; subtitle: string; skills: Skill[] };
 export type Episode = {
   code: string;

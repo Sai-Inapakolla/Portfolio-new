@@ -106,3 +106,42 @@ test('Sai résumé content and metadata replace the previous portfolio', async (
   await expect(page.locator('#about')).toContainText('Parul');
   await expect(page.locator('#moments')).toContainText('Moments');
 });
+
+test('skills render custom icon images and expandable work descriptions', async ({ page }) => {
+  await page.route('**/api/portfolio', (route) => route.fulfill({ json: { data: null } }));
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'sai_portfolio_custom_data_v1',
+      JSON.stringify({
+        skillCategories: [
+          {
+            id: 'backend',
+            title: 'Backend Development',
+            subtitle: 'Robust enterprise services, APIs & security',
+            skills: [
+              {
+                name: 'Java',
+                mono: 'Ja',
+                note: 'Primary',
+                iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+                description: 'TeamX: Custom multi-tenant Java backend architecture',
+              },
+              {
+                name: 'Spring Boot',
+                mono: 'SB',
+                note: 'Primary',
+              },
+            ],
+          },
+        ],
+      }),
+    );
+  });
+
+  await explore(page);
+  const javaCard = page.locator('#skills').getByRole('button', { name: /Java/ });
+  await expect(javaCard).toBeVisible();
+  await expect(javaCard.locator('img')).toHaveAttribute('src', /^data:image\/png;base64,/);
+  await javaCard.click();
+  await expect(javaCard).toContainText('TeamX: Custom multi-tenant Java backend architecture');
+});

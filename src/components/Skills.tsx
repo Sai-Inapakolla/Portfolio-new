@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { Skill } from '../data/portfolio';
 import { usePortfolio } from '../context/PortfolioContext';
+import { normalizeSkillIconUrl } from '../utils/skillIcon';
 import { EASE, SectionHeading } from './fx';
 
 const HUES = ['#ff3d5a', '#4cc9ff', '#46e3a8', '#ffb547', '#b98bff', '#ff8a5c', '#7ee0ff'];
@@ -64,6 +65,10 @@ export default function Skills() {
 
 function SkillCard({ skill, hue, evidence }: { skill: Skill; hue: string; evidence?: string[] }) {
   const [open, setOpen] = useState(false);
+  const [failedIconUrl, setFailedIconUrl] = useState<string | null>(null);
+  const iconSrc = normalizeSkillIconUrl(skill.iconUrl);
+  const showIcon = Boolean(iconSrc) && failedIconUrl !== iconSrc;
+  const description = (skill.description !== undefined ? skill.description : evidence?.join(' · '))?.trim();
 
   return (
     <motion.button
@@ -87,15 +92,26 @@ function SkillCard({ skill, hue, evidence }: { skill: Skill; hue: string; eviden
         style={{ background: `radial-gradient(circle, ${hue}77 0%, transparent 70%)` }}
       />
       <motion.span
-        className="relative flex h-12 w-12 items-center justify-center rounded-lg font-display text-2xl tracking-wide"
+        className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-lg font-display text-2xl tracking-wide"
         style={{ background: `${hue}1f`, color: hue, boxShadow: `inset 0 0 0 1px ${hue}55` }}
         animate={open ? { rotate: [0, -8, 8, 0], scale: 1.08 } : { rotate: 0, scale: 1 }}
         transition={{ duration: 0.5 }}
         aria-hidden
       >
-        {skill.mono}
+        {showIcon ? (
+          <img
+            src={iconSrc}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            onError={() => setFailedIconUrl(iconSrc)}
+            className="h-7 w-7 object-contain"
+          />
+        ) : (
+          skill.mono
+        )}
       </motion.span>
-      <span className="relative mt-4 flex items-center gap-2 text-[15px] font-semibold text-bone">
+      <span className="relative mt-4 flex flex-wrap items-center gap-2 text-[15px] font-semibold text-bone">
         {skill.name}
         {skill.note && (
           <span className="rounded px-1.5 py-px text-[9px] font-bold uppercase tracking-wider text-ink" style={{ background: hue }}>
@@ -104,15 +120,15 @@ function SkillCard({ skill, hue, evidence }: { skill: Skill; hue: string; eviden
         )}
       </span>
       <AnimatePresence initial={false}>
-        {open && evidence && (
+        {open && description && (
           <motion.span
-            className="relative mt-2 block text-[11px] leading-snug text-mist"
+            className="relative mt-2 block whitespace-pre-line text-[11px] leading-snug text-mist"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {evidence.join(' · ')}
+            {description}
           </motion.span>
         )}
       </AnimatePresence>

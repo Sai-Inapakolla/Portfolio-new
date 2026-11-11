@@ -31,7 +31,7 @@ interface PortfolioContextType extends PortfolioState {
   deleteProject: (id: string) => void;
   moveProject: (index: number, direction: 'up' | 'down') => void;
   updateProfile: (fields: Partial<typeof originalData.profile>) => void;
-  updateSkills: (categories: SkillCategory[]) => void;
+  updateSkills: (categories: SkillCategory[], nextSkillEvidence?: Record<string, string[]>) => void;
   saveAll: () => Promise<{ success: boolean; message: string }>;
   resetToOriginal: () => void;
 }
@@ -197,8 +197,12 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
-  const updateSkills = (skillCategories: SkillCategory[]) => {
-    setState((prev) => ({ ...prev, skillCategories }));
+  const updateSkills = (skillCategories: SkillCategory[], nextSkillEvidence?: Record<string, string[]>) => {
+    setState((prev) => ({
+      ...prev,
+      skillCategories,
+      ...(nextSkillEvidence ? { skillEvidence: nextSkillEvidence } : {}),
+    }));
   };
 
   const persistState = async (data: PortfolioState) => {

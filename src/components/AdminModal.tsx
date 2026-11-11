@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useScrollLock } from '../hooks/smoothScroll';
-import type { Project, Palette } from '../data/portfolio';
+import type { Project, Palette, Skill } from '../data/portfolio';
+import { normalizeSkillIconUrl } from '../utils/skillIcon';
 
 const PALETTES: { name: string; palette: Palette }[] = [
   { name: 'Cyan Ocean', palette: { from: '#04121f', via: '#0f4c6e', to: '#05080d', accent: '#4cc9ff' } },
@@ -22,6 +23,7 @@ export default function AdminModal() {
     profile,
     projects,
     skillCategories,
+    skillEvidence,
     updateProfile,
     addProject,
     updateProject,
@@ -68,11 +70,18 @@ export default function AdminModal() {
     paletteIndex: 0,
   });
 
-  // Skills quick add state
-  const [newSkillName, setNewSkillName] = useState('');
+  // Skills add / edit state
+  const [editingSkillName, setEditingSkillName] = useState<string | null>(null);
+  const [skillName, setSkillName] = useState('');
+  const [skillIconUrl, setSkillIconUrl] = useState('');
+  const [skillNote, setSkillNote] = useState('');
+  const [skillDescription, setSkillDescription] = useState('');
+  const [iconPreviewFailedUrl, setIconPreviewFailedUrl] = useState<string | null>(null);
   const [activeCatIndex, setActiveCatIndex] = useState(0);
 
   if (!isAdminOpen) return null;
+
+  const previewIconUrl = normalizeSkillIconUrl(skillIconUrl);
 
   const handleUnlock = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,33 +164,97 @@ export default function AdminModal() {
     setEditingProject(null);
   };
 
-  const handleAddSkill = (catId: string) => {
-    if (!newSkillName.trim()) return;
-    const mono = newSkillName.trim().slice(0, 2);
-    const updated = skillCategories.map((c) => {
-      if (c.id === catId) {
-        return {
-          ...c,
-          skills: [...c.skills, { name: newSkillName.trim(), mono }],
-        };
-      }
-      return c;
-    });
-    updateSkills(updated);
-    setNewSkillName('');
+  const resetSkillForm = () => {
+    setEditingSkillName(null);
+    setSkillName('');
+    setSkillIconUrl('');
+    setSkillNote('');
+    setSkillDescription('');
+    setIconPreviewFailedUrl(null);
   };
 
-  const handleRemoveSkill = (catId: string, skillName: string) => {
+  const startEditSkill = (skill: Skill) => {
+    setEditingSkillName(skill.name);
+    setSkillName(skill.name);
+    setSkillIconUrl(skill.iconUrl || '');
+    setSkillNote(skill.note || '');
+    setSkillDescription(
+      skill.description !== undefined
+        ? skill.description
+        : (skillEvidence[skill.name]?.join(' · ') || ''),
+    );
+    setIconPreviewFailedUrl(null);
+  };
+
+  const handleSaveSkill = (catId: string) => {
+    const trimmedName = skillName.trim();
+    if (!trimmedName) return;
+
+    const trimmedIcon = skillIconUrl.trim();
+    const trimmedNote = skillNote.trim();
+    const trimmedDesc = skillDescription.trim();
+    const nextEvidence = { ...skillEvidence };
+
+    if (editingSkillName) {
+      delete nextEvidence[editingSkillName];
+    }
+    delete nextEvidence[trimmedName];
+
+    const updated = skillCategories.map((c) => {
+      if (c.id !== catId) return c;
+
+      const existing = c.skills.find(
+        (s) => s.name === editingSkillName || (!editingSkillName && s.name.toLowerCase() === trimmedName.toLowerCase()),
+      );
+
+      const nextSkill: Skill = {
+        name: trimmedName,
+        mono: existing && existing.name.toLowerCase() === trimmedName.toLowerCase() ? existing.mono : trimmedName.slice(0, 2),
+        ...(trimmedNote ? { note: trimmedNote } : {}),
+        ...(trimmedIcon ? { iconUrl: trimmedIcon } : {}),
+        ...(trimmedDesc ? { description: trimmedDesc } : {}),
+      };
+
+      if (editingSkillName) {
+        return {
+          ...c,
+          skills: c.skills.map((s) => (s.name === editingSkillName ? nextSkill : s)),
+        };
+      }
+
+      if (existing) {
+        return {
+          ...c,
+          skills: c.skills.map((s) => (s.name === existing.name ? nextSkill : s)),
+        };
+      }
+
+      return {
+        ...c,
+        skills: [...c.skills, nextSkill],
+      };
+    });
+
+    updateSkills(updated, nextEvidence);
+    resetSkillForm();
+  };
+
+  const handleRemoveSkill = (catId: string, nameToRemove: string) => {
+    const nextEvidence = { ...skillEvidence };
+    delete nextEvidence[nameToRemove];
     const updated = skillCategories.map((c) => {
       if (c.id === catId) {
         return {
           ...c,
-          skills: c.skills.filter((s) => s.name !== skillName),
+          skills: c.skills.filter((s) => s.name !== nameToRemove),
         };
       }
       return c;
     });
-    updateSkills(updated);
+    updateSkills(updated, nextEvidence);
+    if (editingSkillName === nameToRemove) {
+      resetSkillForm();
+    }
   };
 
   return (
@@ -685,7 +758,7 @@ export default function AdminModal() {
                 <div className="space-y-6">
                   <div>
                     <h4 className="font-display text-lg text-bone">Technical Skills &amp; Categories</h4>
-                    <p className="text-xs text-smoke">Add or remove skills in each domain category.</p>
+                    <p className="text-xs text-smoke">Add skills with custom icon links &amp; work descriptions, or click any existing skill to edit it.</p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 border-b border-white/10 pb-3">
@@ -693,7 +766,10 @@ export default function AdminModal() {
                       <button
                         key={c.id}
                         type="button"
-                        onClick={() => setActiveCatIndex(idx)}
+                        onClick={() => {
+                          setActiveCatIndex(idx);
+                          resetSkillForm();
+                        }}
                         className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
                           activeCatIndex === idx ? 'bg-crimson text-white' : 'border border-white/10 text-mist hover:text-bone'
                         }`}
@@ -705,56 +781,190 @@ export default function AdminModal() {
 
                   {skillCategories[activeCatIndex] && (
                     <div className="rounded-xl border border-white/15 bg-white/[0.02] p-5">
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
                         <div>
                           <h5 className="font-semibold text-bone">{skillCategories[activeCatIndex].title}</h5>
                           <p className="text-xs text-mist">{skillCategories[activeCatIndex].subtitle}</p>
                         </div>
+                        <span className="text-[11px] text-smoke">Click a skill chip below to edit</span>
                       </div>
 
                       {/* Skills tags */}
                       <div className="mt-4 flex flex-wrap gap-2">
-                        {skillCategories[activeCatIndex].skills.map((s) => (
-                          <span
-                            key={s.name}
-                            className="flex items-center gap-2 rounded-lg border border-white/15 bg-ink-2 px-3 py-1.5 text-xs text-bone"
-                          >
-                            <span>{s.name}</span>
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveSkill(skillCategories[activeCatIndex].id, s.name)}
-                              className="text-smoke hover:text-crimson-2"
-                              title="Remove skill"
+                        {skillCategories[activeCatIndex].skills.map((s) => {
+                          const isSelected = editingSkillName === s.name;
+                          const hasDesc = Boolean(
+                            (s.description !== undefined ? s.description : skillEvidence[s.name]?.join(' · '))?.trim(),
+                          );
+                          return (
+                            <div
+                              key={s.name}
+                              className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs transition ${
+                                isSelected
+                                  ? 'border-crimson bg-crimson/15 text-white'
+                                  : 'border-white/15 bg-ink-2 text-bone hover:border-white/30'
+                              }`}
                             >
-                              ✕
-                            </button>
-                          </span>
-                        ))}
+                              <button
+                                type="button"
+                                onClick={() => (isSelected ? resetSkillForm() : startEditSkill(s))}
+                                className="flex items-center gap-2 text-left"
+                                title={isSelected ? 'Cancel editing' : 'Edit skill icon, tag, or description'}
+                              >
+                                <SkillChipThumb skill={s} />
+                                <span>{s.name}</span>
+                                {s.note && (
+                                  <span className="rounded bg-white/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-crimson-2">
+                                    {s.note}
+                                  </span>
+                                )}
+                                {hasDesc && (
+                                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400/80" title="Has work description" />
+                                )}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveSkill(skillCategories[activeCatIndex].id, s.name)}
+                                className="ml-1 text-smoke hover:text-crimson-2"
+                                title="Remove skill"
+                                aria-label={`Remove ${s.name}`}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          );
+                        })}
                       </div>
 
-                      {/* Add new skill input */}
-                      <div className="mt-4 flex gap-2">
-                        <input
-                          type="text"
-                          value={newSkillName}
-                          onChange={(e) => setNewSkillName(e.target.value)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              handleAddSkill(skillCategories[activeCatIndex].id);
-                            }
-                          }}
-                          placeholder={`Add new skill to ${skillCategories[activeCatIndex].title}...`}
-                          className="flex-1 rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone focus:border-crimson focus:outline-none"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleAddSkill(skillCategories[activeCatIndex].id)}
-                          className="rounded-lg bg-bone px-4 py-2 text-xs font-bold text-ink hover:bg-white"
-                        >
-                          ＋ Add
-                        </button>
-                      </div>
+                      {/* Add or Edit skill form */}
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          handleSaveSkill(skillCategories[activeCatIndex].id);
+                        }}
+                        className="mt-5 space-y-3 rounded-xl border border-white/10 bg-ink/60 p-4"
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <h6 className="text-xs font-bold uppercase tracking-wider text-bone">
+                            {editingSkillName
+                              ? `Editing: ${editingSkillName}`
+                              : `Add New Skill to ${skillCategories[activeCatIndex].title}`}
+                          </h6>
+                          {editingSkillName && (
+                            <button
+                              type="button"
+                              onClick={resetSkillForm}
+                              className="text-xs font-medium text-mist hover:text-bone"
+                            >
+                              Cancel Edit
+                            </button>
+                          )}
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-[1fr_170px]">
+                          <div>
+                            <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                              Skill Name *
+                            </label>
+                            <input
+                              type="text"
+                              value={skillName}
+                              onChange={(e) => setSkillName(e.target.value)}
+                              placeholder="e.g. Docker, Java, Spring Boot..."
+                              className="mt-1 w-full rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone focus:border-crimson focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                              Tag (optional)
+                            </label>
+                            <input
+                              type="text"
+                              value={skillNote}
+                              onChange={(e) => setSkillNote(e.target.value)}
+                              placeholder="e.g. Primary"
+                              className="mt-1 w-full rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone focus:border-crimson focus:outline-none"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                            Skill Icon Link (URL)
+                          </label>
+                          <div className="mt-1 flex items-center gap-3">
+                            <span
+                              className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/15 bg-crimson/15 font-display text-lg text-crimson-2"
+                              title="Live icon preview"
+                            >
+                              {previewIconUrl && iconPreviewFailedUrl !== previewIconUrl ? (
+                                <img
+                                  src={previewIconUrl}
+                                  alt=""
+                                  onError={() => setIconPreviewFailedUrl(previewIconUrl)}
+                                  className="h-6 w-6 object-contain"
+                                />
+                              ) : (
+                                skillName.trim().slice(0, 2) || 'SK'
+                              )}
+                            </span>
+                            <input
+                              type="url"
+                              value={skillIconUrl}
+                              onChange={(e) => {
+                                setSkillIconUrl(e.target.value);
+                                setIconPreviewFailedUrl(null);
+                              }}
+                              placeholder="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                              className="flex-1 rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone focus:border-crimson focus:outline-none"
+                            />
+                          </div>
+                          {previewIconUrl && iconPreviewFailedUrl === previewIconUrl ? (
+                            <p className="mt-1 text-[11px] text-amber-400">
+                              Could not load preview image — check the URL (falls back to monogram).
+                            </p>
+                          ) : (
+                            <p className="mt-1 text-[11px] text-smoke">
+                              Paste any SVG or PNG icon link (e.g. Devicon, Simple Icons, Icons8, or Google Drive image).
+                            </p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                            Description (Your Work &amp; Projects with This Skill)
+                          </label>
+                          <textarea
+                            rows={2}
+                            value={skillDescription}
+                            onChange={(e) => setSkillDescription(e.target.value)}
+                            placeholder="e.g. TeamX: Multi-tenant backend architecture · BAAHUBALI: Core banking system with Spring Boot 3.5"
+                            className="mt-1 w-full rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone focus:border-crimson focus:outline-none"
+                          />
+                          <p className="mt-1 text-[11px] text-smoke">
+                            Displayed under this skill in My Skill Universe when hovered or tapped.
+                          </p>
+                        </div>
+
+                        <div className="flex justify-end gap-2 pt-1">
+                          {editingSkillName && (
+                            <button
+                              type="button"
+                              onClick={resetSkillForm}
+                              className="rounded-lg border border-white/15 px-4 py-2 text-xs font-semibold text-mist hover:text-bone"
+                            >
+                              Cancel
+                            </button>
+                          )}
+                          <button
+                            type="submit"
+                            disabled={!skillName.trim()}
+                            className="rounded-lg bg-bone px-4 py-2 text-xs font-bold text-ink transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            {editingSkillName ? '✓ Update Skill' : '＋ Add Skill'}
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   )}
                 </div>
@@ -885,6 +1095,28 @@ export default function AdminModal() {
         )}
       </motion.div>
     </div>
+  );
+}
+
+function SkillChipThumb({ skill }: { skill: Skill }) {
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
+  const src = normalizeSkillIconUrl(skill.iconUrl);
+
+  if (src && failedUrl !== src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        onError={() => setFailedUrl(src)}
+        className="h-4 w-4 rounded-sm object-contain"
+      />
+    );
+  }
+
+  return (
+    <span className="flex h-4 w-4 items-center justify-center rounded bg-crimson/20 text-[9px] font-bold uppercase text-crimson-2">
+      {skill.mono}
+    </span>
   );
 }
 
