@@ -105,6 +105,8 @@ test('Sai résumé content and metadata replace the previous portfolio', async (
   await expect(page.getByRole('button', { name: 'Open TeamX', exact: true })).toHaveCount(1);
   await expect(page.locator('#about')).toContainText('Parul');
   await expect(page.locator('#moments')).toContainText('Moments');
+  await page.locator('#skills').getByRole('button', { name: /Languages/ }).click();
+  await expect(page.locator('#skills').getByRole('button', { name: /TypeScript/ })).toBeVisible();
 });
 
 test('skills render custom icon images and expandable work descriptions', async ({ page }) => {

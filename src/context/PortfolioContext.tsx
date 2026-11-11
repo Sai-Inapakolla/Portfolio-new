@@ -38,6 +38,14 @@ interface PortfolioContextType extends PortfolioState {
 
 const PortfolioContext = createContext<PortfolioContextType | null>(null);
 
+function ensureSkillCategories(saved?: SkillCategory[]): SkillCategory[] {
+  if (!Array.isArray(saved) || saved.length === 0) return originalData.skillCategories;
+  const missing = originalData.skillCategories.filter(
+    (def) => !saved.some((cat) => cat.id === def.id),
+  );
+  return missing.length > 0 ? [...saved, ...missing] : saved;
+}
+
 function loadSavedState(): PortfolioState {
   try {
     const raw = localStorage.getItem(STORAGE_DATA_KEY);
@@ -61,7 +69,7 @@ function loadSavedState(): PortfolioState {
         education: hasUpToDateEducation ? parsed.education : originalData.education,
         experience: parsed.experience || originalData.experience,
         projects: parsed.projects || originalData.projects,
-        skillCategories: parsed.skillCategories || originalData.skillCategories,
+        skillCategories: ensureSkillCategories(parsed.skillCategories),
         seasons: hasUpToDateSeasons ? parsed.seasons : originalData.seasons,
         achievements: parsed.achievements || originalData.achievements,
         topPicks: parsed.topPicks || originalData.topPicks,
@@ -137,6 +145,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
               ...result.data.profile,
               portrait: originalData.profile.portrait,
             },
+            skillCategories: ensureSkillCategories(result.data.skillCategories),
             education: hasUpToDateEducation ? result.data.education : originalData.education,
             seasons: hasUpToDateSeasons ? result.data.seasons : originalData.seasons,
           };

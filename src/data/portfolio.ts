@@ -821,6 +821,18 @@ export const skillCategories: SkillCategory[] = [
       { name: "NumPy", mono: "NP" },
       { name: "ML API Integration", mono: "ML" }
     ]
+  },
+  {
+    id: "languages",
+    title: "Languages",
+    subtitle: "Core programming & query languages",
+    skills: [
+      { name: "Java", mono: "Ja", note: "Primary" },
+      { name: "JavaScript", mono: "JS" },
+      { name: "TypeScript", mono: "TS" },
+      { name: "Python", mono: "Py" },
+      { name: "SQL", mono: "SQ" }
+    ]
   }
 ];
 
