@@ -40,10 +40,12 @@ const PortfolioContext = createContext<PortfolioContextType | null>(null);
 
 function ensureSkillCategories(saved?: SkillCategory[]): SkillCategory[] {
   if (!Array.isArray(saved) || saved.length === 0) return originalData.skillCategories;
-  const missing = originalData.skillCategories.filter(
-    (def) => !saved.some((cat) => cat.id === def.id),
+  const byId = new Map(saved.map((cat) => [cat.id, cat]));
+  const ordered = originalData.skillCategories.map((def) => byId.get(def.id) ?? def);
+  const extras = saved.filter(
+    (cat) => !originalData.skillCategories.some((def) => def.id === cat.id),
   );
-  return missing.length > 0 ? [...saved, ...missing] : saved;
+  return [...ordered, ...extras];
 }
 
 function loadSavedState(): PortfolioState {

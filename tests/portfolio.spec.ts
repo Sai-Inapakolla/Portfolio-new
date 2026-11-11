@@ -105,7 +105,14 @@ test('Sai résumé content and metadata replace the previous portfolio', async (
   await expect(page.getByRole('button', { name: 'Open TeamX', exact: true })).toHaveCount(1);
   await expect(page.locator('#about')).toContainText('Parul');
   await expect(page.locator('#moments')).toContainText('Moments');
-  await page.locator('#skills').getByRole('button', { name: /Languages/ }).click();
+  const catButtons = page.locator('#skills [aria-label="Skill categories"] button');
+  await expect(catButtons).toHaveCount(6);
+  await expect(catButtons.nth(0)).toContainText('Languages');
+  await expect(catButtons.nth(1)).toContainText('Backend Development');
+  await expect(catButtons.nth(2)).toContainText('Frontend Development');
+  await expect(catButtons.nth(3)).toContainText('Database Engineering');
+  await expect(catButtons.nth(4)).toContainText('AI & Machine Learning');
+  await expect(catButtons.nth(5)).toContainText('Cloud, Tools & Testing');
   await expect(page.locator('#skills').getByRole('button', { name: /TypeScript/ })).toBeVisible();
 });
 
@@ -141,6 +148,7 @@ test('skills render custom icon images and expandable work descriptions', async 
   });
 
   await explore(page);
+  await page.locator('#skills').getByRole('button', { name: /Backend Development/ }).click();
   const javaCard = page.locator('#skills').getByRole('button', { name: /Java/ });
   await expect(javaCard).toBeVisible();
   await expect(javaCard.locator('img')).toHaveAttribute('src', /^data:image\/png;base64,/);

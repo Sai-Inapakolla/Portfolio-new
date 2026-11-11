@@ -753,6 +753,18 @@ export const certifications: Certification[] = [
 
 export const skillCategories: SkillCategory[] = [
   {
+    id: "languages",
+    title: "Languages",
+    subtitle: "Core programming & query languages",
+    skills: [
+      { name: "Java", mono: "Ja", note: "Primary" },
+      { name: "JavaScript", mono: "JS" },
+      { name: "TypeScript", mono: "TS" },
+      { name: "Python", mono: "Py" },
+      { name: "SQL", mono: "SQ" }
+    ]
+  },
+  {
     id: "backend",
     title: "Backend Development",
     subtitle: "Robust enterprise services, APIs & security",
@@ -796,20 +808,6 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
-    id: "cloud-tools",
-    title: "Cloud, Tools & Testing",
-    subtitle: "Infrastructure, developer tooling & automated suites",
-    skills: [
-      { name: "AWS (S3, EC2, IAM)", mono: "AW" },
-      { name: "Git & GitHub", mono: "Gi" },
-      { name: "Maven", mono: "Mv" },
-      { name: "Postman", mono: "Po" },
-      { name: "Vitest", mono: "Vi" },
-      { name: "Twilio", mono: "Tw" },
-      { name: "Cloudinary", mono: "Cl" }
-    ]
-  },
-  {
     id: "ai-ml",
     title: "AI & Machine Learning",
     subtitle: "ML fundamentals, algorithms & model integration",
@@ -823,15 +821,17 @@ export const skillCategories: SkillCategory[] = [
     ]
   },
   {
-    id: "languages",
-    title: "Languages",
-    subtitle: "Core programming & query languages",
+    id: "cloud-tools",
+    title: "Cloud, Tools & Testing",
+    subtitle: "Infrastructure, developer tooling & automated suites",
     skills: [
-      { name: "Java", mono: "Ja", note: "Primary" },
-      { name: "JavaScript", mono: "JS" },
-      { name: "TypeScript", mono: "TS" },
-      { name: "Python", mono: "Py" },
-      { name: "SQL", mono: "SQ" }
+      { name: "AWS (S3, EC2, IAM)", mono: "AW" },
+      { name: "Git & GitHub", mono: "Gi" },
+      { name: "Maven", mono: "Mv" },
+      { name: "Postman", mono: "Po" },
+      { name: "Vitest", mono: "Vi" },
+      { name: "Twilio", mono: "Tw" },
+      { name: "Cloudinary", mono: "Cl" }
     ]
   }
 ];
