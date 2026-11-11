@@ -62,8 +62,8 @@ export default function Navbar({ order, profileId, onSwitch }: { order: SectionI
       transition={{ duration: 0.45, ease: EASE }}
     >
       <div
-        className={`gutter flex h-16 items-center justify-between gap-6 transition-[background,backdrop-filter] duration-500 md:h-[72px] ${
-          solid || mobileNav ? 'bg-ink/80 backdrop-blur-xl' : 'bg-gradient-to-b from-black/80 to-transparent'
+        className={`gutter flex h-16 items-center justify-between gap-6 transition-colors duration-300 md:h-[72px] ${
+          solid || mobileNav ? 'bg-ink/95 md:bg-ink/85 md:backdrop-blur-md' : 'bg-gradient-to-b from-black/80 to-transparent'
         }`}
       >
         <div className="flex items-center gap-8 lg:gap-10">
@@ -161,7 +161,7 @@ export default function Navbar({ order, profileId, onSwitch }: { order: SectionI
         {mobileNav && (
           <motion.nav
             aria-label="Sections"
-            className="gutter border-b border-white/5 bg-ink/95 pb-6 pt-2 backdrop-blur-xl lg:hidden"
+            className="gutter border-b border-white/5 bg-ink/[0.98] pb-6 pt-2 lg:hidden"
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}

@@ -8,17 +8,14 @@ const variants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 40 : -40,
     opacity: 0,
-    filter: 'blur(6px)',
   }),
   center: {
     x: 0,
     opacity: 1,
-    filter: 'blur(0px)',
   },
   exit: (direction: number) => ({
     x: direction < 0 ? 40 : -40,
     opacity: 0,
-    filter: 'blur(6px)',
   }),
 };
 
@@ -142,11 +139,11 @@ export default function Seasons() {
             animate="center"
             exit="exit"
             transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
-            className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-ink-2/95 via-ink-2/90 to-ink/95 p-6 ring-1 ring-white/10 backdrop-blur-xl sm:p-8 md:p-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]"
+            className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-ink-2 via-ink-2 to-ink p-6 ring-1 ring-white/10 sm:p-8 md:p-10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)]"
           >
             {/* Top decorative glow backdrop */}
-            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-crimson/10 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-amber-500/10 blur-3xl" />
+            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(229,9,20,0.14)_0%,transparent_70%)]" />
+            <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-[radial-gradient(circle,rgba(245,158,11,0.12)_0%,transparent_70%)]" />
 
             {/* Header: Phase badge & Score highlight */}
             <div className="relative mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">

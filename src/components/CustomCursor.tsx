@@ -25,16 +25,28 @@ export default function CustomCursor() {
   useEffect(() => {
     if (!enabled) return;
     document.documentElement.classList.add('has-custom-cursor');
+    let lastTarget: EventTarget | null = null;
+    let shown = false;
     const move = (e: PointerEvent) => {
       x.set(e.clientX);
       y.set(e.clientY);
-      setVisible(true);
-      const t = e.target as HTMLElement | null;
-      const tagged = t?.closest<HTMLElement>('[data-cursor]');
-      setMode(tagged?.dataset.cursor ?? null);
-      setHoverLink(!tagged && !!t?.closest('a,button,[role="button"]'));
+      if (!shown) {
+        shown = true;
+        setVisible(true);
+      }
+      if (e.target !== lastTarget) {
+        lastTarget = e.target;
+        const t = e.target as HTMLElement | null;
+        const tagged = t?.closest<HTMLElement>('[data-cursor]');
+        setMode(tagged?.dataset.cursor ?? null);
+        setHoverLink(!tagged && !!t?.closest('a,button,[role="button"]'));
+      }
     };
-    const leave = () => setVisible(false);
+    const leave = () => {
+      shown = false;
+      lastTarget = null;
+      setVisible(false);
+    };
     const press = () => setDown(true);
     const release = () => setDown(false);
     window.addEventListener('pointermove', move, { passive: true });

@@ -17,8 +17,8 @@ export function PosterBackdrop({ palette, children, className = '' }: { palette:
     >
       <div
         aria-hidden
-        className="absolute -right-1/4 -top-1/3 h-[140%] w-[70%] rotate-[18deg] opacity-40 blur-2xl"
-        style={{ background: `linear-gradient(90deg, transparent, ${palette.accent}55, transparent)` }}
+        className="absolute -right-1/4 -top-1/3 h-[140%] w-[70%] rotate-[18deg] opacity-40"
+        style={{ background: `radial-gradient(ellipse 65% 55% at 50% 45%, ${palette.accent}48 0%, transparent 72%)` }}
       />
       <div aria-hidden className="absolute inset-0 opacity-[0.18] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.06)_0px,rgba(255,255,255,0.06)_1px,transparent_1px,transparent_4px)]" />
       {children}

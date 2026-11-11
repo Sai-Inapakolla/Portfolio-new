@@ -1,6 +1,5 @@
-import { useReducedMotionPref } from '../hooks/useMedia';
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useSmoothScroll } from '../hooks/smoothScroll';
 import { EASE, Magnetic, Particles } from './fx';
@@ -8,13 +7,8 @@ import { SeriesMark } from './Poster';
 
 export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
   const { profile } = usePortfolio();
-  const reduced = useReducedMotionPref();
   const ref = useRef<HTMLElement>(null);
   const { scrollTo } = useSmoothScroll();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start 0.2'] });
-  const spacing = useTransform(scrollYProgress, [0, 1], ['0.6em', '0.02em']);
-  const blur = useTransform(scrollYProgress, [0, 1], ['blur(16px)', 'blur(0px)']);
-  const opacity = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
 
   const ctas = [
     { label: "Let's Build", href: `mailto:${profile.email}?subject=${encodeURIComponent("Let's build something")}`, primary: true, cursor: 'play' },
@@ -28,7 +22,7 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
   return (
     <section id="contact" ref={ref} className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-4 py-24 text-center">
       <div aria-hidden className="absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_60%,rgba(229,19,43,0.18),transparent_70%)]" />
-      <Particles count={36} />
+      <Particles count={22} />
 
       <motion.p
         className="relative mb-6 text-[11px] font-bold uppercase tracking-[0.5em] text-crimson-2"
@@ -39,8 +33,12 @@ export default function FinalCTA({ onReplay }: { onReplay: () => void }) {
         The Next Episode
       </motion.p>
       <motion.h2
-        className="relative font-display leading-[0.85] text-bone"
-        style={{ fontSize: 'clamp(3.4rem, 13vw, 12rem)', letterSpacing: reduced ? '0.02em' : spacing, filter: reduced ? 'none' : blur, opacity: reduced ? 1 : opacity }}
+        className="relative font-display leading-[0.85] tracking-[0.02em] text-bone"
+        style={{ fontSize: 'clamp(3.4rem, 13vw, 12rem)' }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-8% 0px' }}
+        transition={{ duration: 0.7, ease: EASE }}
       >
         TO BE CONTINUED…
       </motion.h2>

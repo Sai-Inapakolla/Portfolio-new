@@ -77,7 +77,7 @@ export const profile = ${JSON.stringify(
   ).replace(
     /}$/,
     `  resumePdf: ${profile.resumePdf.startsWith('http') ? JSON.stringify(profile.resumePdf) : "asset('Resume.pdf')"},
-  portrait: { src: asset('portrait-background.png'), srcSet: \`\${asset('portrait-background.png')} 768w\`, alt: '${profile.displayName}' },
+  portrait: { src: asset('portrait-720.webp'), srcSet: \`\${asset('portrait-420.webp')} 420w, \${asset('portrait-720.webp')} 720w, \${asset('portrait-1100.webp')} 1100w\`, alt: '${profile.displayName}' },
 };`
   )}
 

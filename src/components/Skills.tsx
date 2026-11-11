@@ -73,15 +73,19 @@ function SkillCard({ skill, hue, evidence }: { skill: Skill; hue: string; eviden
       onClick={() => setOpen((o) => !o)}
       aria-expanded={open}
       variants={{
-        hidden: { opacity: 0, y: 24, scale: 0.94, filter: 'blur(6px)' },
-        show: { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.55, ease: EASE } },
+        hidden: { opacity: 0, y: 24, scale: 0.94 },
+        show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.55, ease: EASE } },
         exit: { opacity: 0, y: -12, transition: { duration: 0.2 } },
       }}
       whileHover={{ y: -6 }}
       className="group relative flex min-h-[148px] flex-col overflow-hidden rounded-xl bg-ink-2 p-4 text-left ring-1 ring-white/10 transition-shadow duration-500 hover:ring-white/20"
       style={{ boxShadow: open ? `0 18px 50px -12px ${hue}55, 0 0 0 1px ${hue}66` : undefined }}
     >
-      <div aria-hidden className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-0 blur-2xl transition duration-500 group-hover:opacity-60" style={{ background: hue }} />
+      <div
+        aria-hidden
+        className="absolute -right-10 -top-10 h-32 w-32 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-80"
+        style={{ background: `radial-gradient(circle, ${hue}77 0%, transparent 70%)` }}
+      />
       <motion.span
         className="relative flex h-12 w-12 items-center justify-center rounded-lg font-display text-2xl tracking-wide"
         style={{ background: `${hue}1f`, color: hue, boxShadow: `inset 0 0 0 1px ${hue}55` }}

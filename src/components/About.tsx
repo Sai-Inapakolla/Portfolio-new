@@ -17,10 +17,10 @@ export default function About() {
       <div className="gutter grid items-center gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
         <motion.div
           className="mx-auto w-full max-w-md lg:max-w-none"
-          initial={{ opacity: 0, scale: 0.88, filter: 'blur(12px)' }}
-          whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          viewport={{ once: true, margin: '-10% 0px' }}
-          transition={{ duration: 1.2, ease: EASE }}
+          initial={{ opacity: 0, scale: 0.94 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: '-8% 0px' }}
+          transition={{ duration: 0.7, ease: EASE }}
         >
         <Tilt max={5} className="rounded-2xl">
           <div className="relative aspect-[4/5] overflow-hidden rounded-2xl ring-1 ring-white/10">
@@ -49,10 +49,10 @@ export default function About() {
         <div>
           <motion.p
             className="font-serif text-[clamp(1.6rem,3.2vw,2.6rem)] italic leading-[1.15] text-bone"
-            initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: EASE }}
+            transition={{ duration: 0.65, ease: EASE }}
           >
             “{profile.intro}”
           </motion.p>
@@ -82,7 +82,7 @@ export default function About() {
             <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.28em] text-smoke">Interests</p>
             <div className="flex flex-wrap gap-2">
               {profile.interests.map((i) => (
-                <span key={i} className="glass rounded-full px-3 py-1.5 text-xs font-medium text-bone">
+                <span key={i} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-bone">
                   {i}
                 </span>
               ))}

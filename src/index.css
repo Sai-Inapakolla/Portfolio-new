@@ -26,17 +26,6 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-.lenis.lenis-stopped {
-  overflow: hidden;
-}
-
 body {
   margin: 0;
   background: var(--color-ink);
@@ -45,7 +34,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  text-rendering: optimizeLegibility;
 }
 
 ::selection {
@@ -58,23 +46,15 @@ body {
   padding-right: var(--gutter);
 }
 
-/* Film grain — a single fixed layer, cheap and subtle */
+/* Subtle static atmospheric dot texture — zero SVG filter / continuous repaint overhead */
 .grain {
   position: fixed;
-  inset: -50%;
+  inset: 0;
   pointer-events: none;
   z-index: 90;
-  opacity: 0.055;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  animation: grain 1.2s steps(6) infinite;
-}
-@keyframes grain {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-3%, 2%); }
-  40% { transform: translate(2%, -3%); }
-  60% { transform: translate(-2%, -1%); }
-  80% { transform: translate(3%, 3%); }
-  100% { transform: translate(0, 0); }
+  opacity: 0.025;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.45) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
 }
 
 /* Hide scrollbars on horizontal rails while keeping them scrollable */
@@ -101,10 +81,16 @@ body {
 }
 
 .glass {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(20, 20, 28, 0.85));
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
 }
 
 .focus-ring:focus-visible,
@@ -118,10 +104,10 @@ a:focus-visible {
 .light-streak {
   position: absolute;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 90, 110, 0.9), transparent);
-  filter: blur(0.4px);
+  background: linear-gradient(90deg, transparent, rgba(255, 90, 110, 0.75), transparent);
   animation: streak 7s var(--ease-cine) infinite;
   opacity: 0;
+  will-change: transform, opacity;
 }
 @keyframes streak {
   0% { transform: translateX(-40%) scaleX(0.4); opacity: 0; }
@@ -130,24 +116,14 @@ a:focus-visible {
   100% { opacity: 0; }
 }
 
-@keyframes shimmer {
-  to { background-position: 200% center; }
-}
 .shimmer-text {
-  background: linear-gradient(90deg, #f4f1ec 0%, #f4f1ec 40%, #ff8a9a 50%, #f4f1ec 60%, #f4f1ec 100%);
-  background-size: 200% auto;
+  background: linear-gradient(105deg, #f4f1ec 18%, #ff8a9a 48%, #f4f1ec 78%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer 6s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .grain,
-  .light-streak,
-  .shimmer-text {
-    animation: none !important;
-  }
   .light-streak {
     display: none;
   }

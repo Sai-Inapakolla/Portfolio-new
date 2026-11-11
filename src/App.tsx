@@ -122,7 +122,8 @@ function Series() {
         sizes="100vw"
         alt=""
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 h-full w-full object-contain object-right opacity-[0.1] mix-blend-screen sm:opacity-[0.14] lg:opacity-[0.18]"
+        decoding="async"
+        className="pointer-events-none fixed inset-0 z-0 h-full w-full object-contain object-right opacity-[0.06] sm:opacity-[0.08] lg:opacity-[0.1]"
       />
       <CustomCursor />
 
@@ -132,7 +133,7 @@ function Series() {
       </AnimatePresence>
 
       {stage === 'home' && (
-        <motion.div initial={{ opacity: 0, scale: 1.03, filter: 'blur(10px)' }} animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} transition={{ duration: 1, ease: EASE }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, ease: EASE }}>
           <Navbar order={order} profileId={profileId} onSwitch={pickProfile} />
           <main>
             <Hero key={`hero-${profileId}`} onPlay={() => setPlaying(true)} onResume={() => setResumeOpen(true)} profileId={profileId} />

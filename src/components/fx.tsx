@@ -92,8 +92,8 @@ export function RevealText({ text, className = '', delay = 0, id, as = 'span' }:
           <motion.span
             className="inline-block"
             variants={{
-              hidden: { y: '105%', opacity: 0, filter: 'blur(8px)' },
-              show: { y: '0%', opacity: 1, filter: 'blur(0px)', transition: { duration: 0.9, ease: EASE } },
+              hidden: { y: '100%', opacity: 0 },
+              show: { y: '0%', opacity: 1, transition: { duration: 0.55, ease: EASE } },
             }}
           >
             {w}
@@ -137,27 +137,26 @@ export function Particles({ count = 46, color = '255,90,110', className = '' }: 
     if (!canvas || reduced) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let w = 0;
     let h = 0;
     const resize = () => {
       w = canvas.clientWidth;
       h = canvas.clientHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width = w;
+      canvas.height = h;
     };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
 
-    const dots = Array.from({ length: count }, () => ({
+    const effectiveCount = window.innerWidth < 768 ? Math.min(count, 14) : Math.min(count, 26);
+    const dots = Array.from({ length: effectiveCount }, () => ({
       x: Math.random(),
       y: Math.random(),
-      r: Math.random() * 1.6 + 0.3,
+      r: Math.random() * 1.5 + 0.4,
       vx: (Math.random() - 0.5) * 0.00012,
       vy: -Math.random() * 0.00028 - 0.00006,
-      a: Math.random() * 0.6 + 0.15,
+      a: Math.random() * 0.55 + 0.18,
       tw: Math.random() * Math.PI * 2,
     }));
 
@@ -165,7 +164,10 @@ export function Particles({ count = 46, color = '255,90,110', className = '' }: 
     let running = false;
     let last = performance.now();
     const tick = (now: number) => {
-      const dt = Math.min(50, now - last);
+      raf = requestAnimationFrame(tick);
+      const elapsed = now - last;
+      if (elapsed < 32) return; // cap at ~30fps for ambient drifting dust
+      const dt = Math.min(60, elapsed);
       last = now;
       ctx.clearRect(0, 0, w, h);
       for (const d of dots) {
@@ -184,7 +186,6 @@ export function Particles({ count = 46, color = '255,90,110', className = '' }: 
         ctx.arc(d.x * w, d.y * h, d.r, 0, Math.PI * 2);
         ctx.fill();
       }
-      raf = requestAnimationFrame(tick);
     };
     const io = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !running) {

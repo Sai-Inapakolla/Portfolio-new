@@ -99,7 +99,11 @@ export const profile = {
     "Hindi — Working"
   ],
   resumePdf: '',
-  portrait: { src: asset('portrait-background.png'), srcSet: `${asset('portrait-background.png')} 768w`, alt: 'Sai Inapakolla' },
+  portrait: {
+    src: asset('portrait-720.webp'),
+    srcSet: `${asset('portrait-420.webp')} 420w, ${asset('portrait-720.webp')} 720w, ${asset('portrait-1100.webp')} 1100w`,
+    alt: 'Sai Inapakolla',
+  },
 };
 
 export const education = [
