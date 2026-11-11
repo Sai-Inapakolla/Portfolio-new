@@ -149,7 +149,8 @@ test('skills render custom icon images and expandable work descriptions', async 
 
   await explore(page);
   await page.locator('#skills').getByRole('button', { name: /Backend Development/ }).click();
-  const javaCard = page.locator('#skills').getByRole('button', { name: /Java/ });
+  await expect(page.locator('#skills').getByRole('button', { name: /Spring Boot/ })).toBeVisible();
+  const javaCard = page.locator('#skills').getByRole('button', { name: /^Java\b/ });
   await expect(javaCard).toBeVisible();
   await expect(javaCard.locator('img')).toHaveAttribute('src', /^data:image\/png;base64,/);
   await javaCard.click();
