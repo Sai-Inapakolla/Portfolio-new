@@ -32,6 +32,11 @@ interface PortfolioContextType extends PortfolioState {
   moveProject: (index: number, direction: 'up' | 'down') => void;
   updateProfile: (fields: Partial<typeof originalData.profile>) => void;
   updateSkills: (categories: SkillCategory[], nextSkillEvidence?: Record<string, string[]>) => void;
+  updateCertifications: (certifications: Certification[]) => void;
+  addCertification: (certification: Certification) => void;
+  deleteCertification: (index: number) => void;
+  updateCertification: (index: number, certification: Certification) => void;
+  moveCertification: (index: number, direction: 'up' | 'down') => void;
   saveAll: () => Promise<{ success: boolean; message: string }>;
   resetToOriginal: () => void;
 }
@@ -62,6 +67,18 @@ function loadSavedState(): PortfolioState {
         parsed.education.length >= 3 &&
         parsed.education[0]?.highlights;
 
+      const hasUpToDateCertifications = Array.isArray(parsed.certifications) &&
+        parsed.certifications.length > 0 &&
+        !parsed.certifications.some((c: { issuer?: string; name?: string }) =>
+          c.issuer === 'Spring & Java' ||
+          c.issuer === 'Parul University' ||
+          c.name?.includes('B.Tech')
+        );
+
+      const hasUpToDateAchievements = Array.isArray(parsed.achievements) &&
+        parsed.achievements.length >= 5 &&
+        parsed.achievements.some((a: { id?: string }) => a.id === 'antariksh-hackathon' || a.id === 'pu-code-hackathon');
+
       return {
         profile: {
           ...originalData.profile,
@@ -73,10 +90,10 @@ function loadSavedState(): PortfolioState {
         projects: parsed.projects || originalData.projects,
         skillCategories: ensureSkillCategories(parsed.skillCategories),
         seasons: hasUpToDateSeasons ? parsed.seasons : originalData.seasons,
-        achievements: parsed.achievements || originalData.achievements,
+        achievements: hasUpToDateAchievements ? parsed.achievements : originalData.achievements,
         topPicks: parsed.topPicks || originalData.topPicks,
         productionApps: parsed.productionApps || originalData.productionApps,
-        certifications: parsed.certifications || originalData.certifications,
+        certifications: hasUpToDateCertifications ? parsed.certifications : originalData.certifications,
         skillEvidence: parsed.skillEvidence || originalData.skillEvidence,
       };
     }
@@ -141,6 +158,18 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             result.data.education.length >= 3 &&
             result.data.education[0]?.highlights;
 
+          const hasUpToDateCertifications = Array.isArray(result.data.certifications) &&
+            result.data.certifications.length > 0 &&
+            !result.data.certifications.some((c: { issuer?: string; name?: string }) =>
+              c.issuer === 'Spring & Java' ||
+              c.issuer === 'Parul University' ||
+              c.name?.includes('B.Tech')
+            );
+
+          const hasUpToDateAchievements = Array.isArray(result.data.achievements) &&
+            result.data.achievements.length >= 5 &&
+            result.data.achievements.some((a: { id?: string }) => a.id === 'antariksh-hackathon' || a.id === 'pu-code-hackathon');
+
           const remoteState: PortfolioState = {
             ...result.data,
             profile: {
@@ -150,6 +179,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             skillCategories: ensureSkillCategories(result.data.skillCategories),
             education: hasUpToDateEducation ? result.data.education : originalData.education,
             seasons: hasUpToDateSeasons ? result.data.seasons : originalData.seasons,
+            achievements: hasUpToDateAchievements ? result.data.achievements : originalData.achievements,
+            certifications: hasUpToDateCertifications ? result.data.certifications : originalData.certifications,
           };
           setState(remoteState);
           localStorage.setItem(STORAGE_DATA_KEY, JSON.stringify(remoteState));
@@ -214,6 +245,42 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       skillCategories,
       ...(nextSkillEvidence ? { skillEvidence: nextSkillEvidence } : {}),
     }));
+  };
+
+  const updateCertifications = (certifications: Certification[]) => {
+    setState((prev) => ({ ...prev, certifications }));
+  };
+
+  const addCertification = (certification: Certification) => {
+    setState((prev) => ({
+      ...prev,
+      certifications: [certification, ...prev.certifications],
+    }));
+  };
+
+  const deleteCertification = (index: number) => {
+    setState((prev) => ({
+      ...prev,
+      certifications: prev.certifications.filter((_, i) => i !== index),
+    }));
+  };
+
+  const updateCertification = (index: number, certification: Certification) => {
+    setState((prev) => ({
+      ...prev,
+      certifications: prev.certifications.map((c, i) => (i === index ? certification : c)),
+    }));
+  };
+
+  const moveCertification = (index: number, direction: 'up' | 'down') => {
+    setState((prev) => {
+      const list = [...prev.certifications];
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      if (targetIndex < 0 || targetIndex >= list.length) return prev;
+      const [item] = list.splice(index, 1);
+      list.splice(targetIndex, 0, item);
+      return { ...prev, certifications: list };
+    });
   };
 
   const persistState = async (data: PortfolioState) => {
@@ -312,6 +379,11 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         moveProject,
         updateProfile,
         updateSkills,
+        updateCertifications,
+        addCertification,
+        deleteCertification,
+        updateCertification,
+        moveCertification,
         saveAll,
         resetToOriginal,
       }}

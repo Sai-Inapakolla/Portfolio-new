@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { achievements, certifications } from '../data/portfolio';
+import { usePortfolio } from '../context/PortfolioContext';
 import { EASE, SectionHeading, Tilt } from './fx';
 import { RailButtons } from './Rail';
 import LeetCodePanel from './LeetCodePanel';
@@ -18,6 +18,7 @@ function Laurel({ side }: { side: 'l' | 'r' }) {
 
 export default function Achievements() {
   const rail = useRef<HTMLDivElement>(null);
+  const { achievements, certifications } = usePortfolio();
   const issuers = Array.from(new Set(certifications.map((c) => c.issuer)));
 
   return (
@@ -78,18 +79,27 @@ export default function Achievements() {
           <div ref={rail} className="rail gutter flex snap-x gap-3 overflow-x-auto py-5">
             {certifications.map((c, i) => (
               <motion.article
-                key={c.name}
-                className="group relative flex w-[230px] shrink-0 snap-start flex-col justify-between rounded-xl bg-ink-2 p-4 ring-1 ring-white/10 transition hover:-translate-y-1 hover:ring-white/30"
+                key={`${c.issuer}-${c.name}-${i}`}
+                className="group relative flex w-[250px] shrink-0 snap-start flex-col justify-between rounded-xl bg-ink-2 p-4 ring-1 ring-white/10 transition hover:-translate-y-1 hover:ring-white/30"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: Math.min(i, 6) * 0.04, ease: EASE }}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <span className="text-[10px] font-bold uppercase tracking-[0.24em] text-crimson-2">{c.issuer}</span>
-
+                  {c.link && (
+                    <a
+                      href={c.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-[11px] font-semibold text-mist hover:text-bone underline underline-offset-2"
+                    >
+                      Verify ↗
+                    </a>
+                  )}
                 </div>
-                <p className="mt-6 text-sm font-medium leading-snug text-bone">{c.name}</p>
+                <p className="mt-4 text-sm font-medium leading-snug text-bone">{c.name}</p>
               </motion.article>
             ))}
           </div>

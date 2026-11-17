@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePortfolio } from '../context/PortfolioContext';
 import { useScrollLock } from '../hooks/smoothScroll';
-import type { Project, Palette, Skill } from '../data/portfolio';
+import type { Project, Palette, Skill, Certification } from '../data/portfolio';
 import { normalizeSkillIconUrl } from '../utils/skillIcon';
 
 const PALETTES: { name: string; palette: Palette }[] = [
@@ -24,22 +24,65 @@ export default function AdminModal() {
     projects,
     skillCategories,
     skillEvidence,
+    certifications,
     updateProfile,
     addProject,
     updateProject,
     deleteProject,
     moveProject,
     updateSkills,
+    addCertification,
+    updateCertification,
+    deleteCertification,
+    moveCertification,
     saveAll,
     resetToOriginal,
   } = usePortfolio();
 
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'projects' | 'resume' | 'skills' | 'profile'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'resume' | 'skills' | 'certifications' | 'profile'>('projects');
   const [saveStatus, setSaveStatus] = useState<string | null>(null);
 
   useScrollLock(isAdminOpen);
+
+  // Certifications add / edit state
+  const [editingCertIndex, setEditingCertIndex] = useState<number | null>(null);
+  const [certIssuer, setCertIssuer] = useState('');
+  const [certName, setCertName] = useState('');
+  const [certLink, setCertLink] = useState('');
+
+  const resetCertForm = () => {
+    setEditingCertIndex(null);
+    setCertIssuer('');
+    setCertName('');
+    setCertLink('');
+  };
+
+  const handleStartEditCert = (index: number) => {
+    const cert = certifications[index];
+    if (!cert) return;
+    setEditingCertIndex(index);
+    setCertIssuer(cert.issuer);
+    setCertName(cert.name);
+    setCertLink(cert.link || '');
+  };
+
+  const handleSaveCert = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!certIssuer.trim() || !certName.trim()) return;
+    const certData: Certification = {
+      issuer: certIssuer.trim(),
+      name: certName.trim(),
+      ...(certLink.trim() ? { link: certLink.trim() } : {}),
+    };
+    if (editingCertIndex !== null) {
+      updateCertification(editingCertIndex, certData);
+    } else {
+      addCertification(certData);
+    }
+    resetCertForm();
+  };
 
   // Project Edit / Add State
   const [editingProject, setEditingProject] = useState<Project | null>(null);
@@ -361,6 +404,15 @@ export default function AdminModal() {
                 }`}
               >
                 SKILLS ({skillCategories.reduce((acc, c) => acc + c.skills.length, 0)})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab('certifications')}
+                className={`pb-3 text-xs font-semibold tracking-wider transition ${
+                  activeTab === 'certifications' ? 'border-b-2 border-crimson text-bone' : 'text-smoke hover:text-mist'
+                }`}
+              >
+                CERTIFICATIONS ({certifications.length})
               </button>
               <button
                 type="button"
@@ -970,7 +1022,185 @@ export default function AdminModal() {
                 </div>
               )}
 
-              {/* TAB 4: PROFILE & BIO */}
+              {/* TAB 4: CERTIFICATIONS */}
+              {activeTab === 'certifications' && (
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="font-display text-lg text-bone">Certifications &amp; Credentials</h4>
+                    <p className="text-xs text-smoke">Add, update, reorder or remove certifications and verified credentials dynamically.</p>
+                  </div>
+
+                  {/* Add / Edit Certification Form */}
+                  <form
+                    onSubmit={handleSaveCert}
+                    className="space-y-4 rounded-xl border border-white/15 bg-white/[0.02] p-5"
+                  >
+                    <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-3">
+                      <h5 className="text-xs font-bold uppercase tracking-wider text-bone">
+                        {editingCertIndex !== null ? `Edit Certification #${editingCertIndex + 1}` : 'Add New Certification'}
+                      </h5>
+                      {editingCertIndex !== null && (
+                        <button
+                          type="button"
+                          onClick={resetCertForm}
+                          className="text-xs font-medium text-mist hover:text-bone"
+                        >
+                          Cancel Edit
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div>
+                        <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                          Issuer / Organization *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={certIssuer}
+                          onChange={(e) => setCertIssuer(e.target.value)}
+                          placeholder="e.g. Amazon Web Services, MongoDB, Oracle"
+                          className="mt-1 w-full rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone placeholder:text-smoke/50 focus:border-crimson focus:outline-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                          Certification Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={certName}
+                          onChange={(e) => setCertName(e.target.value)}
+                          placeholder="e.g. AWS Educate – Machine Learning Foundations"
+                          className="mt-1 w-full rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone placeholder:text-smoke/50 focus:border-crimson focus:outline-none"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-semibold uppercase tracking-wider text-smoke">
+                        Verification / Credential URL (Optional)
+                      </label>
+                      <input
+                        type="url"
+                        value={certLink}
+                        onChange={(e) => setCertLink(e.target.value)}
+                        placeholder="https://www.credly.com/badges/..."
+                        className="mt-1 w-full rounded-lg border border-white/15 bg-ink px-3 py-2 text-sm text-bone placeholder:text-smoke/50 focus:border-crimson focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="flex justify-end gap-2 pt-2">
+                      {editingCertIndex !== null && (
+                        <button
+                          type="button"
+                          onClick={resetCertForm}
+                          className="rounded-lg border border-white/15 px-4 py-2 text-xs font-semibold text-mist hover:text-bone"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                      <button
+                        type="submit"
+                        disabled={!certIssuer.trim() || !certName.trim()}
+                        className="rounded-lg bg-bone px-4 py-2 text-xs font-bold text-ink transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        {editingCertIndex !== null ? '✓ Update Certification' : '＋ Add Certification'}
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* Certifications List */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h5 className="text-xs font-bold uppercase tracking-wider text-smoke">
+                        Current Certifications ({certifications.length})
+                      </h5>
+                    </div>
+
+                    {certifications.length === 0 ? (
+                      <p className="rounded-xl border border-white/10 bg-white/[0.02] p-8 text-center text-xs text-smoke">
+                        No certifications listed yet. Use the form above to add your credentials.
+                      </p>
+                    ) : (
+                      <div className="space-y-2">
+                        {certifications.map((c, idx) => (
+                          <div
+                            key={`${c.issuer}-${c.name}-${idx}`}
+                            className={`flex flex-wrap items-center justify-between gap-3 rounded-xl border p-3.5 transition ${
+                              editingCertIndex === idx
+                                ? 'border-crimson bg-crimson/10'
+                                : 'border-white/10 bg-ink-2 hover:border-white/20'
+                            }`}
+                          >
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="rounded bg-crimson/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-crimson-2">
+                                  {c.issuer}
+                                </span>
+                                {c.link && (
+                                  <a
+                                    href={c.link}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-[11px] text-mist underline hover:text-bone"
+                                  >
+                                    Verify Link ↗
+                                  </a>
+                                )}
+                              </div>
+                              <p className="mt-1 text-sm font-medium text-bone">{c.name}</p>
+                            </div>
+
+                            <div className="flex shrink-0 items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => moveCertification(idx, 'up')}
+                                disabled={idx === 0}
+                                className="rounded px-2 py-1 text-xs text-mist hover:bg-white/10 hover:text-bone disabled:opacity-30 disabled:hover:bg-transparent"
+                                title="Move up"
+                                aria-label={`Move ${c.name} up`}
+                              >
+                                ↑
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => moveCertification(idx, 'down')}
+                                disabled={idx === certifications.length - 1}
+                                className="rounded px-2 py-1 text-xs text-mist hover:bg-white/10 hover:text-bone disabled:opacity-30 disabled:hover:bg-transparent"
+                                title="Move down"
+                                aria-label={`Move ${c.name} down`}
+                              >
+                                ↓
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleStartEditCert(idx)}
+                                className="rounded border border-white/15 px-2.5 py-1 text-xs font-semibold text-mist hover:border-white/30 hover:text-bone"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => deleteCertification(idx)}
+                                className="rounded border border-rose-500/20 px-2.5 py-1 text-xs font-semibold text-rose-400 hover:bg-rose-500/10"
+                                aria-label={`Delete ${c.name}`}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* TAB 5: PROFILE & BIO */}
               {activeTab === 'profile' && (
                 <div className="space-y-4">
                   <div>

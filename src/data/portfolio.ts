@@ -703,11 +703,18 @@ export const productionApps = [
 
 export const achievements: Achievement[] = [
   {
-    id: "dsa-600",
-    title: "600+ DSA Problems Solved",
-    org: "LeetCode & GeeksforGeeks",
-    detail: "Mastered core algorithms, dynamic programming, graph theory, and data structures.",
-    laurel: "Algorithmic Depth"
+    id: "pu-code-hackathon",
+    title: "Hackathon Finalist",
+    org: "PU Code Hackathon 3.0",
+    detail: "Finalist in university-level competitive hackathon designing and engineering high-impact software solutions.",
+    laurel: "Competitive Hackathon"
+  },
+  {
+    id: "antariksh-hackathon",
+    title: "VyomSecure AI",
+    org: "Bharatiya Antariksh Hackathon 2026",
+    detail: "National space hackathon by ISRO & Hack2Skill, building intelligent security and telemetry verification solutions.",
+    laurel: "National Space Hackathon"
   },
   {
     id: "gfg-leaderboard",
@@ -717,37 +724,93 @@ export const achievements: Achievement[] = [
     laurel: "Competitive Coding"
   },
   {
+    id: "dsa-600",
+    title: "600+ DSA Problems Solved",
+    org: "LeetCode & GeeksforGeeks",
+    detail: "Mastered core algorithms, dynamic programming, graph theory, and advanced data structures.",
+    laurel: "Algorithmic Depth"
+  },
+  {
     id: "tenant-isolation",
     title: "102k+ Zero-Leak Assertions",
     org: "TeamX Platform",
     detail: "Architected tenant-level data isolation verified with 102,982 assertions.",
     laurel: "Backend Architecture"
-  },
-  {
-    id: "load-test-throughput",
-    title: "8,650 Req/Sec Load Test",
-    org: "SafeGo Mobility Platform",
-    detail: "High-throughput real-time WebSocket and API benchmarking with 5,000 concurrent virtual users.",
-    laurel: "High Concurrency"
   }
 ];
 
 export const certifications: Certification[] = [
   {
-    issuer: "Parul University",
-    name: "B.Tech Computer Science & Engineering (2023–2027)"
+    issuer: "Simplilearn",
+    name: "SkillQuest – Generative AI Literacy"
   },
   {
-    issuer: "GeeksforGeeks",
-    name: "Data Structures & Algorithms Leaderboard Rank #2"
+    issuer: "Amazon Web Services",
+    name: "AWS Educate – Introduction to Generative AI"
   },
   {
-    issuer: "LeetCode",
-    name: "600+ Algorithmic Challenges (user_x_576)"
+    issuer: "Amazon Web Services",
+    name: "AWS Educate – Machine Learning Foundations"
   },
   {
-    issuer: "Spring & Java",
-    name: "Multi-Tenant Architecture & REST API Engineering"
+    issuer: "MongoDB",
+    name: "Building AI Agents with MongoDB"
+  },
+  {
+    issuer: "MongoDB",
+    name: "Building AI Apps with MongoDB on AWS"
+  },
+  {
+    issuer: "MongoDB",
+    name: "MongoDB Java Developer Path"
+  },
+  {
+    issuer: "MongoDB",
+    name: "MongoDB CRUD Operations"
+  },
+  {
+    issuer: "HackerRank",
+    name: "Frontend Developer (React)"
+  },
+  {
+    issuer: "HackerRank",
+    name: "REST API Intermediate"
+  },
+  {
+    issuer: "HackerRank",
+    name: "SQL Advanced"
+  },
+  {
+    issuer: "HackerRank",
+    name: "Problem Solving Intermediate"
+  },
+  {
+    issuer: "HackerRank",
+    name: "Software Engineer"
+  },
+  {
+    issuer: "Oracle",
+    name: "Oracle APEX Cloud Developer"
+  },
+  {
+    issuer: "Oracle",
+    name: "Oracle AI Vector Search"
+  },
+  {
+    issuer: "Oracle",
+    name: "Oracle Cloud Infrastructure (OCI) 2025 – Data Science"
+  },
+  {
+    issuer: "Microsoft",
+    name: "Zero Trust in Java"
+  },
+  {
+    issuer: "Microsoft",
+    name: "Microsoft Learn Level 6 (9,300+ XP)"
+  },
+  {
+    issuer: "NPTEL & IIT Kharagpur",
+    name: "Computer Networks & Internet Protocol"
   }
 ];
 
